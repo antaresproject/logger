@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Http\Datatables;
 
 use Antares\Logger\Http\Filter\ActivityTypeFilter;
@@ -104,8 +102,7 @@ class ActivityLogs extends DataTable
      */
     public function query()
     {
-        $query = Logs::withoutGlobalScopes()
-                ->select([
+        $query = Logs::withoutGlobalScopes()->select([
                     'tbl_brands.name as brand_name',
                     'tbl_log_types.name as component_name',
                     'tbl_log_priorities.name as priority_name',
@@ -143,7 +140,7 @@ class ActivityLogs extends DataTable
         $canShowDetails    = $acl->can('activity-show-details');
         $canActivityDelete = $acl->can('activity-delete-log');
         $row               = null;
-        return $this->prepare()
+        $return            = $this->prepare()
                         ->filterColumn('component_name', function ($query, $keyword) {
                             $query->whereRaw("tbl_log_types.name like '%$keyword%'");
                         })
@@ -154,14 +151,16 @@ class ActivityLogs extends DataTable
                             }
                             $query->whereRaw("(tbl_logs_translations.raw like '%$keyword%' or tbl_logs.old_value like '%$keyword%' or tbl_logs.new_value like '%$keyword%' or tbl_logs.related_data like '%$keyword%' or tbl_logs.ip_address like '%$keyword%' or tbl_logs.created_at like '%$keyword%' or tbl_log_priorities.name like '%$keyword%' or tbl_log_types.name like '%$keyword%')");
                         })
-                        ->editColumn('brand_name', $this->getBrandValue($row))
                         ->editColumn('component_name', $this->getTypeValue($row))
                         ->editColumn('priority', $this->getPriorityValue($row))
                         ->editColumn('operation', $this->getOperationValue($row))
                         ->editColumn('created_at', function ($model) {
                             return format_x_days($model->created_at);
-                        })->addColumn('action', $this->getActionsColumn($canShowDetails, $canActivityDelete))
-                        ->make(true);
+                        })->addColumn('action', $this->getActionsColumn($canShowDetails, $canActivityDelete));
+        if (extension_active('multibrand')) {
+            $return->editColumn('brand_name', $this->getBrandValue($row));
+        }
+        return $return->make(true);
     }
 
     /**
@@ -243,24 +242,24 @@ class ActivityLogs extends DataTable
         $html = $this->setName('Activity Logs')
                 ->addColumn(['data' => 'id', 'name' => 'id', 'title' => trans('Id')]);
 
-        $columnsDef = [['width' => '3%', 'targets' => 0]];
+        $columnsDef = [
+            ['width' => '3%', 'targets' => 0],
+            ['width' => '10%', 'targets' => 4],
+            ['width' => '10%', 'targets' => 5],
+        ];
 
         if (extension_active('multibrand')) {
             $html->addColumn(['data' => 'brand_name', 'name' => 'brand_name', 'title' => trans('Brand'), 'class' => 'desktop']);
             $columnsDef = array_merge($columnsDef, [
                 ['width' => '6%', 'targets' => 1],
-                ['width' => '10%', 'targets' => 2]]);
+                ['width' => '10%', 'targets' => 2],
+                ['width' => '1%', 'targets' => 7]]);
         } else {
             $columnsDef = array_merge($columnsDef, [
                 ['width' => '10%', 'targets' => 1],
-                ['width' => '7%', 'targets' => 3]]);
+                ['width' => '7%', 'targets' => 3],
+                ['width' => '1%', 'targets' => 6]]);
         }
-        $columnsDef = array_merge($columnsDef, [
-            ['width' => '5%', 'targets' => 4],
-            ['width' => '6%', 'targets' => 5],
-            ['width' => '7%', 'targets' => 6],
-            ['width' => '1%', 'targets' => 7]
-        ]);
 
 
         return $html->addColumn(['data' => 'component_name', 'name' => 'component_name', 'title' => trans('Type')])

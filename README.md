@@ -1,5 +1,13 @@
 # Antares Project Logger Component
 
+[![Join the chat at https://gitter.im/antaresproject](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/antaresproject?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+[![Code Climate](https://codeclimate.com/github/antaresproject/logger/badges/gpa.svg)](https://codeclimate.com/github/antaresproject/logger)
+[![GitHub issues](https://img.shields.io/github/issues/antaresproject/logger.svg)](https://github.com/antaresproject/logger/issues)
+[![GitHub forks](https://img.shields.io/github/forks/antaresproject/logger.svg)](https://github.com/antaresproject/logger/network)
+[![GitHub stars](https://img.shields.io/github/stars/antaresproject/logger.svg)](https://github.com/antaresproject/logger/stargazers)
+[![GitHub license](https://img.shields.io/badge/license-New%20BSD-blue.svg)](https://raw.githubusercontent.com/antaresproject/logger/master/LICENSE)
+
 An open source package by [Antares Project](http://antaresproject.io), code well, rock on!
 
 ## Documentation
