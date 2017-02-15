@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Model;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -141,7 +139,7 @@ class Logs extends Eloquent
      */
     public function getElapsedTimeAttribute()
     {
-        return $this->created_at->diffForHumans();
+        return is_null($this->created_at) ? '---' : $this->created_at->diffForHumans();
     }
 
     /**

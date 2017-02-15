@@ -112,21 +112,19 @@ class ActivityLogs extends DataTable
                 ->leftJoin('tbl_log_priorities', 'tbl_logs.priority_id', '=', 'tbl_log_priorities.id')
                 ->leftJoin('tbl_log_types', 'tbl_logs.type_id', '=', 'tbl_log_types.id')
                 ->leftJoin('tbl_logs_translations', function($join) {
-                    $join
-                    ->on('tbl_logs_translations.log_id', '=', 'tbl_logs.id')
-                    ->on('tbl_logs_translations.lang_id', '=', \Illuminate\Support\Facades\DB::raw(lang_id()));
+                    $join->on('tbl_logs_translations.log_id', '=', 'tbl_logs.id')->on('tbl_logs_translations.lang_id', '=', \Illuminate\Support\Facades\DB::raw(lang_id()));
                 })
                 ->where('tbl_logs.brand_id', brand_id())
                 ->where('tbl_logs.is_api_request', 0);
-        if (!request()->ajax()) {
-            $query->orderBy('tbl_logs.created_at', 'desc');
-        }
-        Event::listen('datatables.order.operation', function($query, $direction) {
-            $query->orderBy('tbl_logs.name', $direction);
+
+        listen('datatables.order.operation', function($query, $direction) {
+            $query->orderBy('tbl_logs.name', $direction)->orderBy('tbl_logs.type_id', $direction);
         });
-        Event::listen('datatables.order.operation', function($query, $direction) {
-            $query->orderBy('tbl_logs.type_id', $direction);
+        listen('datatables.order.created_at', function($query, $direction) {
+            $query->orderBy('tbl_logs.id', 'desc');
         });
+
+
 
         return $query;
     }
@@ -276,7 +274,7 @@ class ActivityLogs extends DataTable
                         ->addGroupSelect($this->typesSelect())
                         ->ajax(handles($this->ajax))
                         ->parameters([
-                            'order'        => [[6, 'desc']],
+                            'order'        => [[5, 'desc']],
                             'aoColumnDefs' => $columnsDef
         ]);
     }

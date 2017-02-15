@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Widgets;
 
 use Antares\Logger\Http\Filter\ActivityTypeWidgetFilter;

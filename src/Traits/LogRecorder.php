@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Traits;
 
 use Antares\Logger\Model\LogPriorities;
@@ -288,9 +286,14 @@ trait LogRecorder
     protected function resolveTypeIdByOwner()
     {
         try {
+            if (method_exists($this, 'getLogTypeId')) {
+                return self::getLogTypeId();
+            }
+
             $reflection = new ReflectionClass($this);
-            $filename   = $reflection->getFileName();
-            $match      = str_contains($filename, 'app') ? [1 => 'core'] : null;
+
+            $filename = $reflection->getFileName();
+            $match    = str_contains($filename, 'app') ? [1 => 'core'] : null;
 
             if (!isset($match[1]) and ! preg_match("'src(.*?)src'si", $filename, $match)) {
                 throw new Exception('Unable to resolve current module name.');
@@ -311,8 +314,6 @@ trait LogRecorder
             }
             return $type->id;
         } catch (Exception $ex) {
-            vdump($filename);
-            exit;
             Log::emergency($ex);
         }
     }
@@ -373,8 +374,10 @@ trait LogRecorder
                 'is_api_request' => is_api_request(),
                 'type'           => $type], $values);
 
+            $log             = new Logs($logAuditing);
+            $log->created_at = (method_exists($this, 'createdAt')) ? $this->createdAt() : $log->created_at;
 
-            if (!(new Logs($logAuditing))->save()) {
+            if (!$log->save()) {
                 throw new Exception('Unable to save log entity.');
             }
         } catch (Exception $ex) {
