@@ -65,6 +65,13 @@ class ActivityLogs extends DataTable
     protected $colors = [];
 
     /**
+     * Type identifier
+     *
+     * @var mixed 
+     */
+    protected $typeId = null;
+
+    /**
      * Constructing
      * 
      * @param Datatables $datatables
@@ -74,6 +81,9 @@ class ActivityLogs extends DataTable
     {
         parent::__construct($datatables, $viewFactory);
         $this->colors = $this->colors();
+        if (!is_null($this->typeId = from_route('typeId'))) {
+            $this->ajax = 'antares::logger/activity/index/type/' . $this->typeId;
+        }
     }
 
     /**
@@ -116,6 +126,9 @@ class ActivityLogs extends DataTable
                 })
                 ->where('tbl_logs.brand_id', brand_id())
                 ->where('tbl_logs.is_api_request', 0);
+        if (!is_null($this->typeId)) {
+            $query->where('tbl_log_types.id', $this->typeId);
+        }
 
         listen('datatables.order.operation', function($query, $direction) {
             $query->orderBy('tbl_logs.name', $direction)->orderBy('tbl_logs.type_id', $direction);
@@ -134,6 +147,7 @@ class ActivityLogs extends DataTable
      */
     public function ajax()
     {
+
         $acl               = app('antares.acl')->make('antares/logger');
         $canShowDetails    = $acl->can('activity-show-details');
         $canActivityDelete = $acl->can('activity-delete-log');
@@ -286,17 +300,20 @@ class ActivityLogs extends DataTable
      */
     protected function typesSelect()
     {
-        $types   = app(LogTypes::class)->select(['name', 'id'])->get();
-        $options = ['' => trans('antares/logger::messages.all')];
+        $types    = app(LogTypes::class)->select(['name', 'id'])->get();
+        $options  = ['' => trans('antares/logger::messages.all')];
+        $selected = request()->ajax() ? null : 1;
+        if (!is_null($this->typeId) && !is_null($found    = $types->where('id', (int) $this->typeId)->first())) {
+            $selected = $found->name;
+        }
         foreach ($types as $type) {
             array_set($options, $type->name, ucfirst(Str::humanize($type->name)));
         }
 
-
-        $selected  = request()->ajax() ? null : 1;
         $classname = 'logs-select-type';
         $column    = extension_active('multibrand') ? 2 : 1;
         app('antares.asset')->container('antares/foundation::scripts')->inlineScript('grid-stack', $this->inline($classname, $column));
+
         return Form::select('type', $options, $selected, [
                     'data-prefix'            => '',
                     'data-selectAR--mdl-big' => "true",

@@ -17,9 +17,6 @@
  * @copyright  (c) 2017, Antares Project
  * @link       http://antaresproject.io
  */
-
-
-
 use Illuminate\Routing\Router;
 
 $router->get('download/{path}', 'DownloadController@download');
@@ -44,6 +41,7 @@ $router->group(['prefix' => 'logger'], function (Router $router) {
     $router->get('request/clear/{date}', 'RequestController@clear');
     $router->get('request/download/{date}', 'RequestController@download');
     $router->any('activity/index', 'ActivityController@index');
+    $router->any('activity/index/type/{typeId}', 'ActivityController@index');
     $router->match(['GET', 'POST'], 'activity/delete/{id?}', 'ActivityController@delete');
     $router->get('activity/show/{id}', 'ActivityController@show');
     $router->get('activity/download', 'ActivityController@download');
