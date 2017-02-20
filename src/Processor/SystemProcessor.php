@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Processor;
 
 use Antares\Logger\Contracts\SystemPresenter as Presenter;
@@ -45,6 +43,7 @@ class SystemProcessor extends Processor
      */
     public function index()
     {
+        publish('logger', ['/css/theme_default.css']);
         return $this->presenter->index();
     }
 
