@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Http\Breadcrumb;
 
 use DaveJamesMiller\Breadcrumbs\Facade as Breadcrumbs;
@@ -78,6 +76,7 @@ class Breadcrumb
      */
     public function onActivity($type = null)
     {
+
         Breadcrumbs::register('logger-activity', function($breadcrumbs) {
             $breadcrumbs->push('Activity Log', handles('antares::logger/activity/index'));
         });

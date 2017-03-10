@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Http\Handlers;
 
 use Antares\Foundation\Support\MenuHandler;
@@ -50,7 +48,7 @@ class ActivityLogsBreadcrumbMenu extends MenuHandler
      */
     public function getTitleAttribute($value)
     {
-        return trans('antares/logger::messages.breadcrumb.activity_logs');
+        return trans('antares/logger::messages.breadcrumb.activity_log');
     }
 
     /**

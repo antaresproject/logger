@@ -17,9 +17,6 @@
  * @copyright  (c) 2017, Antares Project
  * @link       http://antaresproject.io
  */
-
-
-
 return [
     'error_log_details_widget_title'     => 'Log :date',
     'error_log_download'                 => 'Download',
@@ -39,7 +36,7 @@ return [
         'no_data'             => 'Sorry, no data to display...'
     ],
     'breadcrumb'                         => [
-        'activity_logs' => 'Activity Logs'
+        'activity_log' => 'Activity Log'
     ],
     'activity_logs_download'             => 'Download',
     'activity_logs_delete'               => 'Delete',

@@ -23,7 +23,6 @@ namespace Antares\Logger\Http\Datatables;
 use Antares\Logger\Http\Filter\ActivityTypeFilter;
 use Antares\Datatables\Services\DataTable;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Support\Facades\Event;
 use Antares\Logger\Model\LogTypes;
 use Antares\Datatables\Datatables;
 use Antares\Support\Facades\Form;
@@ -275,7 +274,7 @@ class ActivityLogs extends DataTable
 
 
         return $html->addColumn(['data' => 'component_name', 'name' => 'component_name', 'title' => trans('Type')])
-                        ->addColumn(['data' => 'operation', 'name' => 'operation', 'title' => trans('Operation'), 'className' => 'bolded'])
+                        ->addColumn(['data' => 'operation', 'name' => 'operation', 'title' => trans('Operation')])
                         ->addColumn(['data' => 'priority', 'name' => 'priority', 'title' => trans('Priority'), 'class' => 'desktop'])
                         ->addColumn(['data' => 'ip_address', 'name' => 'ip_address', 'title' => trans('Ip Address'), 'class' => 'desktop'])
                         ->addColumn(['data' => 'created_at', 'name' => 'created_at', 'title' => trans('Created at'), 'class' => 'desktop'])
