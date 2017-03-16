@@ -375,7 +375,7 @@ trait LogRecorder
                 'type'           => $type], $values);
 
             $log             = new Logs($logAuditing);
-            $log->created_at = (method_exists($this, 'createdAt')) ? $this->createdAt() : $log->created_at;
+            $log->created_at = (method_exists($this, 'createdAt')) ? $this->createdAt() : new DateTime();
 
             if (!$log->save()) {
                 throw new Exception('Unable to save log entity.');
