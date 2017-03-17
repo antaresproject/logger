@@ -241,7 +241,6 @@ class ActivityLogs extends DataTable
                 ['width' => '7%', 'targets' => 3],
                 ['width' => '1%', 'targets' => 6]]);
         }
-
         return $html->addColumn(['data' => 'component_name', 'name' => 'component_name', 'title' => trans('Type')])
                         ->addColumn(['data' => 'operation', 'name' => 'operation', 'title' => trans('Operation')])
                         ->addColumn(['data' => 'priority', 'name' => 'priority', 'title' => trans('Priority'), 'class' => 'desktop'])
