@@ -17,9 +17,6 @@
  * @copyright  (c) 2017, Antares Project
  * @link       http://antaresproject.io
  */
-
-
-
 use Illuminate\Database\Seeder;
 
 class LogsTableSeeder extends Seeder
@@ -35,9 +32,6 @@ class LogsTableSeeder extends Seeder
 
         $this->down();
         DB::table('tbl_log_types')->insert([
-            ['name' => 'user'],
-            ['name' => 'invoice'],
-            ['name' => 'brands'],
             ['name' => 'customfields']
         ]);
 

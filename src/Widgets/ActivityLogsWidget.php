@@ -66,7 +66,6 @@ class ActivityLogsWidget extends AbstractWidget
         'enlargeable'    => false,
         'titlable'       => true,
         'card_class'     => 'card--logs card--scrollbox',
-            //'card_content_class' => 'flex ff-cnw jc-flex-start'
     ];
 
     /**
@@ -118,7 +117,6 @@ class ActivityLogsWidget extends AbstractWidget
             'logs'              => $logs,
             'pagination'        => $logs->links($presenter),
             'priorites'         => app(LogPriorities::class)->all(),
-            'colors'            => components_colors(),
             'filters'           => $adapter->getFilters('antares/logger::admin.widgets.log_filter')
         ];
     }
