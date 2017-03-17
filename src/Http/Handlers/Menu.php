@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Http\Handlers;
 
 use Antares\Foundation\Support\MenuHandler;
@@ -49,6 +47,35 @@ class Menu extends MenuHandler
     public function getPositionAttribute()
     {
         return '>:home';
+    }
+
+    /**
+     * Get title attribute
+     *
+     * @return String
+     */
+    public function getActiveAttribute()
+    {
+        return $this->isActiveErrorLog();
+    }
+
+    protected function isActiveErrorLog()
+    {
+        $request = request();
+        if ($request->segment(2) == 'logger' && in_array($request->segment(3), ['details', 'system'])) {
+            return true;
+        }
+        return parent::getActiveAttribute();
+    }
+
+    /**
+     * Get title attribute
+     *
+     * @return String
+     */
+    public function getTypeAttribute()
+    {
+        return 'secondary';
     }
 
     /**
@@ -91,7 +118,8 @@ class Menu extends MenuHandler
         if ($canErrorList) {
             $this->handler->add('error-log', '^:' . $id)
                     ->link(handles('antares::logger/system/index'))
-                    ->title(trans('Error Log'));
+                    ->title(trans('Error Log'))
+                    ->active($this->isActiveErrorLog());
         }
         if ($canRequestList) {
             $this->handler->add('request-log', '^:' . $id)
