@@ -98,12 +98,15 @@ class ActivityLogs extends DataTable
         if (!is_null($this->typeId)) {
             $query->where('tbl_log_types.id', $this->typeId);
         }
+        listen('datatables.order.priority', function($query, $direction) {
+            $query->orderBy('tbl_logs.priority_id', $direction);
+        });
 
         listen('datatables.order.operation', function($query, $direction) {
             $query->orderBy('tbl_logs.name', $direction)->orderBy('tbl_logs.type_id', $direction);
         });
         listen('datatables.order.created_at', function($query, $direction) {
-            $query->orderBy('tbl_logs.id', 'desc');
+            $query->orderBy('tbl_logs.created_at', $direction);
         });
 
 
