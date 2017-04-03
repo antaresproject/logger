@@ -18,11 +18,9 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Contracts;
 
-use Arcanedev\LogViewer\Contracts\FactoryInterface as SupportFactoryInterface;
+use Arcanedev\LogViewer\Contracts\Utilities\Factory as SupportFactoryInterface;
 
 interface FactoryInterface extends SupportFactoryInterface
 {

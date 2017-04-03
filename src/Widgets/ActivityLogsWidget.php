@@ -21,7 +21,6 @@
 namespace Antares\Logger\Widgets;
 
 use Antares\Logger\Http\Filter\ActivityTypeWidgetFilter;
-use Antares\Pagination\PaginationAjaxPresenter;
 use Antares\Datatables\Adapter\FilterAdapter;
 use Antares\Widgets\Adapter\AbstractWidget;
 use Illuminate\Support\Facades\Request;
@@ -94,19 +93,11 @@ class ActivityLogsWidget extends AbstractWidget
      */
     protected static function getParams()
     {
-        $adapter   = app(FilterAdapter::class)->add(ActivityTypeWidgetFilter::class);
-        $request   = app('request');
-        $priority  = $request->get('priority');
-        $search    = $request->get('search');
-        $logs      = self::filter($priority, $search);
-        $presenter = new PaginationAjaxPresenter($logs);
-
-        if (!is_null($priority)) {
-            $presenter->addQuery('priority', $priority);
-        }
-        if (!is_null($search)) {
-            $presenter->addQuery('search', $search);
-        }
+        $adapter  = app(FilterAdapter::class)->add(ActivityTypeWidgetFilter::class);
+        $request  = app('request');
+        $priority = $request->get('priority');
+        $search   = $request->get('search');
+        $logs     = self::filter($priority, $search);
         return [
             'select_url'        => self::getBaseUrl(['page' => 1, 'per_page' => self::perPage, 'search' => '']),
             'search_url'        => self::getBaseUrl(['page' => 1, 'per_page' => self::perPage, 'priority' => null]),
@@ -115,7 +106,7 @@ class ActivityLogsWidget extends AbstractWidget
             'search'            => $search,
             'types'             => app(LogTypes::class)->all(),
             'logs'              => $logs,
-            'pagination'        => $logs->links($presenter),
+            'pagination'        => $logs->links('antares/foundation::layouts.antares.partials.pagination._pagination'),
             'priorites'         => app(LogPriorities::class)->all(),
             'filters'           => $adapter->getFilters('antares/logger::admin.widgets.log_filter')
         ];
@@ -135,7 +126,7 @@ class ActivityLogsWidget extends AbstractWidget
             array_set($return, $name, $request->get($name, $default));
         }
         $url    = self::$baseUrl;
-        if (!is_null($userId = from_route('users'))) {
+        if (!is_null($userId = from_route('user'))) {
             $url = $url . '/' . $userId;
         }
 
@@ -162,13 +153,13 @@ class ActivityLogsWidget extends AbstractWidget
     {
         $key    = uri() . '.' . ActivityTypeWidgetFilter::class;
         $values = app('request')->session()->get($key);
-        $userId = from_route('users');
+        $userId = from_route('user');
 
         $ignore = config('logger.ignore_logs_in_widget');
         $query  = \Antares\Logger\Model\Logs::withoutGlobalScopes()
                 ->select(['tbl_logs.*'])
-                ->leftJoin('tbl_log_types', 'tbl_logs.type_id', ' = ', 'tbl_log_types.id')
-                ->leftJoin('tbl_logs_translations', 'tbl_logs.id', ' = ', 'tbl_logs_translations.log_id')
+                ->leftJoin('tbl_log_types', 'tbl_logs.type_id', 'tbl_log_types.id')
+                ->leftJoin('tbl_logs_translations', 'tbl_logs.id', 'tbl_logs_translations.log_id')
                 ->where('tbl_logs_translations.lang_id', lang_id())
                 ->where('tbl_logs.brand_id', brand_id())
                 ->where('tbl_log_types.active', 1);
@@ -177,11 +168,11 @@ class ActivityLogsWidget extends AbstractWidget
         }
 
 
-        $admin = user()->is('super-administrator') or user()->is('administrator');
+        $admin = user()->hasRoles('super-administrator') or user()->hasRoles('administrator');
         if (!$admin) {
             $uid       = auth()->user()->id;
             $query->whereRaw('(tbl_logs.user_id=' . $uid . ' or tbl_logs.author_id=' . $uid . ')');
-            $priorites = LogPriorities::where('num', '<=', '3')->get()->lists('id')->toArray();
+            $priorites = LogPriorities::where('num', '<=', '3')->get()->pluck('id')->toArray();
             $query->where('tbl_logs.created_at', '>=', date('Y-m-d H:i:s', time() - 172800))->whereIn('priority_id', $priorites);
         } elseif (is_null($userId) && $admin) {
             $roles  = auth()->user()->roles;
@@ -189,11 +180,11 @@ class ActivityLogsWidget extends AbstractWidget
             foreach ($roles as $role) {
                 $childs = array_merge($childs, $role->getChilds(), [$role->id]);
             }
-            $query->leftJoin('tbl_user_role', 'tbl_logs.user_id', ' = ', 'tbl_user_role.user_id');
+            $query->leftJoin('tbl_user_role', 'tbl_logs.user_id', 'tbl_user_role.user_id');
             $query->where(function($query) use($childs) {
                 $query->whereIn('tbl_user_role.role_id', array_values($childs))->orWhere('tbl_logs.user_id', null);
             });
-            $priorites = LogPriorities::where('num', '<=', '3')->get()->lists('id')->toArray();
+            $priorites = LogPriorities::where('num', '<=', '3')->get()->pluck('id')->toArray();
             $query->where('tbl_logs.created_at', '>=', date('Y-m-d H:i:s', time() - 172800))
                     ->whereIn('priority_id', $priorites);
         } else {
@@ -210,6 +201,7 @@ class ActivityLogsWidget extends AbstractWidget
             $query->whereRaw("(tbl_logs_translations.raw like  \"%{$searchUp}%\" OR tbl_logs_translations.raw like  \"%{$searchDown}%\")");
         }
         $logs = $query->orderBy('tbl_logs.created_at', 'desc')->paginate(Request::get('per_page', self::perPage));
+
         if (!is_null($userId)) {
             $logs->setPath(self::$baseUrl . '/' . $userId . '/');
         } else {

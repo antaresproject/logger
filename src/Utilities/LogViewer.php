@@ -18,13 +18,11 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Utilities;
 
+use Arcanedev\LogViewer\Contracts\Utilities\Filesystem as FilesystemContract;
+use Arcanedev\LogViewer\Contracts\Utilities\LogLevels as LogLevelsContract;
 use Arcanedev\LogViewer\LogViewer as SupportLogViewer;
-use Arcanedev\LogViewer\Contracts\FilesystemInterface;
-use Arcanedev\LogViewer\Contracts\LogLevelsInterface;
 use Antares\Logger\Contracts\FactoryInterface;
 
 class LogViewer extends SupportLogViewer
@@ -37,7 +35,7 @@ class LogViewer extends SupportLogViewer
      * @param  FilesystemInterface  $filesystem
      * @param  LogLevelsInterface   $levels
      */
-    public function __construct(FactoryInterface $factory, FilesystemInterface $filesystem, LogLevelsInterface $levels)
+    public function __construct(FactoryInterface $factory, FilesystemContract $filesystem, LogLevelsContract $levels)
     {
         $this->factory    = $factory;
         $this->filesystem = $filesystem;
