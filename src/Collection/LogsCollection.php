@@ -39,8 +39,7 @@ class LogsCollection extends SupportLogsCollection
      */
     public function __construct($items = [])
     {
-
-        $this->setFilesystem(app('arcanedev.log-viewer.filesystem'));
+        $this->setFilesystem(app(FilesystemContract::class));
 
         if (empty($items)) {
             $this->load();

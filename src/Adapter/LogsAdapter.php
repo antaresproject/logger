@@ -18,12 +18,11 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Adapter;
 
 use Antares\Logger\Entities\RequestLogCollection;
 use Illuminate\Database\Eloquent\Collection;
+use Arcanedev\LogViewer\Contracts\LogViewer;
 use Antares\Logger\Model\Logs;
 
 class LogsAdapter
@@ -36,10 +35,9 @@ class LogsAdapter
      */
     public function verify()
     {
-        $collection = new RequestLogCollection();
-        $requests   = $this->requestLogs($collection);
-
-        $errorLogsCollection = app('arcanedev.log-viewer')->statsTable();
+        $collection          = new RequestLogCollection();
+        $requests            = $this->requestLogs($collection);
+        $errorLogsCollection = app(LogViewer::class)->statsTable();
         $errorLogs           = $this->errorLogs($errorLogsCollection->rows());
 
         $activeLogsCollection = Logs::with('component', 'priority', 'user', 'brand')->whereHas('component', function($q) {
@@ -83,7 +81,7 @@ class LogsAdapter
             if (!isset($return[$module][$model->name])) {
                 $return[$module][$model->name] = 0;
             }
-            $return[$module][$model->name] +=1;
+            $return[$module][$model->name] += 1;
         }
         return $return;
     }
@@ -107,7 +105,7 @@ class LogsAdapter
                 $item = array_fill_keys($keys, 0);
             }
             foreach ($keys as $key) {
-                $item[$key]+=$row[$key];
+                $item[$key] += $row[$key];
             }
         }
         return $return + $item;
@@ -129,9 +127,9 @@ class LogsAdapter
         $lastCreatedDate = 0;
         $lastUpdatedDate = 0;
         foreach ($collection as $model) {
-            $size+=$model->file()->getSize();
-            $requestsCount+=$model->entries()->count();
-            $createdAt = $model->createdAt()->toDateTimeString();
+            $size          += $model->file()->getSize();
+            $requestsCount += $model->entries()->count();
+            $createdAt     = $model->createdAt()->toDateTimeString();
             if ($lastCreatedDate < $createdAt) {
                 $lastCreatedDate = $createdAt;
             }
@@ -140,7 +138,7 @@ class LogsAdapter
                 $lastUpdatedDate = $updatedAt;
             }
         }
-        return $requests+=[
+        return $requests += [
             'size'              => $size,
             'requests_count'    => $requestsCount,
             'last_created_date' => $lastCreatedDate,

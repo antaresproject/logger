@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Twig;
 
 use Twig_Extension;
@@ -45,7 +43,8 @@ class Logger extends Twig_Extension
     {
 
         $function = function () {
-            return app('arcanedev.log-viewer.styler');
+
+            return app(\Arcanedev\LogViewer\Contracts\Utilities\LogStyler::class);
         };
         return new Twig_SimpleFunction(
                 'log_styler', $function
