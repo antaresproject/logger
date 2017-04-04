@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Http\Middleware;
 
 use Illuminate\Contracts\Events\Dispatcher;
@@ -58,8 +56,14 @@ class LoggerMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $after = $next($request);
-        if(!app()->bound('antares.logger')){
+        try {
+            $after = $next($request);
+        } catch (\Exception $ex) {
+            vdump($ex);
+            exit;
+        }
+
+        if (!app()->bound('antares.logger')) {
             return $after;
         }
         try {
