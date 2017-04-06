@@ -10,7 +10,7 @@
         "h4cc/wkhtmltoimage-i386": "dev-master"
     },
     "extra": {
-        "class": "Antares\\Extension\\Composer\\ComponentPlugin"
+        "class": "Installer\\Composer\\Extension\\ComponentPlugin"
     },
     "authors": [
         {
