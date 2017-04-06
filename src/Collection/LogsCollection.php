@@ -18,12 +18,10 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Collection;
 
+use Arcanedev\LogViewer\Contracts\Utilities\Filesystem as FilesystemContract;
 use Arcanedev\LogViewer\Entities\LogCollection as SupportLogsCollection;
-use Arcanedev\LogViewer\Contracts\FilesystemInterface;
 use Antares\Logger\Entities\Log;
 
 class LogsCollection extends SupportLogsCollection
@@ -41,7 +39,7 @@ class LogsCollection extends SupportLogsCollection
      */
     public function __construct($items = [])
     {
-        $this->setFilesystem(app('arcanedev.log-viewer.filesystem'));
+        $this->setFilesystem(app(FilesystemContract::class));
 
         if (empty($items)) {
             $this->load();
@@ -51,11 +49,11 @@ class LogsCollection extends SupportLogsCollection
     /**
      * Set the filesystem instance.
      *
-     * @param  FilesystemInterface  $filesystem
+     * @param  FilesystemContract  $filesystem
      *
      * @return self
      */
-    public function setFilesystem(FilesystemInterface $filesystem)
+    public function setFilesystem(FilesystemContract $filesystem)
     {
         $this->filesystem = $filesystem;
 

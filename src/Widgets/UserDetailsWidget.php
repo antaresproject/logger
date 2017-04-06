@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Widgets;
 
 use Antares\Widgets\Adapter\AbstractWidget;
@@ -74,7 +72,7 @@ class UserDetailsWidget extends AbstractWidget
      */
     public function render()
     {
-        $user = User::query()->findOrFail(from_route('users'));
+        $user = User::query()->findOrFail(from_route('user'));
         return view('antares/logger::admin.widgets.user_details', ['user' => $user])->render();
     }
 

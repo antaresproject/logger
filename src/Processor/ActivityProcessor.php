@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Processor;
 
 use Antares\Logger\Contracts\ActivityPresenter as Presenter;
@@ -243,7 +241,7 @@ class ActivityProcessor extends Processor
 
         $users = User::select(['id'])->withoutGlobalScopes()->whereHas('roles', function($query) use($roles) {
                     $query->whereIn('tbl_roles.id', array_values($roles));
-                })->get()->lists('id')->toArray();
+                })->get()->pluck('id')->toArray();
         array_push($users, $user->id);
         return $users;
     }

@@ -125,7 +125,7 @@ class Breadcrumb
         Breadcrumbs::register('logger-request', function($breadcrumbs) {
             $breadcrumbs->push('Request Log', handles('antares::logger/request/index'), ['force_link' => true]);
         });
-        $date = Request::route()->getParameter('date');
+        $date = Request::route()->parameter('date');
         Breadcrumbs::register('logger-request-' . $date, function($breadcrumbs) use($date) {
             $breadcrumbs->parent('logger-request');
         });

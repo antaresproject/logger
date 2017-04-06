@@ -18,16 +18,13 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Http\Middleware;
 
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Prettus\RequestLogger\Jobs\LogTask;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Antares\Logger\Jobs\LogTask;
+use Illuminate\Http\Request;
 use Closure;
-use Route;
 
 class ResponseLoggerMiddleware
 {
@@ -41,8 +38,6 @@ class ResponseLoggerMiddleware
 
     public function terminate(Request $request, Response $response)
     {
-
-
         if (!$this->excluded($request)) {
             $task = new LogTask($request, $response);
 

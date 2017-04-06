@@ -1,22 +1,23 @@
 {
     "name": "antaresproject/component-logger",
     "description": "Antares Logger Component",
+    "version": "0.9.2.1",
+    "require": {
+        "wemersonjanuario/wkhtmltopdf-windows": "dev-master",
+        "h4cc/wkhtmltopdf-amd64": "dev-master",
+        "h4cc/wkhtmltopdf-i386": "dev-master",
+        "h4cc/wkhtmltoimage-amd64": "dev-master",
+        "h4cc/wkhtmltoimage-i386": "dev-master"
+    },     
     "authors": [
         {
             "name": "Łukasz Cirut",
             "email": "contact@antaresproject.io"
         }
     ],
-    "require": {
-        "php": ">=5.5.9",
-        "regulus/activity-log": "0.5.*",
-        "arcanedev/log-viewer": "~3.0",
-        "prettus/laravel-request-logger": "1.0.*",
-        "barryvdh/laravel-snappy": "0.2.x",
-        "wemersonjanuario/wkhtmltopdf-windows": "dev-master",
-        "h4cc/wkhtmltopdf-amd64": "dev-master",
-        "h4cc/wkhtmltopdf-i386": "dev-master",
-        "h4cc/wkhtmltoimage-amd64": "dev-master",
-        "h4cc/wkhtmltoimage-i386": "dev-master"
+    "autoload": {
+        "psr-4": {
+            "Antares\\Logger\\": "src/"
+        }
     }
 }
