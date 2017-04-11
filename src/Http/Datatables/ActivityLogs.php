@@ -133,7 +133,7 @@ class ActivityLogs extends DataTable
         listen('datatables.order.operation', function($query, $direction) {
             $query->orderBy('tbl_logs.name', $direction)->orderBy('tbl_logs.type_id', $direction);
         });
-        listen('datatables.order.created_at', function($query, $direction) {
+        listen('datatables.order.updated_at', function($query, $direction) {
             $query->orderBy('tbl_logs.id', 'desc');
         });
 
@@ -161,13 +161,13 @@ class ActivityLogs extends DataTable
                             if (is_null($keyword) or ! strlen($keyword)) {
                                 return;
                             }
-                            $query->whereRaw("(tbl_logs_translations.raw like '%$keyword%' or tbl_logs.old_value like '%$keyword%' or tbl_logs.new_value like '%$keyword%' or tbl_logs.related_data like '%$keyword%' or tbl_logs.ip_address like '%$keyword%' or tbl_logs.created_at like '%$keyword%' or tbl_log_priorities.name like '%$keyword%' or tbl_log_types.name like '%$keyword%')");
+                            $query->whereRaw("(tbl_logs_translations.raw like '%$keyword%' or tbl_logs.old_value like '%$keyword%' or tbl_logs.new_value like '%$keyword%' or tbl_logs.related_data like '%$keyword%' or tbl_logs.ip_address like '%$keyword%' or tbl_logs.updated_at like '%$keyword%' or tbl_log_priorities.name like '%$keyword%' or tbl_log_types.name like '%$keyword%')");
                         })
                         ->editColumn('component_name', $this->getTypeValue($row))
                         ->editColumn('priority', $this->getPriorityValue($row))
                         ->editColumn('operation', $this->getOperationValue($row))
-                        ->editColumn('created_at', function ($model) {
-                            return format_x_days($model->created_at);
+                        ->editColumn('updated_at', function ($model) {
+                            return format_x_days($model->updated_at);
                         })->addColumn('action', $this->getActionsColumn($canShowDetails, $canActivityDelete));
         if (extension_active('multibrand')) {
             $return->editColumn('brand_name', $this->getBrandValue($row));
@@ -273,12 +273,11 @@ class ActivityLogs extends DataTable
                 ['width' => '1%', 'targets' => 6]]);
         }
 
-
         return $html->addColumn(['data' => 'component_name', 'name' => 'component_name', 'title' => trans('Type')])
                         ->addColumn(['data' => 'operation', 'name' => 'operation', 'title' => trans('Operation'), 'className' => 'bolded'])
                         ->addColumn(['data' => 'priority', 'name' => 'priority', 'title' => trans('Priority'), 'class' => 'desktop'])
                         ->addColumn(['data' => 'ip_address', 'name' => 'ip_address', 'title' => trans('Ip Address'), 'class' => 'desktop'])
-                        ->addColumn(['data' => 'created_at', 'name' => 'created_at', 'title' => trans('Created at'), 'class' => 'desktop'])
+                        ->addColumn(['data' => 'updated_at', 'name' => 'updated_at', 'title' => trans('Created at'), 'class' => 'desktop'])
                         ->addAction(['name' => 'edit', 'title' => '', 'class' => 'mass-actions dt-actions', 'orderable' => false, 'searchable' => false])
                         ->addMassAction('delete', app('html')->link(handles('antares::logger/activity/delete', ['csrf' => true]), app('html')->raw('<i class="zmdi zmdi-delete"></i><span>' . trans('Delete') . '</span>'), [
                                     'class'            => "triggerable confirm mass-action",
