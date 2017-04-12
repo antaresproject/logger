@@ -1,7 +1,7 @@
 {
     "name": "antaresproject/component-logger",
     "type": "antaresproject-component",
-    "description": "Logs Manager Antares",
+    "description": "Antares Logger Component",
     "version": "0.9.2.1",
     "require": {
         "antaresproject/component-installer-plugin": "*",
