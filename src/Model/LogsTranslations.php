@@ -18,19 +18,14 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Model;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Antares\Translations\Models\Languages;
-use Antares\Search\Traits\SearchTrait;
 use Antares\Model\Eloquent;
 
 class LogsTranslations extends Eloquent
 {
-
-    use SearchTrait;
 
     /**
      * Tablename
@@ -38,27 +33,6 @@ class LogsTranslations extends Eloquent
      * @var string
      */
     public $table = 'tbl_logs_translations';
-
-    /**
-     * Quick search settings
-     *
-     * @var String
-     */
-    protected $search = [
-        'view'     => 'antares/logger::admin.partials._search',
-        'category' => 'Logs'
-    ];
-
-    /**
-     * Searchable rules.
-     *
-     * @var array
-     */
-    protected $searchable = [
-        'columns' => [
-            'tbl_logs_translations.raw' => 10,
-        ]
-    ];
 
     /**
      * Fillable table column

@@ -40,11 +40,14 @@ class ActivityLogs extends DataTable
     protected $ajax = 'antares::logger/activity/index';
 
     /**
-     * how many items per page
+     * Quick search settings
      *
-     * @var mixed 
+     * @var String
      */
-    public $perPage = 25;
+    protected $search = [
+        'view'     => 'antares/logger::admin.partials._search',
+        'category' => 'Logs'
+    ];
 
     /**
      * availbale filters
