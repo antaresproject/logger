@@ -6,7 +6,6 @@
     "homepage": "https://github.com/antaresproject/logger",
     "require": {
         "antaresproject/component-installer-plugin": "*",
-        "wemersonjanuario/wkhtmltopdf-windows": "dev-master",
         "h4cc/wkhtmltopdf-amd64": "dev-master",
         "h4cc/wkhtmltopdf-i386": "dev-master",
         "h4cc/wkhtmltoimage-amd64": "dev-master",
