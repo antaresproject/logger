@@ -56,8 +56,6 @@ $(function () {
                     };
 
                     $('<div/>').attr(containerAttributes).appendTo($('.analyzer-tabs .tab-content'));
-                    var tabs = document.querySelector('.mdl-tabs');
-
                     return false;
                 },
                 this.onSuccess = function (key, response) {
