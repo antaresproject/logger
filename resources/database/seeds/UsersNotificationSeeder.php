@@ -17,9 +17,6 @@
  * @copyright  (c) 2017, Antares Project
  * @link       http://antaresproject.io
  */
-
-
-
 use Antares\Notifier\Seeder\NotificationSeeder;
 use Illuminate\Support\Facades\DB;
 
@@ -41,7 +38,7 @@ class UsersNotificationSeeder extends NotificationSeeder
                 'category' => 'default',
                 'severity' => 'medium',
                 'event'    => 'notification.user_has_been_created',
-                'type'     => 'administrators',
+                'type'     => 'admin',
                 'contents' => [
                     'en' => [
                         'title'   => 'User has been created',
@@ -53,7 +50,7 @@ class UsersNotificationSeeder extends NotificationSeeder
                 'category' => 'default',
                 'severity' => 'high',
                 'event'    => 'notification.user_has_not_been_created',
-                'type'     => 'administrators',
+                'type'     => 'admin',
                 'contents' => [
                     'en' => [
                         'title'   => 'User has not been created',
@@ -65,7 +62,7 @@ class UsersNotificationSeeder extends NotificationSeeder
                 'category' => 'default',
                 'severity' => 'medium',
                 'event'    => 'notification.user_has_been_deleted',
-                'type'     => 'administrators',
+                'type'     => 'admin',
                 'contents' => [
                     'en' => [
                         'title'   => 'User has been deleted',
@@ -77,7 +74,7 @@ class UsersNotificationSeeder extends NotificationSeeder
                 'category' => 'default',
                 'severity' => 'high',
                 'event'    => 'notification.user_has_not_been_deleted',
-                'type'     => 'administrators',
+                'type'     => 'admin',
                 'contents' => [
                     'en' => [
                         'title'   => 'User has not been deleted',
