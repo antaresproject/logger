@@ -20,10 +20,10 @@
 
 namespace Antares\Logger\Widgets;
 
-use Antares\Widgets\Adapter\AbstractWidget;
+use Antares\UI\UIComponents\Adapter\AbstractTemplate;
 use Antares\Model\User;
 
-class UserDetailsWidget extends AbstractWidget
+class UserDetailsWidget extends AbstractTemplate
 {
 
     /**

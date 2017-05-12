@@ -18,15 +18,13 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Widgets;
 
-use Antares\Widgets\Adapter\AbstractWidget;
+use Antares\UI\UIComponents\Adapter\AbstractTemplate;
 use Antares\Logger\Utilities\LogViewer;
 use Exception;
 
-class ErrorLogDetailsWidget extends AbstractWidget
+class ErrorLogDetailsWidget extends AbstractTemplate
 {
 
     /**

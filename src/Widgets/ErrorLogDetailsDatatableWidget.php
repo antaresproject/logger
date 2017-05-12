@@ -18,15 +18,13 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Widgets;
 
 use Antares\Logger\Http\Datatables\ErrorLogDetails;
-use Antares\Widgets\Templates\DatatablesWidget;
+use Antares\UI\UIComponents\Templates\Datatables;
 use Illuminate\Support\Facades\Route;
 
-class ErrorLogDetailsDatatableWidget extends DatatablesWidget
+class ErrorLogDetailsDatatableWidget extends Datatables
 {
 
     /**

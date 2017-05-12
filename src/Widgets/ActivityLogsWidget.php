@@ -21,14 +21,14 @@
 namespace Antares\Logger\Widgets;
 
 use Antares\Logger\Http\Filter\ActivityTypeWidgetFilter;
+use Antares\UI\UIComponents\Adapter\AbstractTemplate;
 use Antares\Datatables\Adapter\FilterAdapter;
-use Antares\Widgets\Adapter\AbstractWidget;
 use Illuminate\Support\Facades\Request;
 use Antares\Logger\Model\LogPriorities;
 use Illuminate\Support\Facades\Route;
 use Antares\Logger\Model\LogTypes;
 
-class ActivityLogsWidget extends AbstractWidget
+class ActivityLogsWidget extends AbstractTemplate
 {
 
     /**
