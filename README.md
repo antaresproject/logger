@@ -1,4 +1,4 @@
-# Antares Logger Component
+# Antares Logger Module
 
 [![Laravel 5.4](https://img.shields.io/badge/Laravel-5.4-orange.svg)](http://laravel.com)
 [![Coverage Status](https://coveralls.io/repos/github/antaresproject/project/badge.svg?branch=master)](https://coveralls.io/github/antaresproject/project?branch=master)
@@ -8,6 +8,8 @@
 [![GitHub forks](https://img.shields.io/github/forks/antaresproject/project.svg)](https://github.com/antaresproject/project/network)
 [![GitHub stars](https://img.shields.io/github/stars/antaresproject/project.svg)](https://github.com/antaresproject/project/stargazers)
 [![GitHub license](https://img.shields.io/badge/license-New%20BSD-blue.svg)](https://raw.githubusercontent.com/antaresproject/project/master/LICENSE)
+
+![logger](docs/img/logger.PNG)
 
 Logger is a module responsible for gathering and displaying logs coming from multiple parts of the system and other modules. It covers:
 
@@ -21,7 +23,7 @@ It is recommended to link all the custom modules to Logger so browsing it is sim
 
 ## Documentation
 
-Antares Logger Component documentation [antaresproject.io/docs/core_modules/logger](http://antaresproject.io/docs/site/core_modules/logger/).
+Antares Logger Module documentation [antaresproject.io/docs/core_modules/logger](http://antaresproject.io/docs/site/core_modules/logger/).
 
 Full Antares documentation can be found at [antaresproject.io/docs](http://antaresproject.io/docs).
 
