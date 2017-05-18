@@ -9,6 +9,16 @@
 [![GitHub stars](https://img.shields.io/github/stars/antaresproject/project.svg)](https://github.com/antaresproject/project/stargazers)
 [![GitHub license](https://img.shields.io/badge/license-New%20BSD-blue.svg)](https://raw.githubusercontent.com/antaresproject/project/master/LICENSE)
 
+Logger is a module responsible for gathering and displaying logs coming from multiple parts of the system and other modules. It covers:
+
+   - Activity log - events related to objects in the system. E.g. changing user details.
+   - Error log - application errors with detailed information for easier debugging.
+   - Request log - all the HTTP requests to the application.
+   - Automation log - logs of the <u>Automation</u> module.
+   - Notification log - all the notifications sent to users by <u>Notification</u> module.
+   
+It is recommended to link all the custom modules to Logger so browsing it is simple, consistent and includes all the helpful information needed for troubleshooting.
+
 ## Documentation
 
 Antares Logger Component documentation [antaresproject.io/docs/core_modules/logger](http://antaresproject.io/docs/site/core_modules/logger/).
