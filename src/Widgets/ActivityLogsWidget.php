@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Part of the Antares Project package.
+ * Part of the Antares package.
  *
  * NOTICE OF LICENSE
  *
@@ -14,21 +14,21 @@
  * @version    0.9.0
  * @author     Antares Team
  * @license    BSD License (3-clause)
- * @copyright  (c) 2017, Antares Project
+ * @copyright  (c) 2017, Antares
  * @link       http://antaresproject.io
  */
 
 namespace Antares\Logger\Widgets;
 
 use Antares\Logger\Http\Filter\ActivityTypeWidgetFilter;
+use Antares\UI\UIComponents\Adapter\AbstractTemplate;
 use Antares\Datatables\Adapter\FilterAdapter;
-use Antares\Widgets\Adapter\AbstractWidget;
 use Illuminate\Support\Facades\Request;
 use Antares\Logger\Model\LogPriorities;
 use Illuminate\Support\Facades\Route;
 use Antares\Logger\Model\LogTypes;
 
-class ActivityLogsWidget extends AbstractWidget
+class ActivityLogsWidget extends AbstractTemplate
 {
 
     /**

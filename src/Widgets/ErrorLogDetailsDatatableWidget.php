@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Part of the Antares Project package.
+ * Part of the Antares package.
  *
  * NOTICE OF LICENSE
  *
@@ -14,19 +14,17 @@
  * @version    0.9.0
  * @author     Antares Team
  * @license    BSD License (3-clause)
- * @copyright  (c) 2017, Antares Project
+ * @copyright  (c) 2017, Antares
  * @link       http://antaresproject.io
  */
-
-
 
 namespace Antares\Logger\Widgets;
 
 use Antares\Logger\Http\Datatables\ErrorLogDetails;
-use Antares\Widgets\Templates\DatatablesWidget;
+use Antares\UI\UIComponents\Templates\Datatables;
 use Illuminate\Support\Facades\Route;
 
-class ErrorLogDetailsDatatableWidget extends DatatablesWidget
+class ErrorLogDetailsDatatableWidget extends Datatables
 {
 
     /**
