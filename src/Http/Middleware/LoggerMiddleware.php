@@ -59,8 +59,7 @@ class LoggerMiddleware
         try {
             $after = $next($request);
         } catch (\Exception $ex) {
-            vdump($ex);
-            exit;
+            
         }
 
         if (!app()->bound('antares.logger')) {
