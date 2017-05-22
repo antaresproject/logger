@@ -1,7 +1,7 @@
 {
     "name": "antaresproject/component-logger",
     "type": "antaresproject-component",
-    "description": "Antares Logger Component",
+    "description": "<p><p>Logger is a module responsible for gathering and displaying logs coming from multiple parts of the system and other modules. It covers:</p><ul><li>Activity log - events related to objects in the system. E.g. changing user details.</li><li>Error log - application errors with detailed information for easier debugging.</li><li>Request log - all the HTTP requests to the application.</li><li>Automation log - logs of the Automation module.</li><li>Notification log - all the notifications sent to users by Notification module.</li></ul></p>",
     "version": "0.9.2.1",
     "homepage": "https://github.com/antaresproject/logger",
     "require": {
