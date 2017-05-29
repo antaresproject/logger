@@ -276,6 +276,36 @@ trait LogRecorder
         }
         return $priority->id;
     }
+    
+    /**
+     * Returns a name of the type. In the default the module name based on class namespace will be returned.
+     *
+     * @return string
+     * @throws Exception
+     */
+    protected function getLoggerModuleNameForType()
+    {
+        $reflection = new ReflectionClass($this);
+
+        $filename = $reflection->getFileName();
+        $match    = str_contains($filename, 'app') ? [1 => 'core'] : null;
+
+        if (!isset($match[1]) and ! preg_match("'src(.*?)src'si", $filename, $match)) {
+            throw new Exception('Unable to resolve current module name.');
+        }
+
+        if (!isset($match[1])) {
+            throw new Exception('Unable to resolve current module namespace.');
+        }
+
+        $reserved = [
+            'components', 'modules'
+        ];
+
+       return str_contains($match[1], 'core')
+           ? 'core'
+           : trim(str_replace($reserved, '', $match[1]), DIRECTORY_SEPARATOR);
+    }
 
     /**
      * current component name resolver
@@ -290,24 +320,9 @@ trait LogRecorder
                 return self::getLogTypeId();
             }
 
-            $reflection = new ReflectionClass($this);
-
-            $filename = $reflection->getFileName();
-            $match    = str_contains($filename, 'app') ? [1 => 'core'] : null;
-
-            if (!isset($match[1]) and ! preg_match("'src(.*?)src'si", $filename, $match)) {
-                throw new Exception('Unable to resolve current module name.');
-            }
-
-            if (!isset($match[1])) {
-                throw new Exception('Unable to resolve current module namespace.');
-            }
-
-            $reserved = [
-                'components', 'modules'
-            ];
-            $module   = (str_contains($match[1], 'core')) ? 'core' : trim(str_replace($reserved, '', $match[1]), DIRECTORY_SEPARATOR);
-            $type     = LogTypes::where('name', $module)->first();
+            $module     = $this->getLoggerModuleNameForType();
+            $type       = LogTypes::where('name', $module)->first();
+            
             if (is_null($type)) {
                 $type = new LogTypes(['name' => $module]);
                 $type->save();
