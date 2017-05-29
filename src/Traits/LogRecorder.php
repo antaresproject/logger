@@ -335,6 +335,16 @@ trait LogRecorder
     }
 
     /**
+     * Returns the string of operation name. Default it is the short class name.
+     *
+     * @return string
+     */
+    protected function getLoggerOperationName()
+    {
+        return (string) last(explode('\\', get_class($this)));
+    }
+
+    /**
      * resolving operation name
      * 
      * @param String $type
@@ -342,7 +352,7 @@ trait LogRecorder
      */
     protected function resolveOperationName($type)
     {
-        return strtoupper(implode('_', [last(explode('\\', get_class($this))), $type]));
+        return strtoupper(implode('_', [$this->getLoggerOperationName(), $type]));
     }
 
     /**
