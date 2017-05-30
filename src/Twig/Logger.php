@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Part of the Antares Project package.
+ * Part of the Antares package.
  *
  * NOTICE OF LICENSE
  *
@@ -14,11 +14,9 @@
  * @version    0.9.0
  * @author     Antares Team
  * @license    BSD License (3-clause)
- * @copyright  (c) 2017, Antares Project
+ * @copyright  (c) 2017, Antares
  * @link       http://antaresproject.io
  */
-
-
 
 namespace Antares\Logger\Twig;
 
@@ -45,7 +43,8 @@ class Logger extends Twig_Extension
     {
 
         $function = function () {
-            return app('arcanedev.log-viewer.styler');
+
+            return app(\Arcanedev\LogViewer\Contracts\Utilities\LogStyler::class);
         };
         return new Twig_SimpleFunction(
                 'log_styler', $function

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Part of the Antares Project package.
+ * Part of the Antares package.
  *
  * NOTICE OF LICENSE
  *
@@ -14,12 +14,9 @@
  * @version    0.9.0
  * @author     Antares Team
  * @license    BSD License (3-clause)
- * @copyright  (c) 2017, Antares Project
+ * @copyright  (c) 2017, Antares
  * @link       http://antaresproject.io
  */
-
-
-
 use Antares\Notifier\Seeder\NotificationSeeder;
 use Illuminate\Support\Facades\DB;
 
@@ -41,7 +38,6 @@ class UsersNotificationSeeder extends NotificationSeeder
                 'category' => 'default',
                 'severity' => 'medium',
                 'event'    => 'notification.user_has_been_created',
-                'type'     => 'administrators',
                 'contents' => [
                     'en' => [
                         'title'   => 'User has been created',
@@ -53,7 +49,6 @@ class UsersNotificationSeeder extends NotificationSeeder
                 'category' => 'default',
                 'severity' => 'high',
                 'event'    => 'notification.user_has_not_been_created',
-                'type'     => 'administrators',
                 'contents' => [
                     'en' => [
                         'title'   => 'User has not been created',
@@ -65,7 +60,6 @@ class UsersNotificationSeeder extends NotificationSeeder
                 'category' => 'default',
                 'severity' => 'medium',
                 'event'    => 'notification.user_has_been_deleted',
-                'type'     => 'administrators',
                 'contents' => [
                     'en' => [
                         'title'   => 'User has been deleted',
@@ -77,7 +71,6 @@ class UsersNotificationSeeder extends NotificationSeeder
                 'category' => 'default',
                 'severity' => 'high',
                 'event'    => 'notification.user_has_not_been_deleted',
-                'type'     => 'administrators',
                 'contents' => [
                     'en' => [
                         'title'   => 'User has not been deleted',

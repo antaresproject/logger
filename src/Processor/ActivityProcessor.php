@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Part of the Antares Project package.
+ * Part of the Antares package.
  *
  * NOTICE OF LICENSE
  *
@@ -14,11 +14,9 @@
  * @version    0.9.0
  * @author     Antares Team
  * @license    BSD License (3-clause)
- * @copyright  (c) 2017, Antares Project
+ * @copyright  (c) 2017, Antares
  * @link       http://antaresproject.io
  */
-
-
 
 namespace Antares\Logger\Processor;
 
@@ -243,7 +241,7 @@ class ActivityProcessor extends Processor
 
         $users = User::select(['id'])->withoutGlobalScopes()->whereHas('roles', function($query) use($roles) {
                     $query->whereIn('tbl_roles.id', array_values($roles));
-                })->get()->lists('id')->toArray();
+                })->get()->pluck('id')->toArray();
         array_push($users, $user->id);
         return $users;
     }

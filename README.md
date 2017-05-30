@@ -1,44 +1,57 @@
-# Antares Project Logger Component
+# Antares Logger Module
 
-[![Join the chat at https://gitter.im/antaresproject](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/antaresproject?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Laravel 5.4](https://img.shields.io/badge/Laravel-5.4-orange.svg)](http://laravel.com)
+[![Coverage Status](https://coveralls.io/repos/github/antaresproject/project/badge.svg?branch=master)](https://coveralls.io/github/antaresproject/project?branch=master)
+[![Build Status](https://travis-ci.org/antaresproject/project.svg?branch=master)](https://travis-ci.org/antaresproject/project)
+[![Code Climate](https://codeclimate.com/github/antaresproject/project/badges/gpa.svg)](https://codeclimate.com/github/antaresproject/project)
+[![GitHub issues](https://img.shields.io/github/issues/antaresproject/project.svg)](https://github.com/antaresproject/project/issues)
+[![GitHub forks](https://img.shields.io/github/forks/antaresproject/project.svg)](https://github.com/antaresproject/project/network)
+[![GitHub stars](https://img.shields.io/github/stars/antaresproject/project.svg)](https://github.com/antaresproject/project/stargazers)
+[![GitHub license](https://img.shields.io/badge/license-New%20BSD-blue.svg)](https://raw.githubusercontent.com/antaresproject/project/master/LICENSE)
 
-[![Code Climate](https://codeclimate.com/github/antaresproject/logger/badges/gpa.svg)](https://codeclimate.com/github/antaresproject/logger)
-[![GitHub issues](https://img.shields.io/github/issues/antaresproject/logger.svg)](https://github.com/antaresproject/logger/issues)
-[![GitHub forks](https://img.shields.io/github/forks/antaresproject/logger.svg)](https://github.com/antaresproject/logger/network)
-[![GitHub stars](https://img.shields.io/github/stars/antaresproject/logger.svg)](https://github.com/antaresproject/logger/stargazers)
-[![GitHub license](https://img.shields.io/badge/license-New%20BSD-blue.svg)](https://raw.githubusercontent.com/antaresproject/logger/master/LICENSE)
+Logger is a module responsible for gathering and displaying logs coming from multiple parts of the system and other modules. It covers:
 
-An open source package by [Antares Project](http://antaresproject.io), code well, rock on!
+   - Activity log - events related to objects in the system. E.g. changing user details.
+   - Error log - application errors with detailed information for easier debugging.
+   - Request log - all the HTTP requests to the application.
+   - Automation log - logs of the <u>Automation</u> module.
+   - Notification log - all the notifications sent to users by <u>Notification</u> module.
+   
+![logger](docs/img/logger.PNG)
 
 ## Documentation
 
-Reader-friendly Documentation can be found here. [Antares Project Documenation](http://antaresproject.io).
+Antares Logger Module documentation [antaresproject.io/docs/core_modules/logger](http://antaresproject.io/docs/site/core_modules/logger/).
 
-Raw files can be found via this projects docs/version branch.
+Full Antares documentation can be found at [antaresproject.io/docs](http://antaresproject.io/docs).
 
-- [0.9.0](https://github.com/antaresproject/docs)
 
-## Change Log
+## Changelog
 
-Important versions listed below. Refer to the [Change Log](CHANGELOG.md) for a full history of the project.
+Antares Logger changelog can be found in release notes [antaresproject.io/docs/site/getting_started/changelog/#logger](http://antaresproject.io/docs/site/getting_started/changelog/index.html#logger).
 
-## Support
+You can find full Antares changelog in Antares Documentation [antaresproject.io/docs/site/getting_started/changelog](http://antaresproject.io/docs/site/getting_started/changelog/index.html).
 
-The following support channels can be used for contact.
+## Issues
 
-- [Webpage](http://antaresproject.io)
-- [Email](mailto:contact@antaresproject.io)
+The issue list of this repo is **exclusively** for bug reports and feature requests.
 
-Bug reports, feature requests, and pull requests can be submitted by following our [Contribution Guide](CONTRIBUTING.md).
+Please follow [Issue Reporting Guide](http://antaresproject.io/docs/site/getting_started/issues_reporting_guide/index.html) before opening an issue. Issues not following the guide will be closed without further investigation.
 
-## Contributing & Protocols
+## Contribution
 
-- [Versioning](CONTRIBUTING.md#versioning)
-- [Coding Standards](CONTRIBUTING.md#coding-standards)
-- [Pull Requests](CONTRIBUTING.md#pull-requests)
+Please follow [Contribution Guide](http://antaresproject.io/docs/site/getting_started/contributing/index.html) before making a pull request.
+
+## Community
+
+* Twitter: @antaresproject
+* Forum: (coming soon)
+* Blog: (coming soon)
+* Email: contact (at) antaresproject.io
+
 
 ## License
 
-This software is released under the [BSD 3-Clause](LICENSE) License.
+This software is released under the BSD 3-Clause License.
 
-© 2017 Antares Project, All rights reserved.
+© 2017 INBS.Software.

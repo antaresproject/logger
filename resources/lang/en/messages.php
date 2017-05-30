@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Part of the Antares Project package.
+ * Part of the Antares package.
  *
  * NOTICE OF LICENSE
  *
@@ -14,12 +14,9 @@
  * @version    0.9.0
  * @author     Antares Team
  * @license    BSD License (3-clause)
- * @copyright  (c) 2017, Antares Project
+ * @copyright  (c) 2017, Antares
  * @link       http://antaresproject.io
  */
-
-
-
 return [
     'error_log_details_widget_title'     => 'Log :date',
     'error_log_download'                 => 'Download',
@@ -39,7 +36,7 @@ return [
         'no_data'             => 'Sorry, no data to display...'
     ],
     'breadcrumb'                         => [
-        'activity_logs' => 'Activity Logs'
+        'activity_log' => 'Activity Log'
     ],
     'activity_logs_download'             => 'Download',
     'activity_logs_delete'               => 'Delete',

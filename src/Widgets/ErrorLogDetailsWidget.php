@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Part of the Antares Project package.
+ * Part of the Antares package.
  *
  * NOTICE OF LICENSE
  *
@@ -14,19 +14,17 @@
  * @version    0.9.0
  * @author     Antares Team
  * @license    BSD License (3-clause)
- * @copyright  (c) 2017, Antares Project
+ * @copyright  (c) 2017, Antares
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Widgets;
 
-use Antares\Widgets\Adapter\AbstractWidget;
+use Antares\UI\UIComponents\Adapter\AbstractTemplate;
 use Antares\Logger\Utilities\LogViewer;
 use Exception;
 
-class ErrorLogDetailsWidget extends AbstractWidget
+class ErrorLogDetailsWidget extends AbstractTemplate
 {
 
     /**

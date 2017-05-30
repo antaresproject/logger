@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Part of the Antares Project package.
+ * Part of the Antares package.
  *
  * NOTICE OF LICENSE
  *
@@ -14,18 +14,16 @@
  * @version    0.9.0
  * @author     Antares Team
  * @license    BSD License (3-clause)
- * @copyright  (c) 2017, Antares Project
+ * @copyright  (c) 2017, Antares
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Widgets;
 
-use Antares\Widgets\Adapter\AbstractWidget;
+use Antares\UI\UIComponents\Adapter\AbstractTemplate;
 use Antares\Model\User;
 
-class UserDetailsWidget extends AbstractWidget
+class UserDetailsWidget extends AbstractTemplate
 {
 
     /**
@@ -74,7 +72,7 @@ class UserDetailsWidget extends AbstractWidget
      */
     public function render()
     {
-        $user = User::query()->findOrFail(from_route('users'));
+        $user = User::query()->findOrFail(from_route('user'));
         return view('antares/logger::admin.widgets.user_details', ['user' => $user])->render();
     }
 

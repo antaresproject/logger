@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Part of the Antares Project package.
+ * Part of the Antares package.
  *
  * NOTICE OF LICENSE
  *
@@ -14,11 +14,9 @@
  * @version    0.9.0
  * @author     Antares Team
  * @license    BSD License (3-clause)
- * @copyright  (c) 2017, Antares Project
+ * @copyright  (c) 2017, Antares
  * @link       http://antaresproject.io
  */
-
-
 
 namespace Antares\Logger\Http\Breadcrumb;
 
@@ -78,6 +76,7 @@ class Breadcrumb
      */
     public function onActivity($type = null)
     {
+
         Breadcrumbs::register('logger-activity', function($breadcrumbs) {
             $breadcrumbs->push('Activity Log', handles('antares::logger/activity/index'));
         });
@@ -126,7 +125,7 @@ class Breadcrumb
         Breadcrumbs::register('logger-request', function($breadcrumbs) {
             $breadcrumbs->push('Request Log', handles('antares::logger/request/index'), ['force_link' => true]);
         });
-        $date = Request::route()->getParameter('date');
+        $date = Request::route()->parameter('date');
         Breadcrumbs::register('logger-request-' . $date, function($breadcrumbs) use($date) {
             $breadcrumbs->parent('logger-request');
         });

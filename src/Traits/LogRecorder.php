@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Part of the Antares Project package.
+ * Part of the Antares package.
  *
  * NOTICE OF LICENSE
  *
@@ -14,7 +14,7 @@
  * @version    0.9.0
  * @author     Antares Team
  * @license    BSD License (3-clause)
- * @copyright  (c) 2017, Antares Project
+ * @copyright  (c) 2017, Antares
  * @link       http://antaresproject.io
  */
 
@@ -276,6 +276,36 @@ trait LogRecorder
         }
         return $priority->id;
     }
+    
+    /**
+     * Returns a name of the type. In the default the module name based on class namespace will be returned.
+     *
+     * @return string
+     * @throws Exception
+     */
+    protected function getLoggerModuleNameForType()
+    {
+        $reflection = new ReflectionClass($this);
+
+        $filename = $reflection->getFileName();
+        $match    = str_contains($filename, 'app') ? [1 => 'core'] : null;
+
+        if (!isset($match[1]) and ! preg_match("'src(.*?)src'si", $filename, $match)) {
+            throw new Exception('Unable to resolve current module name.');
+        }
+
+        if (!isset($match[1])) {
+            throw new Exception('Unable to resolve current module namespace.');
+        }
+
+        $reserved = [
+            'components', 'modules'
+        ];
+
+       return str_contains($match[1], 'core')
+           ? 'core'
+           : trim(str_replace($reserved, '', $match[1]), DIRECTORY_SEPARATOR);
+    }
 
     /**
      * current component name resolver
@@ -290,24 +320,9 @@ trait LogRecorder
                 return self::getLogTypeId();
             }
 
-            $reflection = new ReflectionClass($this);
-
-            $filename = $reflection->getFileName();
-            $match    = str_contains($filename, 'app') ? [1 => 'core'] : null;
-
-            if (!isset($match[1]) and ! preg_match("'src(.*?)src'si", $filename, $match)) {
-                throw new Exception('Unable to resolve current module name.');
-            }
-
-            if (!isset($match[1])) {
-                throw new Exception('Unable to resolve current module namespace.');
-            }
-
-            $reserved = [
-                'components', 'modules'
-            ];
-            $module   = (str_contains($match[1], 'core')) ? 'core' : trim(str_replace($reserved, '', $match[1]), DIRECTORY_SEPARATOR);
-            $type     = LogTypes::where('name', $module)->first();
+            $module     = $this->getLoggerModuleNameForType();
+            $type       = LogTypes::where('name', $module)->first();
+            
             if (is_null($type)) {
                 $type = new LogTypes(['name' => $module]);
                 $type->save();
@@ -335,6 +350,16 @@ trait LogRecorder
     }
 
     /**
+     * Returns the string of operation name. Default it is the short class name.
+     *
+     * @return string
+     */
+    protected function getLoggerOperationName()
+    {
+        return (string) last(explode('\\', get_class($this)));
+    }
+
+    /**
      * resolving operation name
      * 
      * @param String $type
@@ -342,7 +367,7 @@ trait LogRecorder
      */
     protected function resolveOperationName($type)
     {
-        return strtoupper(implode('_', [last(explode('\\', get_class($this))), $type]));
+        return strtoupper(implode('_', [$this->getLoggerOperationName(), $type]));
     }
 
     /**
@@ -375,7 +400,7 @@ trait LogRecorder
                 'type'           => $type], $values);
 
             $log             = new Logs($logAuditing);
-            $log->created_at = (method_exists($this, 'createdAt')) ? $this->createdAt() : $log->created_at;
+            $log->created_at = (method_exists($this, 'createdAt')) ? $this->createdAt() : new DateTime();
 
             if (!$log->save()) {
                 throw new Exception('Unable to save log entity.');

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Part of the Antares Project package.
+ * Part of the Antares package.
  *
  * NOTICE OF LICENSE
  *
@@ -14,11 +14,9 @@
  * @version    0.9.0
  * @author     Antares Team
  * @license    BSD License (3-clause)
- * @copyright  (c) 2017, Antares Project
+ * @copyright  (c) 2017, Antares
  * @link       http://antaresproject.io
  */
-
-
 
 namespace Antares\Logger\Http\Middleware;
 
@@ -58,8 +56,13 @@ class LoggerMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $after = $next($request);
-        if(!app()->bound('antares.logger')){
+        try {
+            $after = $next($request);
+        } catch (\Exception $ex) {
+            
+        }
+
+        if (!app()->bound('antares.logger')) {
             return $after;
         }
         try {

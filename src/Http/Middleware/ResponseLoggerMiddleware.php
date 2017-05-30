@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Part of the Antares Project package.
+ * Part of the Antares package.
  *
  * NOTICE OF LICENSE
  *
@@ -14,20 +14,17 @@
  * @version    0.9.0
  * @author     Antares Team
  * @license    BSD License (3-clause)
- * @copyright  (c) 2017, Antares Project
+ * @copyright  (c) 2017, Antares
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Http\Middleware;
 
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Prettus\RequestLogger\Jobs\LogTask;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Antares\Logger\Jobs\LogTask;
+use Illuminate\Http\Request;
 use Closure;
-use Route;
 
 class ResponseLoggerMiddleware
 {
@@ -41,8 +38,6 @@ class ResponseLoggerMiddleware
 
     public function terminate(Request $request, Response $response)
     {
-
-
         if (!$this->excluded($request)) {
             $task = new LogTask($request, $response);
 
