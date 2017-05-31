@@ -143,6 +143,7 @@ class ActivityLogs extends DataTable
                         ->editColumn('operation', $this->getOperationValue($row))
                         ->editColumn('created_at', function ($model) {
                             return is_null($model->created_at) ? '---' : format_x_days($model->created_at);
+                        })
                         ->editColumn('updated_at', function ($model) {
                             return format_x_days($model->updated_at);
                         })->addColumn('action', $this->getActionsColumn($canShowDetails, $canActivityDelete));
