@@ -17,11 +17,9 @@
  * @copyright  (c) 2017, Antares
  * @link       http://antaresproject.io
  */
-
-
-
 return [
-    'di'         => [
+    'enable_error_reporting' => false,
+    'di'                     => [
         'Antares\Logger\Contracts\IndexPresenter'     => 'Antares\Logger\Http\Presenters\IndexPresenter',
         'Antares\Logger\Contracts\ActivityPresenter'  => 'Antares\Logger\Http\Presenters\ActivityPresenter',
         'Antares\Logger\Contracts\ModulesPresenter'   => 'Antares\Logger\Http\Presenters\ModulesPresenter',
@@ -34,7 +32,7 @@ return [
         'Antares\Logger\Contracts\GeneratorPresenter' => 'Antares\Logger\Http\Presenters\GeneratorPresenter',
         'Antares\Logger\Contracts\FactoryInterface'   => 'Antares\Logger\LoggerFactory',
     ],
-    'scripts'    => [
+    'scripts'                => [
         'resources' => [
             'logger-js' => 'js/logger.js',
         ],
@@ -46,16 +44,16 @@ return [
             'logger-js'         => 'js/logger.js'
         ]
     ],
-    'memory'     => [
+    'memory'                 => [
         'model' => '\Antares\Logger\Model\Checksum'
     ],
-    'adapter'    => [
+    'adapter'                => [
         'default' => [
             'model' => 'Antares\Logger\Adapter\CurlAdapter',
             'url'   => 'http://' . (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : url()->to('')) . '/admin/tickets/exception',
         ],
     ],
-    'analyzer'   => [
+    'analyzer'               => [
         'actions' => [
             'server'     => 'Server Environment',
             'system'     => 'System Environment',
@@ -80,14 +78,14 @@ return [
       |  Menu settings
       | ------------------------------------------------------------------------------------------------
      */
-    'menu'       => [
+    'menu'                   => [
         'filter-route'  => 'logger::logs.filter',
         'icons-enabled' => true,
     ],
     /**
      * collection of predefined activity key names
      */
-    'operations' => [
+    'operations'             => [
         'login' => 'USERAUTHLISTENER_ONUSERLOGIN'
     ],
 ];
