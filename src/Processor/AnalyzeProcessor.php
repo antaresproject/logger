@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Processor;
 
 use Antares\Logger\Contracts\AnalyzePresenter as Presenter;
@@ -31,7 +29,7 @@ use Antares\Logger\Adapter\LogsAdapter;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse;
-use Linfo\Linfo;
+use Antares\Logger\Linfo\Linfo;
 
 class AnalyzeProcessor extends Processor
 {
@@ -96,6 +94,7 @@ class AnalyzeProcessor extends Processor
      */
     public function index()
     {
+
         $urls = [];
         foreach ($this->actions as $action => $description) {
             $fired = \Illuminate\Support\Facades\Event::fire('analyzer:before.' . $action);
@@ -129,6 +128,7 @@ class AnalyzeProcessor extends Processor
      */
     public function system()
     {
+        set_time_limit(0);
         $linfo  = new Linfo(config('antares/logger::analyzer.system'));
         $linfo->scan();
         $output = new SystemInfo($linfo);
@@ -143,7 +143,7 @@ class AnalyzeProcessor extends Processor
      */
     public function modules()
     {
-        $predefinedDirectories = ['core', 'components'];
+        $predefinedDirectories = ['core', 'modules/core'];
         $return                = [];
         foreach ($predefinedDirectories as $predefinedDirectory) {
             $directoryPath = base_path("src/{$predefinedDirectory}");
@@ -171,11 +171,16 @@ class AnalyzeProcessor extends Processor
      */
     public function version()
     {
-        $adapter = app('antares.version')->getAdapter();
-        $data    = ['version' => $adapter->getActualVersion()];
-        if ($adapter->isNewer()) {
-            $data['messages'][] = ['warning', sprintf('New System version available. We strongly recommend upgrade to version %s', $adapter->getVersion())];
+        if (bound('antares.version')) {
+            $adapter = app('antares.version')->getAdapter();
+            $data    = ['version' => $adapter->getActualVersion()];
+            if ($adapter->isNewer()) {
+                $data['messages'][] = ['warning', sprintf('New System version available. We strongly recommend upgrade to version %s', $adapter->getVersion())];
+            }
+        } else {
+            $data = ['version' => '0.9.2'];
         }
+
         return $this->presenter->version($data);
     }
 

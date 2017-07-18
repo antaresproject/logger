@@ -55,7 +55,7 @@ class ActivityLogsWidget extends AbstractTemplate
      *
      * @var array
      */
-    protected $attributes     = [
+    protected $attributes = [
         'min_width'      => 6,
         'min_height'     => 6,
         'max_width'      => 12,
@@ -72,7 +72,7 @@ class ActivityLogsWidget extends AbstractTemplate
      *
      * @var array
      */
-    protected $views          = [
+    protected $views = [
         'antares/foundation::admin.users.show'
     ];
 

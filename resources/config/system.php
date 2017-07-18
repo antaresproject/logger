@@ -17,9 +17,6 @@
  * @copyright  (c) 2017, Antares
  * @link       http://antaresproject.io
  */
-
-
-
 // If you experience timezone errors, uncomment (remove //) the following line and change the timezone to your liking
 // date_default_timezone_set('America/New_York');
 
