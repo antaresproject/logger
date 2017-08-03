@@ -11,7 +11,7 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Logger
- * @version    0.9.0
+ * @version    0.9.2
  * @author     Antares Team
  * @license    BSD License (3-clause)
  * @copyright  (c) 2017, Antares
@@ -90,9 +90,7 @@ class ActivityLogsWidget extends AbstractTemplate
      */
     public static function routes()
     {
-        return Route::match(['GET', 'POST'], self::$baseUrl . '/{users?}', ['middleware' => 'web', function() {
-                        return view('antares/logger::admin.widgets.logs', self::getParams());
-                    }]);
+        return Route::match(['GET', 'POST'], self::$baseUrl . '/{users?}', 'Antares\Logger\Widgets\Http\Controllers\ActivityLogsController@logs');
     }
 
     /**
@@ -100,7 +98,7 @@ class ActivityLogsWidget extends AbstractTemplate
      * 
      * @return array
      */
-    protected static function getParams()
+    public static function getParams()
     {
         $adapter  = app(FilterAdapter::class)->add(ActivityTypeWidgetFilter::class);
         $request  = app('request');

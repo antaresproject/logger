@@ -53,15 +53,13 @@ class ErrorLogDetailsDatatableWidget extends Datatables
     ];
 
     /**
-     * widget routes definition
+     * Widget routes definition
      * 
      * @return \Symfony\Component\Routing\Router
      */
     public static function routes()
     {
-        Route::post('error-log-details-list/{date}', ['middleware' => 'web', function() {
-                return app(ErrorLogDetails::class)->ajax();
-            }]);
+        Route::post('error-log-details-list/{date}', 'Antares\Logger\Widgets\Http\Controllers\ErrorLogDetailsController@ajax');
     }
 
     /**
