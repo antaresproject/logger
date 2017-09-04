@@ -20,6 +20,9 @@
 
 namespace Antares\Logger\Model;
 
+use Antares\Brands\Model\Brands;
+use Antares\Logger\Utilities\Differences;
+use Antares\Model\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Antares\Notifications\Model\NotificationsStack;
 use Antares\Logger\Utilities\LogDecorator;
@@ -27,6 +30,41 @@ use Antares\Automation\Model\JobResults;
 use Antares\Model\Eloquent;
 use Config;
 
+/**
+ * Class Logs
+ * @package Antares\Logger\Model
+ *
+ * @property integer $id
+ * @property integer $type_id
+ * @property integer $brand_id
+ * @property integer $user_id
+ * @property integer $client_id
+ * @property integer $author_id
+ * @property integer $priority_id
+ * @property string $owner_type
+ * @property integer $owner_id
+ * @property array $old_value
+ * @property array $new_value
+ * @property array $old
+ * @property array $new
+ * @property array $related_data
+ * @property array $additional_params
+ * @property string $type
+ * @property string $name
+ * @property string $route
+ * @property string $ip_address
+ * @property string $user_agent
+ * @property boolean $is_api_request
+ * @property string $elapsed_time
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property Differences $differences
+ * @property-read Brands $brand
+ * @property-read User $user
+ * @property-read LogTypes $component
+ * @property-read LogPriorities $priority
+ * @property-read NotificationsStack $stack
+ */
 class Logs extends Eloquent
 {
 
@@ -40,14 +78,24 @@ class Logs extends Eloquent
      *
      * @var array
      */
-    protected $casts = ['old_value' => 'json', 'new_value' => 'json', 'related_data' => 'json', 'additional_params' => 'json'];
+    protected $casts = [
+        'old_value' => 'json',
+        'new_value' => 'json',
+        'related_data' => 'json',
+        'additional_params' => 'json',
+    ];
 
     /**
      * Added attribute.
      *
      * @var array
      */
-    protected $appends = ['custom_message', 'custom_fields', 'elapsed_time'];
+    protected $appends = [
+        'custom_message',
+        'custom_fields',
+        'elapsed_time',
+        'differences',
+    ];
 
     /**
      * Fillable columns definition
@@ -78,7 +126,7 @@ class Logs extends Eloquent
     /**
      * Get model auditing.
      *
-     * @return array revision history
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function owner()
     {
@@ -115,7 +163,7 @@ class Logs extends Eloquent
     /**
      * Get old value.
      *
-     * @return mixed
+     * @return array
      */
     public function getOldAttribute()
     {
@@ -125,7 +173,7 @@ class Logs extends Eloquent
     /**
      * Get new value.
      *
-     * @return mixed
+     * @return array
      */
     public function getNewAttribute()
     {
@@ -284,7 +332,7 @@ class Logs extends Eloquent
      */
     public function component()
     {
-        return $this->belongsTo('Antares\Logger\Model\LogTypes', 'type_id', 'id');
+        return $this->belongsTo(LogTypes::class, 'type_id', 'id');
     }
 
     /**
@@ -294,7 +342,7 @@ class Logs extends Eloquent
      */
     public function priority()
     {
-        return $this->belongsTo('Antares\Logger\Model\LogPriorities', 'priority_id', 'id');
+        return $this->belongsTo(LogPriorities::class, 'priority_id', 'id');
     }
 
     /**
@@ -304,7 +352,7 @@ class Logs extends Eloquent
      */
     public function brand()
     {
-        return $this->belongsTo('Antares\Brands\Model\Brands', 'brand_id', 'id');
+        return $this->belongsTo(Brands::class, 'brand_id', 'id');
     }
 
     /**
@@ -346,6 +394,13 @@ class Logs extends Eloquent
     public function stack()
     {
         return $this->hasOne(NotificationsStack::class, 'log_id', 'id');
+    }
+
+    /**
+     * @return Differences
+     */
+    public function getDifferencesAttribute() : Differences {
+        return new Differences($this->old_value ?: [], $this->new_value ?: []);
     }
 
 }
