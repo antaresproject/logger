@@ -65,6 +65,11 @@ trait LogRecorder
     protected $dirtyData = [];
 
     /**
+     * @var array|null
+     */
+    protected $resolvedRelatedData;
+
+    /**
      * Init auditing.
      */
     public static function bootLogRecorder()
@@ -192,7 +197,11 @@ trait LogRecorder
      */
     protected function getRelatedData()
     {
-        return app(RelationResolver::class)->getRelationData($this);
+        if( ! $this->resolvedRelatedData) {
+            $this->resolvedRelatedData = app(RelationResolver::class)->getRelationData($this);
+        }
+
+        return $this->resolvedRelatedData;
     }
 
     /**
