@@ -75,22 +75,26 @@ trait LogRecorder
     public static function bootLogRecorder()
     {
         static::saving(function ($model) {
+            /* @var $model LogRecorder */
             $model->prepareAudit();
         });
 
         static::created(function ($model) {
+            /* @var $model LogRecorder */
             if ($model->isTypeAuditable('created')) {
                 $model->auditCreation();
             }
         });
 
         static::saved(function ($model) {
+            /* @var $model LogRecorder */
             if ($model->isTypeAuditable('saved')) {
                 $model->auditUpdate();
             }
         });
 
         static::deleted(function ($model) {
+            /* @var $model LogRecorder */
             if ($model->isTypeAuditable('deleted')) {
                 $model->prepareAudit();
                 $model->auditDeletion();
@@ -184,7 +188,8 @@ trait LogRecorder
                 'author_id'    => auth()->guest() ? null : auth()->user()->id,
                 'new_value'    => $this->getAttributes(),
                 'related_data' => $this->getRelatedData(),
-                'type'         => 'created',], $this->values());
+                'type'         => 'created',
+            ], $this->values());
 
             return $this->audit($insert);
         }

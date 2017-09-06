@@ -59,7 +59,12 @@ class RelationResolver
         'bootLogRecorder',
         'logs',
         'classLogHistory'.
-        'logHistory'
+        'logHistory',
+        'activate',
+        'deactivate',
+        'suspend',
+        'delete',
+        'forceDelete',
     ];
 
 
@@ -71,28 +76,7 @@ class RelationResolver
      */
     protected function getRelations(Model $model)
     {
-        $relationships  = [];
-        $modalClass     = get_class($model);
-        $methods        = (new ReflectionClass($model))->getMethods(ReflectionMethod::IS_PUBLIC);
-
-        foreach($methods as $method) {
-            if ($method->class !== $modalClass || count($method->getParameters()) || $method->getName() === __FUNCTION__ || in_array($method->getName(), self::$avoidedMethods, true) ) {
-                continue;
-            }
-
-            try {
-                $return = $method->invoke($model);
-
-                if ($return instanceof Relation) {
-                    $relationships[$method->getName()] = [
-                        'type'  => (new ReflectionClass($return))->getShortName(),
-                        'model' => (new ReflectionClass($return->getRelated()))->getName()
-                    ];
-                }
-            } catch(ErrorException $e) {}
-        }
-
-        return $relationships;
+        return $model->getRelations();
     }
 
     /**
