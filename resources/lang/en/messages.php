@@ -58,5 +58,7 @@ return [
     'report_new_files_count'             => 'There are :count new files detected.',
     'report_updated_files_count'         => 'There are :count new files detected.',
     'report_deleted_files_count'         => 'There are :count deleted files detected.',
-    'all'                                => 'All'
+    'all'                                => 'All',
+    'no_data_available'                  => 'No data available.',
+    'no_data_available_description'      => 'There are no records to show right now. <br>There may be no entries or your filters may be too tightly defined.'
 ];
