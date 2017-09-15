@@ -13,7 +13,9 @@
                 </form>
             </div>              
         </div>
+        {% if filters_enabled %}
         {{ filters|raw }}
+        {% endif %}
     </div>
     {% if logs is not empty %} 
         <ul class="timeline" data-scrollable>           

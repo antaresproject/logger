@@ -46,15 +46,17 @@ class ActivityLogsWidget extends AbstractTemplate
      *
      * @var ParamsProcessor 
      */
-    protected $processor;
+    protected $paramsProcessor;
 
     /**
-     * {@inheritdoc}
+     * ActivityLogsWidget constructor.
+     * @param ParamsProcessor $paramsProcessor
      */
-    public function __construct()
+    public function __construct(ParamsProcessor $paramsProcessor)
     {
         parent::__construct();
-        $this->processor = app(ParamsProcessor::class);
+
+        $this->paramsProcessor = $paramsProcessor;
     }
 
     /**
@@ -76,7 +78,8 @@ class ActivityLogsWidget extends AbstractTemplate
     {
         publish('logger', ['js/logs.js']);
         publish('logger', ['css/zero_data.css']);
-        return view('antares/logger::admin.widgets.logs', $this->processor->get())->render();
+
+        return view('antares/logger::admin.widgets.logs', $this->paramsProcessor->get())->render();
     }
 
 }

@@ -39,18 +39,25 @@ class ActivityLogsController extends AdminController
 
     /**
      * Index action, list of logs
-     * 
-     * @param mixed $id
-     * @return \Illuminate\View\View
+     *
+     * @param FilterAdapter $filterAdapter
+     * @param null $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index($id = null)
+    public function index(FilterAdapter $filterAdapter, $id = null)
     {
-        $filter = app(FilterAdapter::class);
-        $filter->add(ActivityTypeFilter::class);
+        $filterAdapter->add(ActivityTypeFilter::class);
+        $this->processor->setUid($id)->setFilter($filterAdapter);
 
-        $this->processor->setUid($id)->setFilter($filter);
+        $type = input('type');
 
-        return view('antares/logger::admin.widgets.logs', $this->processor->get(input('search')));
+        if($type) {
+            $this->processor->setType($type);
+        }
+
+        $data = $this->processor->get(input('search'));
+
+        return view('antares/logger::admin.widgets.logs', $data);
     }
 
 }
