@@ -39,6 +39,11 @@ class LogCreatorDecorator
     protected static $pattern = '#%d %s';
 
     /**
+     * @var User[]
+     */
+    protected static $cachedAuthorsAsUser = [];
+
+    /**
      * LogCreatorDecorator constructor.
      * @param Logs $log
      */
@@ -76,10 +81,16 @@ class LogCreatorDecorator
      */
     protected function getAvailableCreatorEntity() {
         if($this->log->author_id) {
-            /* @var $user User */
-            $user = User::query()->where('id', $this->log->author_id)->first();
+            $id = $this->log->author_id;
 
-            return $user;
+            if( array_key_exists($id, self::$cachedAuthorsAsUser) ) {
+                return self::$cachedAuthorsAsUser[$id];
+            }
+
+            /* @var $user User */
+            $user = User::query()->where('id', $id)->first();
+
+            return self::$cachedAuthorsAsUser[$id] = $user;
         }
 
         if($this->log->user_id) {
