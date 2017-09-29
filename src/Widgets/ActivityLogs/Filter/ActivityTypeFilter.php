@@ -53,8 +53,6 @@ class ActivityTypeFilter extends SelectFilter implements DataTableScopeContract
      */
     public function apply($builder)
     {
-        vdump(11);
-        exit;
         $values = $this->getValues();
         if (empty($values)) {
             return $builder;
