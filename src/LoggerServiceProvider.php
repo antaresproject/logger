@@ -23,9 +23,13 @@
 namespace Antares\Logger;
 
 use Antares\Foundation\Support\Providers\ModuleServiceProvider;
+use Antares\Logger\Events\NewDeviceDetected;
 use Antares\Logger\Http\Handlers\ActivityLogsBreadcrumbMenu;
 use Antares\Logger\Http\Handlers\RequestLogBreadcrumbMenu;
 use Antares\Logger\Console\LogsTranslationSynchronizer;
+use Antares\Logger\Listeners\SendMailAboutNewDeviceDetected;
+use Antares\Logger\Notifications\Variables\DeviceDetectedVariablesProvider;
+use Antares\Notifications\Services\VariablesService;
 use Illuminate\Contracts\Routing\Registrar as Router;
 use Antares\Logger\Http\Middleware\LoggerMiddleware;
 use Antares\Logger\Http\Handlers\ErrorLogBreadcrumb;
@@ -61,6 +65,10 @@ class LoggerServiceProvider extends ModuleServiceProvider
      */
     protected $listen = [
         'logger.custom' => CustomLog::class,
+
+        NewDeviceDetected::class => [
+            SendMailAboutNewDeviceDetected::class,
+        ],
     ];
 
     /**
@@ -104,6 +112,12 @@ class LoggerServiceProvider extends ModuleServiceProvider
         $this->commands(LogsTranslationSynchronizer::class);
 
         $this->app['antares.logger.installed'] = true;
+    }
+
+    public function boot() {
+        parent::boot();
+
+        $this->extendNotificationVariables();
     }
 
     /**
@@ -175,6 +189,14 @@ class LoggerServiceProvider extends ModuleServiceProvider
     protected function observeLogger()
     {
         $this->app->make('antares.logger')->getMainModel()->observe(new LoggerObserver, 1);
+    }
+
+    protected function extendNotificationVariables()
+    {
+        /* @var $notification VariablesService */
+        $notification = app()->make(VariablesService::class);
+
+        $notification->register('logger', new DeviceDetectedVariablesProvider());
     }
 
 }

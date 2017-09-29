@@ -44,6 +44,16 @@ class LogCreatorDecorator
     protected static $cachedAuthorsAsUser = [];
 
     /**
+     * @var User[]
+     */
+    protected static $cachedUsers = [];
+
+    /**
+     * @var Brands[]
+     */
+    protected static $cachedBrands = [];
+
+    /**
      * LogCreatorDecorator constructor.
      * @param Logs $log
      */
@@ -94,11 +104,23 @@ class LogCreatorDecorator
         }
 
         if($this->log->user_id) {
-            return $this->log->user;
+            $userId = $this->log->user_id;
+
+            if( array_key_exists($userId, self::$cachedUsers) ) {
+                return self::$cachedUsers[$userId];
+            }
+
+            return self::$cachedUsers[$userId] = $this->log->user;
         }
 
         if($this->log->brand_id) {
-            return $this->log->brand;
+            $brandId = $this->log->brand_id;
+
+            if( array_key_exists($brandId, self::$cachedBrands) ) {
+                return self::$cachedBrands[$brandId];
+            }
+
+            return self::$cachedBrands[$brandId] = $this->log->brand;
         }
     }
 
