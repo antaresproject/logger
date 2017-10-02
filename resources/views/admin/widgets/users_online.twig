@@ -13,7 +13,7 @@
                     {%for item in subitems %}
 
                         <div class="col-4">                        
-                            <div class="col-group">
+                            <div class="col-group" style="{{ item.user.hasRoles('member') ? '' : 'color:#2196f3' }}">
                                 <div class="col-16">
                                     <div class="avatar avatar--md" style="opacity: 1; max-width:60px;max-height:60px">
                                         <img  class="gravatar" src="{{ profile_picture( item.user.email) }}" alt="{{ item.user.fullname }}" /> 
