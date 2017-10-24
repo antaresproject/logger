@@ -1,5 +1,19 @@
-{% extends "antares/foundation::layouts.antares.index" %}
-{% block content %}
-    {{ dataTable.table()|raw }}
-    {{ dataTable.scripts()|raw }}
-{% endblock %}
+{% extends  "antares/foundation::layouts.antares.main"   %}   
+{% block app_content %}
+    <div class="app-content page-settings">    
+    {% endblock %}     
+    {% block main_content %}
+        {% set panes=app('antares.widget').make('pane.left') %}    
+        <section class="main-content" data-preload>
+            {% include 'antares/foundation::components.messages'  %}                                             
+            <div class="grid-container grid-container--2col grid-container--no-padd">
+                {% include 'antares/foundation::layouts.antares.partials._left_panel' with {panes: panes} %}
+                <div class="grid-col grid-col--container nopadding">               
+                    {% block content %}
+                        {{ dataTable.scripts()|raw }}   
+                        {{ dataTable.tableDeferred()|raw }}
+                    {% endblock %}
+                </div>     
+            </div>
+        </section>            
+    {% endblock %} 

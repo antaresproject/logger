@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Http\Presenters;
 
 use Antares\Logger\Contracts\ActivityPresenter as PresenterContract;

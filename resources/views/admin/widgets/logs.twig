@@ -29,11 +29,19 @@
         </ul>
         {{ pagination|raw }}
     {% else %}
-        <div class="zero-data">                    
-            <div class="zero-data__indicator animated pulse"></div>
-            <div class="zero-data__txt">
-                {{ trans('antares/logger::messages.widgets.no_data') }}
+        <div class="zd zd--lg" style="max-width: 100%;">
+            <div class="zd__header">
+                <i class="zmdi zmdi-block zmdi-hc-stack-2x mdc-text-red"></i>
             </div>
-        </div>    
+            <div class="zd__content">
+                <div class="zd__title">No data available.</div>
+                <div class="zd__description">
+                    There are no records to show right now. <br>There may be no entries or your filters may be too tightly defined.
+                </div>            
+            </div>
+            <div class="zd__footer">
+                <a href="/" class="btn btn--primary btn--zd mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">Dashboard<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a>
+            </div>
+        </div> 
     {% endif %}   
 {% endblock %}

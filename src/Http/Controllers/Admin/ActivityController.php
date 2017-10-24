@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Http\Controllers\Admin;
 
 use Antares\Logger\Processor\ActivityProcessor as Processor;

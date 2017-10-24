@@ -56,12 +56,12 @@ class ActivityLogsWidget extends AbstractTemplate
      * @var array
      */
     protected $attributes = [
-        'min_width'      => 6,
-        'min_height'     => 6,
-        'max_width'      => 12,
+        'min_width'      => 7,
+        'min_height'     => 7,
+        'max_width'      => 52,
         'max_height'     => 52,
-        'default_width'  => 7,
-        'default_height' => 16,
+        'default_width'  => 14,
+        'default_height' => 14,
         'enlargeable'    => false,
         'titlable'       => true,
         'card_class'     => 'card--logs card--scrollbox',

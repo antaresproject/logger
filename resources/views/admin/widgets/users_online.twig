@@ -7,28 +7,25 @@
     <div class="card__content card__content--flex-column" data-scrollable>
         <div class="col-group">
             {%for subitems in items|batch(4) %}                    
-                <div class="col-16">
-
+                <div class="col-24">
                     <div class="{{ (loop.index0==0) ? 'separator-medium':'separator-small' }}"></div>                
                     {%for item in subitems %}
-
-                        <div class="col-4">                        
+                        <div class="col-6">                        
                             <div class="col-group">
-                                <div class="col-16">
+                                <div class="col-24">
                                     <div class="avatar avatar--md" style="opacity: 1; max-width:60px;max-height:60px">
                                         <img  class="gravatar" src="{{ profile_picture( item.user.email) }}" alt="{{ item.user.fullname }}" /> 
                                     </div>
                                 </div>
-                                <div class="col-16">
+                                <div class="col-24">
                                     <strong>{{ item.user.fullname }}</strong>
                                 </div>
-                                <div class="col-16">
+                                <div class="col-24">
                                     <span class="text-small">{{ format_x_days(item.created_at) }}</span>
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
-
                 </div>            
             {% endfor %}
         </div>
