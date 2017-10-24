@@ -65,27 +65,36 @@ trait LogRecorder
     protected $dirtyData = [];
 
     /**
+     * @var array|null
+     */
+    protected $resolvedRelatedData;
+
+    /**
      * Init auditing.
      */
     public static function bootLogRecorder()
     {
         static::saving(function ($model) {
+            /* @var $model LogRecorder */
             $model->prepareAudit();
         });
 
         static::created(function ($model) {
+            /* @var $model LogRecorder */
             if ($model->isTypeAuditable('created')) {
                 $model->auditCreation();
             }
         });
 
         static::saved(function ($model) {
+            /* @var $model LogRecorder */
             if ($model->isTypeAuditable('saved')) {
                 $model->auditUpdate();
             }
         });
 
         static::deleted(function ($model) {
+            /* @var $model LogRecorder */
             if ($model->isTypeAuditable('deleted')) {
                 $model->prepareAudit();
                 $model->auditDeletion();
@@ -115,7 +124,7 @@ trait LogRecorder
     public static function classLogHistory($limit = 100, $order = 'desc')
     {
         try {
-            return Logs::where('owner_type', get_called_class())->orderBy('updated_at', $order)->limit($limit)->get();
+            return Logs::query()->where('owner_type', get_called_class())->orderBy('updated_at', $order)->limit($limit)->get();
         } catch (Exception $ex) {
             
         }
@@ -179,7 +188,8 @@ trait LogRecorder
                 'author_id'    => auth()->guest() ? null : auth()->user()->id,
                 'new_value'    => $this->getAttributes(),
                 'related_data' => $this->getRelatedData(),
-                'type'         => 'created',], $this->values());
+                'type'         => 'created',
+            ], $this->values());
 
             return $this->audit($insert);
         }
@@ -192,7 +202,11 @@ trait LogRecorder
      */
     protected function getRelatedData()
     {
-        return app(RelationResolver::class)->getRelationData($this);
+        if( ! $this->resolvedRelatedData) {
+            $this->resolvedRelatedData = app(RelationResolver::class)->getRelationData($this);
+        }
+
+        return $this->resolvedRelatedData;
     }
 
     /**
@@ -270,7 +284,7 @@ trait LogRecorder
     protected function getPriorityId()
     {
         $name     = !$this->priority ? 'medium' : $this->priority;
-        $priority = LogPriorities::where('name', $name)->first();
+        $priority = LogPriorities::query()->where('name', $name)->first();
         if (is_null($priority)) {
             throw new Exception(sprintf("Unable to find log priority %s.", $name));
         }
@@ -321,7 +335,7 @@ trait LogRecorder
             }
 
             $module     = $this->getLoggerModuleNameForType();
-            $type       = LogTypes::where('name', $module)->first();
+            $type       = LogTypes::query()->where('name', $module)->first();
             
             if (is_null($type)) {
                 $type = new LogTypes(['name' => $module]);
@@ -380,7 +394,7 @@ trait LogRecorder
             $values   = $this->values();
             $authorId = array_get($log, 'author_id');
             if (is_null($authorId) && isset($values['owner_type'])) {
-                $created = Logs::withoutGlobalScopes()->where([
+                $created = Logs::query()->withoutGlobalScopes()->where([
                             'owner_type' => $values['owner_type'],
                             'type'       => 'created',
                             'owner_id'   => $values['owner_id']
@@ -415,7 +429,7 @@ trait LogRecorder
     /**
      * Get user id.
      *
-     * @return null
+     * @return int|null
      */
     protected function getUserId()
     {
@@ -425,10 +439,9 @@ trait LogRecorder
             }
         } catch (Exception $e) {
             Log::emergency($e);
-            return;
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -502,11 +515,7 @@ trait LogRecorder
         $auditableTypes = isset($this->auditableTypes) ? $this->auditableTypes : ['created', 'saved', 'deleted'];
 
         // Checks if the type is in the collection of type-auditable
-        if (in_array($key, $auditableTypes)) {
-            return true;
-        }
-
-        return;
+       return in_array($key, $auditableTypes, true);
     }
 
 }

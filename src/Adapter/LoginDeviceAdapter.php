@@ -22,7 +22,10 @@
 
 namespace Antares\Logger\Adapter;
 
+use Antares\Logger\Events\NewDeviceDetected;
 use Antares\Logger\Model\LogsLoginDevices;
+use Antares\Model\User;
+use Carbon\Carbon;
 use Illuminate\Events\Dispatcher;
 use Exception;
 
@@ -80,8 +83,13 @@ class LoginDeviceAdapter
         }
         if (isset($model) and ! is_null($model) and ( $model->ip_address != $params['ip_address'] or $model->browser != $params['browser'])) {
             $this->saveNewDevice($params);
-            $user = user();
-            $this->dispatcher->fire('new-device-detect-notification', ['variables' => ['user' => $user, 'params' => $params, 'date' => date('Y-m-d', time()), 'time' => date("H:i", time())], 'recipients' => [$user]]);
+
+            /* @var $user User */
+            $user       = user();
+            $dateTime   = Carbon::now();
+
+            $this->dispatcher->dispatch(new NewDeviceDetected($user, $dateTime, $params));
+            //$this->dispatcher->fire('new-device-detect-notification', ['variables' => ['user' => $user, 'params' => $params, 'date' => date('Y-m-d', time()), 'time' => date("H:i", time())], 'recipients' => [$user]]);
         }
     }
 

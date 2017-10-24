@@ -23,6 +23,7 @@
 namespace Antares\Logger\Repository;
 
 use Antares\Foundation\Repository\AbstractRepository;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use Antares\Logger\Model\Logs;
@@ -80,19 +81,37 @@ class Repository extends AbstractRepository
      */
     public function findByUser($userId = null)
     {
-        $builder = $this->model->select(['tbl_logs.id', 'tbl_logs.priority_id', 'tbl_logs.type_id', 'tbl_logs.brand_id', 'tbl_logs.user_id', 'tbl_logs.owner_type', 'tbl_logs.owner_id', 'tbl_logs.old_value', 'tbl_logs.new_value', 'tbl_logs.related_data', 'tbl_logs.type', 'tbl_logs.name', 'tbl_logs.created_at'])
-                ->with('component', 'priority', 'brand')
-                ->whereHas('user', function($q) use($userId) {
-                    if (!is_null($userId)) {
-                        $q->where('user_id', $userId);
-                    }
-                })->whereHas('component', function($q) {
-                    $q->where('active', 1);
-                })
-                ->where('brand_id', brand_id())
-                ->orderBy('created_at', 'desc');
-        $builder->withoutGlobalScopes();
-        return $builder;
+        /* @var $query Builder */
+        $query = $this->model;
+
+        $columns = ['tbl_logs.id',
+            'tbl_logs.priority_id',
+            'tbl_logs.type_id',
+            'tbl_logs.brand_id',
+            'tbl_logs.user_id',
+            'tbl_logs.owner_type',
+            'tbl_logs.owner_id',
+            'tbl_logs.old_value',
+            'tbl_logs.new_value',
+            'tbl_logs.related_data',
+            'tbl_logs.type',
+            'tbl_logs.name',
+            'tbl_logs.created_at',
+        ];
+
+        return $query->select($columns)
+            ->with('component', 'priority', 'brand')
+            ->whereHas('user', function(Builder $q) use($userId) {
+                if ($userId) {
+                    $q->where('user_id', $userId);
+                }
+            })
+            ->whereHas('component', function(Builder $q) {
+                $q->where('active', 1);
+            })
+            ->where('brand_id', brand_id())
+            ->orderBy('created_at', 'desc')
+            ->withoutGlobalScopes();
     }
 
     /**
@@ -108,11 +127,11 @@ class Repository extends AbstractRepository
         try {
             $from = $from . ' 00:00:00';
             $to   = $to . ' 23:59:59';
-            $logs = Logs::whereBetween('created_at', [$from, $to]);
-            $logs->delete();
-        } catch (Exception $ex) {
+
+            Logs::query()->whereBetween('created_at', [$from, $to])->delete();
+        } catch (\Exception $ex) {
             Log::alert($ex);
-            DB::rollback();
+            DB::rollBack();
             return false;
         }
         DB::commit();
