@@ -38,7 +38,7 @@ class ActivityLogsWidget extends AbstractTemplate
         'default_height' => 16,
         'enlargeable'    => false,
         'titlable'       => true,
-        'card_class'     => 'card--logs card--scrollbox',
+        'card_class'     => 'card--pagination card--logs',
     ];
 
     /**

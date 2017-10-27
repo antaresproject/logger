@@ -14,33 +14,39 @@
             </div>              
         </div>
         {% if filters_enabled %}
-        {{ filters|raw }}
+            {{ filters|raw }}
         {% endif %}
     </div>
-    {% if logs is not empty %} 
-        <ul class="timeline" data-scrollable>           
-            {% for log in logs %}
-                <li class="timeline__entry--ok"  >
-                    <div class="timeline__indicator" data-color="{{ component_color(log.component.name)|raw }}" data-tooltip-inline="{{ log.component.name|str_humanize }}"></div>
-                    <div class="timeline__padding">
-                        {{ log.translated()|raw }}
-                        <span> {{ format_x_days(log.created_at) }} </span>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-        {{ pagination|raw }}
-    {% else %}
-        <div class="zd zd--lg" style="max-width: initial;width: 100%;display: flex;flex-flow: column wrap;align-items: center;">
-            <div class="zd__header">
-                <i class="zmdi zmdi-block zmdi-hc-stack-2x mdc-text-red"></i>
+    <div class="datarow">
+
+        {% if logs is not empty %} 
+            <div class="dataTablesLogs">
+                <ul class="timeline" data-scrollable>           
+                    {% for log in logs %}
+                        <li class="timeline__entry--ok"  >
+                            <div class="timeline__indicator" data-color="{{ component_color(log.component.name)|raw }}" data-tooltip-inline="{{ log.component.name|str_humanize }}"></div>
+                            <div class="timeline__padding">
+                                {{ log.translated()|raw }}
+                                <span> {{ format_x_days(log.created_at) }} </span>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {{ pagination|raw }}
             </div>
-            <div class="zd__content">
-                <div class="zd__title">{{ trans('antares/logger::messages.no_data_available')|raw }}</div>
-                <div class="zd__description">
-                    {{ trans('antares/logger::messages.no_data_available_description')|raw }}                    
+        {% else %}
+            <div class="zd zd--lg" style="max-width: initial;width: 100%;display: flex;flex-flow: column wrap;align-items: center;">
+                <div class="zd__header">
+                    <i class="zmdi zmdi-block zmdi-hc-stack-2x mdc-text-red"></i>
                 </div>
-            </div>
-        </div>  
-    {% endif %} 
+                <div class="zd__content">
+                    <div class="zd__title">{{ trans('antares/logger::messages.no_data_available')|raw }}</div>
+                    <div class="zd__description">
+                        {{ trans('antares/logger::messages.no_data_available_description')|raw }}                    
+                    </div>
+                </div>
+            </div>  
+        {% endif %} 
+
+    </div>
 {% endblock %}

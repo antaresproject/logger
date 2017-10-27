@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Http\Filter;
 
 use Yajra\Datatables\Contracts\DataTableScopeContract;
@@ -79,7 +77,7 @@ class ActivityTypeFilter extends SelectFilter implements DataTableScopeContract
         }
 
         return $builder->whereHas('component', function($query) use($values) {
-                    $query->whereIn('id', $values);
+                    $query->whereIn('id', (array) $values);
                 });
     }
 
