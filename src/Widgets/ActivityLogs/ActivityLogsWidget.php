@@ -30,15 +30,15 @@ class ActivityLogsWidget extends AbstractTemplate
      * @var array
      */
     protected $attributes = [
-        'min_width'      => 6,
-        'min_height'     => 6,
-        'max_width'      => 12,
+        'min_width'      => 1,
+        'min_height'     => 1,
+        'max_width'      => 52,
         'max_height'     => 52,
         'default_width'  => 7,
         'default_height' => 16,
         'enlargeable'    => false,
         'titlable'       => true,
-        'card_class'     => 'card--logs card--scrollbox',
+        'card_class'     => 'card--pagination card--logs',
     ];
 
     /**
@@ -50,13 +50,11 @@ class ActivityLogsWidget extends AbstractTemplate
 
     /**
      * ActivityLogsWidget constructor.
-     * @param ParamsProcessor $paramsProcessor
      */
-    public function __construct(ParamsProcessor $paramsProcessor)
+    public function __construct()
     {
         parent::__construct();
-
-        $this->paramsProcessor = $paramsProcessor;
+        $this->paramsProcessor = app(ParamsProcessor::class);
     }
 
     /**

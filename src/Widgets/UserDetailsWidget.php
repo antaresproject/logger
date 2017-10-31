@@ -54,6 +54,15 @@ class UserDetailsWidget extends AbstractTemplate
         'max_height'     => 52,
         'default_width'  => 5,
         'default_height' => 20,
+        'desktop'        => [
+            0, 0, 5, 20
+        ],
+        'tablet'         => [
+            0, 0, 8, 20
+        ],
+        'mobile'         => [
+            0, 0, 9, 20
+        ]
     ];
 
     /**
