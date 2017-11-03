@@ -6,29 +6,32 @@ use Antares\Logger\Model\Location;
 use Antares\Notifications\Contracts\ModelVariablesResoluble;
 use Antares\Notifications\Services\ModuleVariables;
 use Faker\Factory as Faker;
-use CLosure;
+use Closure;
 
-class DeviceDetectedVariablesProvider implements ModelVariablesResoluble {
+class DeviceDetectedVariablesProvider implements ModelVariablesResoluble
+{
 
     /**
      * Applies the variables to the module container.
      *
      * @param ModuleVariables $moduleVariables
      */
-    public function applyVariables(ModuleVariables $moduleVariables) : void {
+    public function applyVariables(ModuleVariables $moduleVariables): void
+    {
         $moduleVariables
-            ->modelDefinition('location', Location::class, self::default())
-            ->setAttributes([
-                'city'          => 'City',
-                'country'       => 'Country',
-                'ipAddress'     => 'IP Address',
-            ]);
+                ->modelDefinition('location', Location::class, self::fake())
+                ->setAttributes([
+                    'city'      => 'City',
+                    'country'   => 'Country',
+                    'ipAddress' => 'IP Address',
+        ]);
     }
 
     /**
      * @return Closure
      */
-    public static function default() : Closure {
+    public static function fake(): Closure
+    {
         return function() {
             $faker = Faker::create();
 

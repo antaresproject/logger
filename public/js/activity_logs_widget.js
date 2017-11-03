@@ -4,7 +4,7 @@ $(document).ready(function () {
         overlay = handler.closest('.grid-stack-item-content');
 
         if (e.which === 13) {
-            overlay.LoadingOverlay('show');
+            //overlay.LoadingOverlay('show');
             $.ajax({
                 url: handler.closest('form').attr('action'),
                 method: 'POST',
@@ -29,7 +29,7 @@ $(document).ready(function () {
                             content.html(response);
                         }
                     }
-                    overlay.LoadingOverlay('hide');
+                    //overlay.LoadingOverlay('hide');
                 },
             });
             return false;
@@ -43,7 +43,7 @@ $(document).ready(function () {
                 url = handler.data('url'),
                 overlay = handler.closest('.grid-stack-item-content');
 
-        overlay.LoadingOverlay('show');
+        //overlay.LoadingOverlay('show');
 
         $.ajax({
             url: url,
@@ -62,7 +62,7 @@ $(document).ready(function () {
                 if (container.length > 0) {
                     container.html($(response).html());
                 }
-                overlay.LoadingOverlay('hide');
+                //overlay.LoadingOverlay('hide');
             },
         });
         return false;
@@ -70,7 +70,7 @@ $(document).ready(function () {
     ready('.pagination-ajax', function (element) {
         $(element).click(function (e) {
             var handler = $(this), grid = handler.closest('.grid-stack-item-content'), content = grid.find('.card__content');
-            content.LoadingOverlay('show');
+            //content.LoadingOverlay('show');
             $.ajax({
                 url: handler.attr('href'),
                 success: function (response) {
@@ -93,10 +93,10 @@ $(document).ready(function () {
                     } else {
                         content.html(html);
                     }
-                    content.LoadingOverlay('hide');
+                    //content.LoadingOverlay('hide');
                 },
                 error: function (error) {
-                    content.LoadingOverlay('hide');
+                    //content.LoadingOverlay('hide');
                 }
             })
             return false;

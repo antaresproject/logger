@@ -55,10 +55,10 @@ class UsersOnline extends AbstractTemplate
      */
     protected $attributes = [
         'min_width'      => 3,
-        'min_height'     => 11,
+        'min_height'     => 4,
         'max_width'      => 12,
         'max_height'     => 52,
-        'default_width'  => 3,
+        'default_width'  => 8,
         'default_height' => 11
     ];
 
