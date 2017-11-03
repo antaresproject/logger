@@ -21,7 +21,6 @@
 namespace Antares\Logger\Widgets;
 
 use Antares\Logger\Model\Logs;
-use Antares\Model\User;
 use Antares\UI\UIComponents\Adapter\AbstractTemplate;
 use DB;
 
