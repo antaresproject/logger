@@ -21,7 +21,7 @@
 
         {% if logs is not empty %} 
             <div class="dataTablesLogs">
-                <ul class="timeline" data-scrollable>           
+                <ul class="timeline">           
                     {% for log in logs %}
                         <li class="timeline__entry--ok"  >
                             <div class="timeline__indicator" data-color="{{ component_color(log.component.name)|raw }}" data-tooltip-inline="{{ log.component.name|str_humanize }}"></div>
