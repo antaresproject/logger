@@ -75,6 +75,7 @@ class ActivityLogsWidget extends AbstractTemplate
      */
     public function render()
     {
+        $params = $this->paramsProcessor->get();
         publish('logger', ['js/logs.js']);
         publish('logger', ['css/zero_data.css']);
 
