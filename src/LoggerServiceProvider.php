@@ -68,10 +68,6 @@ class LoggerServiceProvider extends ModuleServiceProvider
      */
     protected $listen = [
         'logger.custom' => CustomLog::class,
-
-        NewDeviceDetected::class => [
-            SendMailAboutNewDeviceDetected::class,
-        ],
     ];
 
     /**

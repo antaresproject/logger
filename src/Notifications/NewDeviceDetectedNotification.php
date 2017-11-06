@@ -54,7 +54,7 @@ class NewDeviceDetectedNotification extends AbstractNotification implements Noti
      * @return Template
      */
     protected static function mailMessage() {
-        $subject    = 'Login to Antares from new device detected';
+        $subject    = 'Login to [[ foundation::site.name ]] from new device detected';
         $view       = 'antares/logger::notification.new_device_notification';
 
         return (new Template(['mail'], $subject, $view))->setSeverity('high')->setRecipients(['auth_user']);
@@ -73,6 +73,7 @@ class NewDeviceDetectedNotification extends AbstractNotification implements Noti
             'date'      => $this->newDeviceDetected->dateTime->format('Y-m-d'),
             'time'      => $this->newDeviceDetected->dateTime->format('H:i'),
             'params'    => $this->newDeviceDetected->params,
+            'location'  => $this->newDeviceDetected->getLocation()->toArray(),
         ];
 
         return (new MailMessage())

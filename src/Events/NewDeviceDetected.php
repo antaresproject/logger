@@ -20,8 +20,10 @@
 
 namespace Antares\Logger\Events;
 
+use Antares\Logger\Model\Location;
 use Antares\Model\User;
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 
 class NewDeviceDetected
 {
@@ -59,4 +61,14 @@ class NewDeviceDetected
         $this->params   = $params;
     }
 
+    /**
+     * @return Location
+     */
+    public function getLocation() : Location {
+        $ipAddress  = Arr::get($this->params, 'ip_address', '');
+        $country    = Arr::get($this->params, 'location.country', '');
+        $city       = Arr::get($this->params, 'location.city', '');
+
+        return new Location($ipAddress, $country, $city);
+    }
 }
