@@ -59,7 +59,7 @@ class ErrorLogDetailsDatatableWidget extends Datatables
      */
     public static function routes()
     {
-        Route::post('error-log-details-list/{date}', 'Antares\Logger\Widgets\Http\Controllers\ErrorLogDetailsController@ajax');
+        //Route::post('error-log-details-list/{date}', 'Antares\Logger\Widgets\Http\Controllers\ErrorLogDetailsController@ajax');
     }
 
     /**
