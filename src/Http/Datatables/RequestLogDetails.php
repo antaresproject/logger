@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Http\Datatables;
 
 use Antares\Logger\Entities\RequestLogEntryCollection;
@@ -117,7 +115,11 @@ class RequestLogDetails extends DataTable
                         ->addColumn(['data' => 'datetime', 'name' => 'datetime', 'title' => trans('Date')])
                         ->addColumn(['data' => 'content', 'name' => 'content', 'title' => trans('Content')])
                         ->setDeferedData($this->ajax(), $this->query()->count())
-                        ->parameters(['iDisplayLength' => $this->perPage]);
+                        ->parameters([
+                            'iDisplayLength' => $this->perPage,
+                            'aoColumnDefs'   => [
+                                ['width' => '5%', 'targets' => 0],
+        ]]);
     }
 
 }

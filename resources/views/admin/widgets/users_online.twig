@@ -1,4 +1,4 @@
-<div data-widget-name="card--info" class="card card--info">
+<div data-widget-name="card--info" class="card card--info" data-preload>
     <div class="card__header">
         <div class="card__header-left">
             <span>Users online</span>
@@ -6,31 +6,47 @@
     </div>
     <div class="card__content card__content--flex-column" data-scrollable>
         <div class="col-group">
-            {%for subitems in items|batch(4) %}                    
-                <div class="col-16">
-
-                    <div class="{{ (loop.index0==0) ? 'separator-medium':'separator-small' }}"></div>                
-                    {%for item in subitems %}
-
-                        <div class="col-4">                        
-                            <div class="col-group" style="{{ item.user.hasRoles('member') ? '' : 'color:#2196f3' }}">
-                                <div class="col-16">
-                                    <div class="avatar avatar--md" style="opacity: 1; max-width:60px;max-height:60px">
-                                        <img  class="gravatar" src="{{ profile_picture( item.user.email) }}" alt="{{ item.user.fullname }}" /> 
+            {% if subitems|length>0 %}
+                {%for subitems in items|batch(4) %}                    
+                    <div class="col-16">
+                        <div class="{{ (loop.index0==0) ? 'separator-medium':'separator-small' }}"></div>                
+                        {%for item in subitems %}
+                            <div class="col-4">                        
+                                <div class="col-group" style="{{ item.user.hasRoles('member') ? '' : 'color:#2196f3' }}">
+                                    <div class="col-16">
+                                        <div class="avatar avatar--md" style="opacity: 1; max-width:60px;max-height:60px">
+                                            <img  class="gravatar" src="{{ profile_picture( item.user.email) }}" alt="{{ item.user.fullname }}" /> 
+                                        </div>
+                                    </div>
+                                    <div class="col-16">
+                                        <strong>{{ item.user.fullname }}</strong>
+                                    </div>
+                                    <div class="col-16">
+                                        <span class="text-small">{{ format_x_days(item.created_at) }}</span>
                                     </div>
                                 </div>
-                                <div class="col-16">
-                                    <strong>{{ item.user.fullname }}</strong>
-                                </div>
-                                <div class="col-16">
-                                    <span class="text-small">{{ format_x_days(item.created_at) }}</span>
-                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>            
+                {% endfor %}
+            {% else %}
+                <div class="zd-container">
+                    <div class="zd zd--lg">
+                        <div class="zd__header">
+                            <i class="zmdi zmdi-block"></i>
+                        </div>
+                        <div class="zd__content">
+                            <div class="zd__title">{{ trans('antares/logger::messages.no_data_available')|raw }}
+                            </div>
+                            <div class="zd__description">
+                                {{ trans('antares/logger::messages.no_data_available_description')|raw }}                    
                             </div>
                         </div>
-                    {% endfor %}
+                    </div>
 
-                </div>            
-            {% endfor %}
+                </div>
+            {% endif %}
+
         </div>
 
     </div>

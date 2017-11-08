@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Processor;
 
 use Antares\Logger\Http\Breadcrumb\Breadcrumb;
@@ -100,8 +98,8 @@ class DeviceProcessor extends Processor
      */
     public function edit($id)
     {
-        $this->breadcrumb->onEditDevice($id);
         $model = app(LogsLoginDevices::class)->findOrFail($id);
+        $this->breadcrumb->onEditDevice($model);
         $form  = new DeviceForm($model);
         return view('antares/logger::admin.devices.edit', compact('form'));
     }
