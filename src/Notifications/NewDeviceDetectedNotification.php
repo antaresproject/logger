@@ -21,14 +21,13 @@
 namespace Antares\Logger\Notifications;
 
 use Antares\Logger\Events\NewDeviceDetected;
-use Antares\Notifications\Channels\MailChannel;
+use Antares\Notifications\AbstractNotification;
 use Antares\Notifications\Collections\TemplatesCollection;
 use Antares\Notifications\Messages\MailMessage;
 use Antares\Notifications\Model\Template;
-use Illuminate\Notifications\Notification;
 use Antares\Notifications\Contracts\NotificationEditable;
 
-class NewDeviceDetectedNotification extends Notification implements NotificationEditable
+class NewDeviceDetectedNotification extends AbstractNotification implements NotificationEditable
 {
 
     /**
@@ -48,7 +47,7 @@ class NewDeviceDetectedNotification extends Notification implements Notification
      * @return TemplatesCollection
      */
     public static function templates(): TemplatesCollection {
-        return TemplatesCollection::make()->define('mail', self::mailMessage());
+        return TemplatesCollection::make('New Device Detected', NewDeviceDetected::class)->define('mail', self::mailMessage());
     }
 
     /**
@@ -58,18 +57,7 @@ class NewDeviceDetectedNotification extends Notification implements Notification
         $subject    = 'Login to Antares from new device detected';
         $view       = 'antares/logger::notification.new_device_notification';
 
-        return (new Template(['mail'], $subject, $view))->setSeverity('high');
-    }
-
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function via($notifiable)
-    {
-        return [MailChannel::class];
+        return (new Template(['mail'], $subject, $view))->setSeverity('high')->setRecipients(['auth_user']);
     }
 
     /**

@@ -58,24 +58,24 @@ class LogsRepository
     protected function query()
     {
         $query = Logs::query()->withoutGlobalScopes()
-            ->select(['tbl_logs.*'])
-            ->leftJoin('tbl_log_types', 'tbl_logs.type_id', 'tbl_log_types.id')
-            ->leftJoin('tbl_logs_translations', 'tbl_logs.id', 'tbl_logs_translations.log_id')
-            ->leftJoin('tbl_users', function(JoinClause $join) {
-                $join
-                ->on('tbl_logs.user_id', '=', 'tbl_users.id')
-                ->orWhere('tbl_logs.author_id', 'tbl_users.id');
-            })
-            ->where([
-                'tbl_logs_translations.lang_id' => lang_id(),
-                'tbl_logs.brand_id'             => brand_id(),
-                'tbl_log_types.active'          => 1
-            ])
-            ->orderBy('tbl_logs.created_at', 'desc');
+                ->select(['tbl_logs.*'])
+                ->leftJoin('tbl_log_types', 'tbl_logs.type_id', 'tbl_log_types.id')
+                ->leftJoin('tbl_logs_translations', 'tbl_logs.id', 'tbl_logs_translations.log_id')
+                ->leftJoin('tbl_users', function(JoinClause $join) {
+                    $join
+                    ->on('tbl_logs.user_id', '=', 'tbl_users.id')
+                    ->orWhere('tbl_logs.author_id', 'tbl_users.id');
+                })
+                ->where([
+                    'tbl_logs_translations.lang_id' => lang_id(),
+                    'tbl_logs.brand_id'             => brand_id(),
+                    'tbl_log_types.active'          => 1
+                ])
+                ->orderBy('tbl_logs.created_at', 'desc');
 
-        if(count($this->owners)) {
+        if (count($this->owners)) {
             $query->where(function(Builder $q) {
-                foreach($this->owners as $type => $ids) {
+                foreach ($this->owners as $type => $ids) {
                     $q->orWhere(function(Builder $q) use($type, $ids) {
                         $q->where('owner_type', $type)->whereIn('owner_id', $ids);
                     });
@@ -147,23 +147,25 @@ class LogsRepository
     protected function scopeFilter($query)
     {
 
-        $key    = uri() . '.' . ActivityTypeFilter::class;
-        $values = request()->session()->get($key);
+        $key     = uri() . '.' . ActivityTypeFilter::class;
+        $values  = request()->session()->get($key);
         $typeIds = [];
-
-        if(is_array($values) && array_get($values, 'column') === 'type') {
+        if (!isset($values['value'])) {
+            return [];
+        }
+        if (is_array($values) && array_get($values, 'column') === 'type') {
             $typeIds = array_values($values['value']);
         }
 
-        if($this->type) {
+        if ($this->type) {
             $type = LogTypes::query()->where('active', 1)->where('name', $this->type)->first();
 
-            if($type) {
+            if ($type) {
                 $typeIds[] = $type->id;
             }
         }
 
-        if ( count($typeIds) ) {
+        if (count($typeIds)) {
             $query->whereIn('tbl_logs.type_id', $typeIds);
         }
     }
@@ -215,7 +217,8 @@ class LogsRepository
      * @param string $type
      * @return $this
      */
-    public function setType(string $type) {
+    public function setType(string $type)
+    {
         $this->type = $type;
 
         return $this;
@@ -225,7 +228,8 @@ class LogsRepository
      * @param array $owners
      * @return $this
      */
-    public function setOwners(array $owners) {
+    public function setOwners(array $owners)
+    {
         $this->owners = $owners;
 
         return $this;

@@ -21,7 +21,6 @@
 namespace Antares\Logger\Widgets;
 
 use Antares\Logger\Model\Logs;
-use Antares\Model\User;
 use Antares\UI\UIComponents\Adapter\AbstractTemplate;
 use DB;
 
@@ -70,12 +69,11 @@ class UsersOnline extends AbstractTemplate
      */
     public function render()
     {
-        $query = Logs::query()->select( DB::raw('user_id, MAX(created_at) as created_at') )
+        $query = Logs::query()->select(DB::raw('user_id, MAX(created_at) as created_at'))
                 ->groupBy('user_id')
                 ->whereNotNull('user_id')
                 ->with('user');
-
-        if( auth()->check() ) {
+        if (auth()->check()) {
             $query->where('user_id', '<>', auth()->user()->id);
         }
 

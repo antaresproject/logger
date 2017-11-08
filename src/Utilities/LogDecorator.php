@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Utilities;
 
 use Antares\Support\Facades\HTML;
@@ -107,6 +105,8 @@ class LogDecorator
         if (strlen($return)) {
             return $return;
         }
+
+
         list($operation, $params) = $this->getOperationWithParams();
         return $this->translate($operation, $params);
     }
@@ -155,7 +155,8 @@ class LogDecorator
 
         $locale     = is_null($this->locale) ? app()->getLocale() : $this->locale;
         $translator = app('translator');
-        if (($name       = $this->notificationContents->find($operation, $locale)) !== false) {
+        $name       = $this->notificationContents->find($operation, $locale);
+        if ($name) {
             return $translator->transWith($name, $params);
         }
         return $translator->trans("antares/logger::operations.{$operation}", $params, 'messages', $locale, false);

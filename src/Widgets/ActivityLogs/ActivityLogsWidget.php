@@ -30,15 +30,16 @@ class ActivityLogsWidget extends AbstractTemplate
      * @var array
      */
     protected $attributes = [
-        'min_width'      => 1,
-        'min_height'     => 1,
-        'max_width'      => 52,
-        'max_height'     => 52,
-        'default_width'  => 7,
-        'default_height' => 16,
-        'enlargeable'    => false,
-        'titlable'       => true,
-        'card_class'     => 'card--pagination card--logs',
+        'min_width'          => 1,
+        'min_height'         => 1,
+        'max_width'          => 52,
+        'max_height'         => 52,
+        'default_width'      => 7,
+        'default_height'     => 16,
+        'enlargeable'        => false,
+        'titlable'           => true,
+        'card_class'         => 'card--pagination card--logs',
+        'card_content_class' => 'datarow flex ff-cnw jc-flex-start'
     ];
 
     /**
@@ -74,6 +75,7 @@ class ActivityLogsWidget extends AbstractTemplate
      */
     public function render()
     {
+        $params = $this->paramsProcessor->get();
         publish('logger', ['js/logs.js']);
         publish('logger', ['css/zero_data.css']);
 

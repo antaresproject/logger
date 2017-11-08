@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Http\Datatables;
 
 use Antares\Logger\Model\LogsLoginDevices;
@@ -142,7 +140,14 @@ class Devices extends DataTable
                         ->addColumn(['data' => 'updated_at', 'name' => 'updated_at', 'title' => trans('antares/logger::datagrid.devices.header.last_activity')])
                         ->addColumn(['data' => 'ip_address', 'name' => 'ip_address', 'title' => trans('antares/logger::datagrid.devices.header.last_ip')])
                         ->addAction(['name' => 'edit', 'title' => '', 'class' => 'mass-actions dt-actions'])
-                        ->setDeferedData();
+                        ->setDeferedData()->parameters([
+                    'aoColumnDefs' => [
+                        ['width' => '5%', 'targets' => 0],
+                        ['width' => '10%', 'targets' => 4],
+                        ['width' => '10%', 'targets' => 5],
+                        ['width' => '2%', 'targets' => 6],
+                    ]
+        ]);
     }
 
     /**

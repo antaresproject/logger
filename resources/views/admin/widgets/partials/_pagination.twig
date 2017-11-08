@@ -1,43 +1,8 @@
-{#<div class="pagination">
-    <div class="pagination-list simple-pagination--list antares-pagination simple-pagination">
-        <ul>
-            <li class="disabled"><span class="current mdl-js-button mdl-js-ripple-effect prev" data-upgraded=",MaterialButton,MaterialRipple"><i class="zmdi zmdi-long-arrow-left"></i><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span>
-                </span>
-            </li>
-            <li class="active"><span class="current  mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">1<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span>
-                </span>
-            </li>
-            <li><a class="page-link mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">2<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a>
-            </li>
-            <li><a class="page-link mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">3<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a>
-            </li>
-            <li><a class="page-link mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">4<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a>
-            </li>
-            <li><a class="page-link mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">5<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a>
-            </li>
-            <li><a class="page-link mdl-js-button mdl-js-ripple-effect next" data-upgraded=",MaterialButton,MaterialRipple"><i class="zmdi zmdi-long-arrow-right"></i><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a>
-            </li>
-        </ul>
-    </div>
-    <div class="pagination-current simple-pagination--current antares-pagination">
-        <ul>
-            <li><a class="current10 mdl-js-button mdl-js-ripple-effect active" data-upgraded=",MaterialButton,MaterialRipple">10<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a>
-            </li>
-            <li><a class="current25 mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">25<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a>
-            </li>
-            <li><a class="current50 mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">50<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a>
-            </li>
-            <li><a class="current100 mdl-js-button mdl-js-ripple-effect" data-upgraded=",MaterialButton,MaterialRipple">100<span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span></a>
-            </li>
-        </ul>
-    </div>
-</div>#}
-
 <div class="pagination">
     <div class="pagination-list simple-pagination--list antares-pagination simple-pagination">
         <ul>
             <li class="disabled">
-                <a href="{{ (paginator.onFirstPage()) ? '#' : paginator.previousPageUrl() }}" class="mdl-js-button mdl-js-ripple-effect" rel="prev">                
+                <a href="{{ (paginator.onFirstPage()) ? '#' : paginator.previousPageUrl() }}" class="mdl-js-button mdl-js-ripple-effect  ajaxable pagination-ajax" rel="prev">                
                     <span class="current mdl-js-button mdl-js-ripple-effect prev" >
                         <i class="zmdi zmdi-long-arrow-left"></i>
                         <span class="mdl-button__ripple-container">
@@ -80,8 +45,11 @@
                 {% endif %}                    
             {% endfor %}  
             <li>
-                <a href="{{ (paginator.onFirstPage()) ? '#' : paginator.previousPageUrl() }}" class="page-link mdl-js-button mdl-js-ripple-effect next" rel="prev">                
-                    <i class="zmdi zmdi-long-arrow-right"></i><span class="mdl-button__ripple-container"><span class="mdl-ripple"></span></span>
+                <a href="{{ (paginator.onFirstPage()) ? '#' : paginator.previousPageUrl() }}" class="page-link mdl-js-button mdl-js-ripple-effect next  ajaxable pagination-ajax" rel="prev">                
+                    <i class="zmdi zmdi-long-arrow-right"></i>
+                    <span class="mdl-button__ripple-container">
+                        <span class="mdl-ripple"></span>                        
+                    </span>
                 </a>
             </li>
         </ul>                    

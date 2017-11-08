@@ -42,15 +42,15 @@ class Breadcrumb
     /**
      * shows breadcrumbs on device edit;
      * 
-     * @param mixed $id
+     * @param Model $model
      * @return void
      */
-    public function onEditDevice($id)
+    public function onEditDevice($model)
     {
         $this->onDevicesList();
-        Breadcrumbs::register('device-edit', function($breadcrumbs) use($id) {
+        Breadcrumbs::register('device-edit', function($breadcrumbs) use($model) {
             $breadcrumbs->parent('devices-list');
-            $breadcrumbs->push('Device edit #' . $id, handles('antares::logger/devices/' . $id . '/edit'));
+            $breadcrumbs->push('Edit #' . $model->id . ', ' . $model->machine, handles('antares::logger/devices/' . $model->id . '/edit'));
         });
         view()->share('breadcrumbs', Breadcrumbs::render('device-edit'));
     }
