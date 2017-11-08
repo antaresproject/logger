@@ -37,7 +37,7 @@ class RouteServiceProvider extends ServiceProvider
     public function routeAttributes()
     {
         return array_merge(['prefix' => 'admin', 'middleware' => null,], [
-            'namespace' => 'Antares\\Logger\\Http\\Admin\\Controllers',
+            'namespace' => 'Antares\\Logger\\Http\\Controllers\\Admin',
         ]);
     }
 

@@ -18,6 +18,8 @@
  * @link       http://antaresproject.io
  */
 
+
+
 namespace Antares\Logger;
 
 use Antares\Foundation\Support\Providers\ModuleServiceProvider;
@@ -66,9 +68,6 @@ class LoggerServiceProvider extends ModuleServiceProvider
      */
     protected $listen = [
         'logger.custom' => CustomLog::class,
-        NewDeviceDetected::class => [
-            SendMailAboutNewDeviceDetected::class,
-        ],
     ];
 
     /**
@@ -114,8 +113,7 @@ class LoggerServiceProvider extends ModuleServiceProvider
         $this->app['antares.logger.installed'] = true;
     }
 
-    public function boot()
-    {
+    public function boot() {
         parent::boot();
 
         $this->extendNotificationVariables();
@@ -206,7 +204,7 @@ class LoggerServiceProvider extends ModuleServiceProvider
             return auth()->user();
         });
 
-//        $eventRegistrarClass->register( (new NotifiableEvent(NewDeviceDetected::class, 'When new device is detected'))->addRecipient($user) );
+        $eventRegistrarClass->register( (new NotifiableEvent(NewDeviceDetected::class, 'When new device is detected'))->addRecipient($user) );
     }
 
 }
