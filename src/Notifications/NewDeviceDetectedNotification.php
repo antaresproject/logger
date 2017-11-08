@@ -72,8 +72,7 @@ class NewDeviceDetectedNotification extends AbstractNotification implements Noti
             'user'      => $this->newDeviceDetected->user,
             'date'      => $this->newDeviceDetected->dateTime->format('Y-m-d'),
             'time'      => $this->newDeviceDetected->dateTime->format('H:i'),
-            'params'    => $this->newDeviceDetected->params,
-            'location'  => $this->newDeviceDetected->getLocation()->toArray(),
+            'location'  => $this->newDeviceDetected->location->toArray(),
         ];
 
         return (new MailMessage())

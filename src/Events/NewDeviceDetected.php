@@ -47,28 +47,17 @@ class NewDeviceDetected
      *
      * @var array
      */
-    public $params = [];
+    public $location;
 
     /**
      * NewDeviceDetected constructor.
      * @param User $user
-     * @param Carbon $dateTime
-     * @param array $params
+     * @param Location $location
      */
-    public function __construct(User $user, Carbon $dateTime, array $params = []) {
-        $this->user     = $user;
-        $this->dateTime = $dateTime;
-        $this->params   = $params;
+    public function __construct(User $user, Location $location) {
+        $this->user         = $user;
+        $this->location     = $location;
+        $this->dateTime     = Carbon::now();
     }
 
-    /**
-     * @return Location
-     */
-    public function getLocation() : Location {
-        $ipAddress  = Arr::get($this->params, 'ip_address', '');
-        $country    = Arr::get($this->params, 'location.country', '');
-        $city       = Arr::get($this->params, 'location.city', '');
-
-        return new Location($ipAddress, $country, $city);
-    }
 }
