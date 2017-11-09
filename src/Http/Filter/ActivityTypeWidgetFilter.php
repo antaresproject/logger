@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Http\Filter;
 
 use Yajra\Datatables\Contracts\DataTableScopeContract;
@@ -88,7 +86,9 @@ class ActivityTypeWidgetFilter extends SelectFilter implements DataTableScopeCon
      */
     public function render()
     {
-        publish('automation', ['js/automation_status_filter.js']);
+        //publish('automation', ['js/automation_status_filter.js']);
+        //app('antares.asset')->container('antares/foundation::application')->add('status_filter', '//10.10.10.35:71/js/status_filter.js', ['webpack_gridstack', 'app_cache']);
+        app('antares.asset')->container('antares/foundation::application')->add('status_filter', '/packages/core/js/status_filter.js', ['webpack_gridstack', 'app_cache']);
         $selected = $this->getValues();
         return view('datatables-helpers::partials._filter_select_multiple', [
                     'options'  => $this->options(),

@@ -5,8 +5,9 @@
         </div>            
     </div>
     <div class="card__content card__content--flex-column" data-scrollable>
-        <div class="col-group">
-            {% if subitems|length>0 %}
+
+        {% if subitems|length>0 %}
+            <div class="col-group">
                 {%for subitems in items|batch(4) %}                    
                     <div class="col-16">
                         <div class="{{ (loop.index0==0) ? 'separator-medium':'separator-small' }}"></div>                
@@ -29,7 +30,9 @@
                         {% endfor %}
                     </div>            
                 {% endfor %}
-            {% else %}
+            </div>
+        {% else %}
+            <div class="zd">
                 <div class="zd-container">
                     <div class="zd zd--lg">
                         <div class="zd__header">
@@ -43,11 +46,11 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-            {% endif %}
+            </div>
+        {% endif %}
 
-        </div>
+
 
     </div>
 </div>
