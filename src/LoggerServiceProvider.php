@@ -113,9 +113,7 @@ class LoggerServiceProvider extends ModuleServiceProvider
         $this->app['antares.logger.installed'] = true;
     }
 
-    public function boot() {
-        parent::boot();
-
+    public function booted() {
         $this->extendNotificationVariables();
     }
 
