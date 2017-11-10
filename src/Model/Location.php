@@ -27,9 +27,8 @@ class Location implements Arrayable {
      * @param array $data
      */
     public function __construct(array $data) {
-        \Log::debug('aaaa', $data);
-        $this->ipAddress  = Arr::get($data, 'ip_address', '');
-        $this->country    = Arr::get($data, 'location.country', '');
+        $this->ipAddress = Arr::get($data, 'ip_address', '');
+        $this->country   = Arr::get($data, 'location.country', '');
         $this->city      = Arr::get($data, 'location.city', '');
     }
 
