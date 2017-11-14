@@ -11,33 +11,31 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Logger
- * @version    0.9.0
+ * @version    0.9.2
  * @author     Antares Team
  * @license    BSD License (3-clause)
  * @copyright  (c) 2017, Antares
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger;
 
+use Antares\Logger\Notifications\Variables\DeviceDetectedVariablesProvider;
+use Antares\Logger\Http\Handlers\ActivityLogsShowBreadcrumbMenu;
 use Antares\Foundation\Support\Providers\ModuleServiceProvider;
-use Antares\Logger\Events\NewDeviceDetected;
 use Antares\Logger\Http\Handlers\ActivityLogsBreadcrumbMenu;
 use Antares\Logger\Http\Handlers\RequestLogBreadcrumbMenu;
-use Antares\Logger\Console\LogsTranslationSynchronizer;
-use Antares\Logger\Listeners\SendMailAboutNewDeviceDetected;
-use Antares\Logger\Notifications\Variables\DeviceDetectedVariablesProvider;
-use Antares\Notifications\Model\NotifiableEvent;
-use Antares\Notifications\Model\Recipient;
 use Antares\Notifications\Services\EventsRegistrarService;
-use Antares\Notifications\Services\VariablesService;
+use Antares\Logger\Console\LogsTranslationSynchronizer;
 use Illuminate\Contracts\Routing\Registrar as Router;
+use Antares\Notifications\Services\VariablesService;
 use Antares\Logger\Http\Middleware\LoggerMiddleware;
 use Antares\Logger\Http\Handlers\ErrorLogBreadcrumb;
+use Antares\Notifications\Model\NotifiableEvent;
 use Antares\Logger\Listeners\UserAuthListener;
+use Antares\Logger\Events\NewDeviceDetected;
 use Antares\Logger\Observer\LoggerObserver;
+use Antares\Notifications\Model\Recipient;
 use Antares\Logger\Console\ReportCommand;
 use Antares\Logger\Utilities\Filesystem;
 use Antares\Logger\Event\CustomLog;
@@ -113,9 +111,8 @@ class LoggerServiceProvider extends ModuleServiceProvider
         $this->app['antares.logger.installed'] = true;
     }
 
-    public function boot() {
-        parent::boot();
-
+    public function booted()
+    {
         $this->extendNotificationVariables();
     }
 
@@ -145,6 +142,7 @@ class LoggerServiceProvider extends ModuleServiceProvider
         $this->app->register('Antares\\Logger\\Providers\\RouteServiceProvider');
         $this->attachMenu(ErrorLogBreadcrumb::class);
         $this->attachMenu(ActivityLogsBreadcrumbMenu::class);
+        $this->attachMenu(ActivityLogsShowBreadcrumbMenu::class);
         $this->attachMenu(RequestLogBreadcrumbMenu::class);
         $this->observeLogger();
     }
@@ -204,7 +202,7 @@ class LoggerServiceProvider extends ModuleServiceProvider
             return auth()->user();
         });
 
-        $eventRegistrarClass->register( (new NotifiableEvent(NewDeviceDetected::class, 'When new device is detected'))->addRecipient($user) );
+        $eventRegistrarClass->register((new NotifiableEvent(NewDeviceDetected::class, 'When new device is detected'))->addRecipient($user));
     }
 
 }

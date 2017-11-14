@@ -11,7 +11,7 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Logger
- * @version    0.9.0
+ * @version    0.9.2
  * @author     Antares Team
  * @license    BSD License (3-clause)
  * @copyright  (c) 2017, Antares
@@ -26,7 +26,6 @@ use Antares\Logger\Contracts\ActivityListener;
 use Antares\Foundation\Processor\Processor;
 use Antares\Logger\Repository\Repository;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\DB;
 use Antares\Logger\Model\Logs;
 use Antares\Model\User;
 
@@ -84,9 +83,7 @@ class ActivityProcessor extends Processor
             return $this->deleteByIds($listener, $ids);
         }
 
-        $model = Logs::withoutGlobalScopes()->whereHas('user', function($query) {
-                    $query->whereIn('id', $this->users());
-                })->find($id);
+        $model = Logs::withoutGlobalScopes()->find($id);
         if (is_null($model)) {
             return $listener->deleteFailed();
         }

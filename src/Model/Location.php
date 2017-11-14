@@ -3,6 +3,7 @@
 namespace Antares\Logger\Model;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Arr;
 
 class Location implements Arrayable {
 
@@ -23,14 +24,12 @@ class Location implements Arrayable {
 
     /**
      * Location constructor.
-     * @param string $ipAddress
-     * @param string $country
-     * @param string $city
+     * @param array $data
      */
-    public function __construct(string $ipAddress, string $country, string $city) {
-        $this->ipAddress = $ipAddress;
-        $this->country = $country;
-        $this->city = $city;
+    public function __construct(array $data) {
+        $this->ipAddress = Arr::get($data, 'ip_address', '');
+        $this->country   = Arr::get($data, 'location.country', '');
+        $this->city      = Arr::get($data, 'location.city', '');
     }
 
     /**

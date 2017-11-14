@@ -70,15 +70,16 @@ class Breadcrumb
     }
 
     /**
-     * breadcrumbs when list of activity
+     * Breadcrumbs when list of activity
      * 
      * @param String $type
+     * @param array $params
      */
-    public function onActivity($type = null)
+    public function onActivity($type = null, $params = [])
     {
 
-        Breadcrumbs::register('logger-activity', function($breadcrumbs) {
-            $breadcrumbs->push('Activity Log', handles('antares::logger/activity/index'));
+        Breadcrumbs::register('logger-activity', function($breadcrumbs) use($params) {
+            $breadcrumbs->push('Activity Log', handles('antares::logger/activity/index'), $params);
         });
         if (!is_null($type)) {
             Breadcrumbs::register('logger-activity-' . $type, function($breadcrumbs) use($type) {
@@ -88,22 +89,6 @@ class Breadcrumb
         } else {
             view()->share('breadcrumbs', Breadcrumbs::render('logger-activity'));
         }
-    }
-
-    /**
-     * breadcrumbs when shows activity details
-     * 
-     * @param Model $model
-     */
-    public function onActivityDetails(Model $model)
-    {
-        $this->onActivity();
-        Breadcrumbs::register('logger-activity-details', function($breadcrumbs) use($model) {
-            $breadcrumbs->parent('logger-activity');
-            $breadcrumbs->push('Show Activity Log #' . $model->id, handles('antares::logger/activity/show/' . $model->id));
-        });
-
-        view()->share('breadcrumbs', Breadcrumbs::render('logger-activity-details'));
     }
 
     /**

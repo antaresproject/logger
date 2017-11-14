@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Http\Datatables;
 
 use Antares\Datatables\Services\DataTable;
@@ -112,7 +110,12 @@ class ErrorLogs extends DataTable
             $builder->addColumn(['data' => $header, 'name' => $header, 'title' => $title]);
         }
         return $builder->addAction(['name' => 'edit', 'title' => '', 'class' => 'mass-actions dt-actions', 'orderable' => false, 'searchable' => false])
-                        ->setDeferedData();
+                        ->setDeferedData()
+                        ->parameters([
+                            'aoColumnDefs' => [
+                                ['width' => '5%', 'targets' => 0]
+                            ]
+        ]);
     }
 
     /**

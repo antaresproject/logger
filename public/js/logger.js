@@ -123,7 +123,7 @@ $(function () {
                     $('.analyzer-tabs .nav-tabs .indicator').remove();
                     $('.analyze-btn span').removeClass('indicator').removeClass('glyphicon-refresh').addClass('glyphicon-tasks');
                     $('.analyze-btn').removeAttr('disabled');
-                    //$('body').LoadingOverlay('hide');
+                    $('body').LoadingOverlay('hide');
                     return false;
                 }
     }
@@ -134,7 +134,7 @@ $(function () {
         container.html('');
         $('.mdl-tabs .nav-tabs').html('');
         $('.mdl-tabs .tab-content').html('');
-        //$('body').LoadingOverlay('show', {preloader: true});
+        $('body').LoadingOverlay('show', {preloader: true});
         var ajax = new AjaxQueue();
 
         $.ajax({
@@ -152,6 +152,7 @@ $(function () {
                 }).html('<i class="alert__icon zmdi zmdi-alert-circle"></i> Error appears while running system analyzer. Please try again.').appendTo(container);
                 ajax.onFinish();
                 $('.form-report').addClass('hidden');
+                $('body').LoadingOverlay('hide');
             }
         });
 

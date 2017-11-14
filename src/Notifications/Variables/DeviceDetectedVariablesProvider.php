@@ -40,7 +40,15 @@ class DeviceDetectedVariablesProvider implements ModelVariablesResoluble
         return function() {
             $faker = Faker::create();
 
-            return new Location($faker->ipv4, $faker->country, $faker->city);
+            $data = [
+                'ip_address'    => $faker->ipv4,
+                'location'      => [
+                    'country'       => $faker->country,
+                    'city'          => $faker->city,
+                ],
+            ];
+
+            return new Location($data);
         };
     }
 
@@ -50,19 +58,10 @@ class DeviceDetectedVariablesProvider implements ModelVariablesResoluble
     public static function fakeEvent(): Closure
     {
         return function() {
-            $faker = Faker::create();
+            $user       = auth()->user();
+            $location   = value(self::fakeLocation());
 
-            $user = auth()->user();
-            $date = Carbon::now();
-            $params = [
-                'ip_address' => $faker->ipv4,
-                'location' => [
-                    'country'   => $faker->country,
-                    'city'      => $faker->city,
-                ],
-            ];
-
-            return new NewDeviceDetected($user, $date, $params);
+            return new NewDeviceDetected($user, $location);
         };
     }
 
