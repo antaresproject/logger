@@ -197,8 +197,9 @@ class LoggerServiceProvider extends ModuleServiceProvider
             return auth()->user();
         };
 
+
         NotificationsEventHelper::make()
-            ->event(NewDeviceDetected::class, 'System', 'When new device is detected')
+                ->event(NewDeviceDetected::class, 'System', 'When new device is detected')
                 ->addClientRecipient($recipientResolver)
                 ->addAdminRecipient($recipientResolver)
                 ->register();
