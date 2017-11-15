@@ -57,7 +57,7 @@ class NewDeviceDetectedNotification extends AbstractNotification implements Noti
         $subject    = 'Login to [[ foundation::site.name ]] from new device detected';
         $view       = 'antares/logger::notification.new_device_notification';
 
-        return (new Template(['mail'], $subject, $view))->setSeverity('high')->setRecipients(['auth_user']);
+        return (new Template(['mail'], $subject, $view))->setSeverity('high')->setRecipients(['admin', 'client']);
     }
 
     /**

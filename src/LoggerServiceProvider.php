@@ -29,6 +29,7 @@ use Antares\Logger\Http\Handlers\RequestLogBreadcrumbMenu;
 use Antares\Logger\Console\LogsTranslationSynchronizer;
 use Antares\Logger\Listeners\SendMailAboutNewDeviceDetected;
 use Antares\Logger\Notifications\Variables\DeviceDetectedVariablesProvider;
+use Antares\Notifications\Helpers\NotificationsEventHelper;
 use Antares\Notifications\Model\NotifiableEvent;
 use Antares\Notifications\Model\Recipient;
 use Antares\Notifications\Services\EventsRegistrarService;
@@ -195,14 +196,15 @@ class LoggerServiceProvider extends ModuleServiceProvider
 
         $notification->register('logger', new DeviceDetectedVariablesProvider());
 
-        /* @var $eventRegistrarClass EventsRegistrarService */
-        $eventRegistrarClass = app()->make(EventsRegistrarService::class);
-
-        $user = new Recipient('auth_user', 'Authenticated User', function() {
+        $recipientResolver = function() {
             return auth()->user();
-        });
+        };
 
-        $eventRegistrarClass->register( (new NotifiableEvent(NewDeviceDetected::class, 'When new device is detected'))->addRecipient($user) );
+        NotificationsEventHelper::make()
+            ->event(NewDeviceDetected::class, 'System', 'When new device is detected')
+                ->addClientRecipient($recipientResolver)
+                ->addAdminRecipient($recipientResolver)
+                ->register();
     }
 
 }
