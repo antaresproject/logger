@@ -1,10 +1,8 @@
 $(document).ready(function () {
     $('.grid-stack-item-content').on('keypress', '#activity-widget-search', function (e) {
-        var handler = $(this)
-        overlay = handler.closest('.grid-stack-item-content');
+        var handler = $(this);
 
         if (e.which === 13) {
-            overlay.LoadingOverlay('show');
             $.ajax({
                 url: handler.closest('form').attr('action'),
                 method: 'POST',
@@ -29,20 +27,18 @@ $(document).ready(function () {
                             content.html(response);
                         }
                     }
-                    overlay.LoadingOverlay('hide');
+                    $('.card--logs').adjustCardHeight();
                 },
+
             });
             return false;
         }
 
     });
     ready('.pagination-ajax', function (element) {
+
         $(element).click(function (e) {
-
             var handler = $(this), grid = handler.closest('.grid-stack-item-content'), content = grid.find('.card__content');
-
-            content.LoadingOverlay('show');
-
             $.ajax({
                 url: handler.attr('href'),
                 success: function (response) {
@@ -65,11 +61,9 @@ $(document).ready(function () {
                     } else {
                         content.html(html);
                     }
-                    content.LoadingOverlay('hide');
+                    grid.find('.card').adjustCardHeight();
+
                 },
-                error: function (error) {
-                    content.LoadingOverlay('hide');
-                }
             })
             return false;
         });

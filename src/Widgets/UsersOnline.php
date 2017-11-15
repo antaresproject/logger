@@ -70,12 +70,15 @@ class UsersOnline extends AbstractTemplate
     public function render()
     {
         $query = Logs::query()->select(DB::raw('user_id, MAX(created_at) as created_at'))
-                ->groupBy('user_id')
-                ->whereNotNull('user_id')
-                ->with('user');
+                        ->groupBy('user_id')
+                        ->whereNotNull('user_id')
+                        ->whereHas('user', function($query) {
+                            $query->whereNotNull('id');
+                        })->with('user');
         if (auth()->check()) {
             $query->where('user_id', '<>', auth()->user()->id);
         }
+
 
         $items = $query->get();
 

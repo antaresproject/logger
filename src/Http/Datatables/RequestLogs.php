@@ -115,7 +115,7 @@ class RequestLogs extends DataTable
                         ->parameters([
                             'order'        => [[0, 'desc']],
                             'aoColumnDefs' => [
-                                ['width' => '1%', 'targets' => 0],
+                                ['width' => '3%', 'targets' => 0],
                                 ['width' => '10%', 'targets' => 1],
                                 ['width' => '10%', 'targets' => 2],
                             ]

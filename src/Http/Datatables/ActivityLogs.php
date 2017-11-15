@@ -11,7 +11,7 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Logger
- * @version    0.9.0
+ * @version    0.9.2
  * @author     Antares Team
  * @license    BSD License (3-clause)
  * @copyright  (c) 2017, Antares
@@ -233,7 +233,7 @@ class ActivityLogs extends DataTable
                 ->addColumn(['data' => 'id', 'name' => 'id', 'title' => trans('Id')]);
 
         $columnsDef = [
-            ['width' => '3%', 'targets' => 0],
+            ['width' => '5%', 'targets' => 0],
             ['width' => '10%', 'targets' => 4],
             ['width' => '10%', 'targets' => 5],
         ];
@@ -246,7 +246,7 @@ class ActivityLogs extends DataTable
                 ['width' => '1%', 'targets' => 7]]);
         } else {
             $columnsDef = array_merge($columnsDef, [
-                ['width' => '10%', 'targets' => 1],
+                ['width' => '15%', 'targets' => 1],
                 ['width' => '7%', 'targets' => 3],
                 ['width' => '1%', 'targets' => 6]]);
         }

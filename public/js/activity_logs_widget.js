@@ -67,7 +67,9 @@ $(document).ready(function () {
         });
         return false;
     });
+
     ready('.pagination-ajax', function (element) {
+
         $(element).click(function (e) {
             var handler = $(this), grid = handler.closest('.grid-stack-item-content'), content = grid.find('.card__content');
             //content.LoadingOverlay('show');
