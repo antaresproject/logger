@@ -47,7 +47,8 @@ class NewDeviceDetectedNotification extends AbstractNotification implements Noti
      * @return TemplatesCollection
      */
     public static function templates(): TemplatesCollection {
-        return TemplatesCollection::make('New Device Detected', NewDeviceDetected::class)->define('mail', self::mailMessage());
+        return TemplatesCollection::make('New Device Detected', NewDeviceDetected::class)
+            ->define(self::mailMessage());
     }
 
     /**
@@ -76,7 +77,6 @@ class NewDeviceDetectedNotification extends AbstractNotification implements Noti
         ];
 
         return (new MailMessage())
-            ->template('mail')
             ->viewData($data);
     }
 
