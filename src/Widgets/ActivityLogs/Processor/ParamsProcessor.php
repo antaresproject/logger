@@ -115,7 +115,8 @@ class ParamsProcessor
      * @param array $ids
      * @return $this
      */
-    public function addOwnerConstraints(string $ownerClass, array $ids) {
+    public function addOwnerConstraints(string $ownerClass, array $ids)
+    {
         $this->ownersConstraints[$ownerClass] = $ids;
 
         return $this;
@@ -129,7 +130,7 @@ class ParamsProcessor
      */
     public function get($search = null)
     {
-        if($this->type) {
+        if ($this->type) {
             $this->repository->setType($this->type);
         }
 
@@ -138,15 +139,15 @@ class ParamsProcessor
         $logs = $this->paginate($this->repository->filter($search));
 
         return [
-            'select_url'        => $this->baseUrl(['search' => $search]),
-            'search_url'        => $this->baseUrl(['search' => $search]),
-            'url'               => $this->baseUrl(),
-            'search'            => $search,
-            'types'             => $this->repository->getLogTypes(),
-            'logs'              => $logs,
-            'pagination'        => $logs->links('antares/logger::admin.widgets.partials._pagination', ['perpages' => $this->perPage()]),
-            'filters_enabled'   => $this->type ? false : true,
-            'filters'           => $this->filters->getFilters('antares/logger::admin.widgets.log_filter')
+            'select_url'      => $this->baseUrl(['search' => $search]),
+            'search_url'      => $this->baseUrl(['search' => $search]),
+            'url'             => $this->baseUrl(),
+            'search'          => $search,
+            'types'           => $this->repository->getLogTypes(),
+            'logs'            => $logs,
+            'pagination'      => $logs->links('antares/logger::admin.widgets.partials._pagination', ['perpages' => $this->perPage()]),
+            'filters_enabled' => $this->type ? false : true,
+            'filters'         => $this->filters->getFilters('antares/logger::admin.widgets.log_filter')
         ];
     }
 

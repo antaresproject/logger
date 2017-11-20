@@ -30,12 +30,12 @@ class ActivityLogsWidget extends AbstractTemplate
      * @var array
      */
     protected $attributes = [
-        'min_width'          => 1,
-        'min_height'         => 1,
+        'min_width'          => 12,
+        'min_height'         => 14,
         'max_width'          => 52,
         'max_height'         => 52,
-        'default_width'      => 7,
-        'default_height'     => 16,
+        'default_width'      => 12,
+        'default_height'     => 14,
         'enlargeable'        => false,
         'titlable'           => true,
         'card_class'         => 'card--pagination card--logs',
