@@ -8,6 +8,7 @@ use Antares\Notifications\Contracts\ModelVariablesResoluble;
 use Antares\Notifications\Services\ModuleVariables;
 use Carbon\Carbon;
 use Faker\Factory as Faker;
+use Antares\GeoIP\GeoIPFacade;
 use Closure;
 
 class DeviceDetectedVariablesProvider implements ModelVariablesResoluble
@@ -21,7 +22,7 @@ class DeviceDetectedVariablesProvider implements ModelVariablesResoluble
     public function applyVariables(ModuleVariables $moduleVariables): void
     {
         $moduleVariables
-            ->modelDefinition('location', Location::class, self::fakeLocation())
+            ->modelDefinition('location', Location::class, self::location())
                 ->setAttributes([
                     'city'      => 'City',
                     'country'   => 'Country',
@@ -35,18 +36,22 @@ class DeviceDetectedVariablesProvider implements ModelVariablesResoluble
     /**
      * @return Closure
      */
-    public static function fakeLocation(): Closure
+    public static function location(): Closure
     {
         return function() {
-            $faker = Faker::create();
-
             $data = [
-                'ip_address'    => $faker->ipv4,
-                'location'      => [
-                    'country'       => $faker->country,
-                    'city'          => $faker->city,
-                ],
+                'ip_address'    => GeoIPFacade::getClientIP(),
+                'location'      => [],
             ];
+
+            try {
+                $data['location'] = app()->make('geoip')->getLocation();
+            } catch (\Exception $ex) {
+                $data['location'] = [
+                    'country'       => 'not reached',
+                    'city'          => 'not reached',
+                ];
+            }
 
             return new Location($data);
         };
@@ -59,7 +64,7 @@ class DeviceDetectedVariablesProvider implements ModelVariablesResoluble
     {
         return function() {
             $user       = auth()->user();
-            $location   = value(self::fakeLocation());
+            $location   = value(self::location());
 
             return new NewDeviceDetected($user, $location);
         };
