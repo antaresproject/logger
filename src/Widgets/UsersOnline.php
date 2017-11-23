@@ -59,7 +59,7 @@ class UsersOnline extends AbstractTemplate
         'max_width'      => 12,
         'max_height'     => 52,
         'default_width'  => 6,
-        'default_height' => 14
+        'default_height' => 14,
     ];
 
     /**

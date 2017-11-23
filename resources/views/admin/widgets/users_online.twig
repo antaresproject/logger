@@ -1,4 +1,4 @@
-<div data-widget-name="card--info" class="card card--info" data-preload>
+<div data-widget-name="card--info" class="card card--users" data-preload>
     <div class="card__header">
         <div class="card__header-left">
             <span>Users online</span>
@@ -7,28 +7,17 @@
     <div class="card__content card__content--flex-column" data-scrollable>
 
         {% if items|length>0 %}
-            <div class="col-group">
+            <div class="user-list-block">
                 {%for subitems in items|batch(4) %}                    
-                    <div class="col-24">
-                        <div class="{{ (loop.index0==0) ? 'separator-medium':'separator-small' }}"></div>                
-                        {%for item in subitems %}
-                            <div class="col-6 mb24">                        
-                                <div class="col-group {{ item.user.hasRoles('member') ? 'member' : 'admin' }}" >
-                                    <div class="col-24">
-                                        <div class="avatar">
-                                            <img style="min-width:auto;" width="60" height="60"  class="gravatar" src="{{ gravatar(item.user.email) }}" alt="{{ item.user.fullname }}" /> 
-                                        </div>
-                                    </div>
-                                    <div class="col-24 text-center">
-                                        <strong>{{ item.user.fullname|default('---') }}</strong>
-                                    </div>
-                                    <div class="col-24 text-center">
-                                        <span class="text-small">{{ format_x_days(item.created_at) }}</span>
-                                    </div>
-                                </div>
+                    {%for item in subitems %}
+                        <div class="user">
+                            <div class="avatar">
+                                <img  class="gravatar" src="{{ gravatar(item.user.email) }}" alt="{{ item.user.fullname }}" /> 
+                                <strong>{{ item.user.fullname|default('---') }}</strong>
+                                <span class="text-small">{{ format_x_days(item.created_at) }}</span>
                             </div>
-                        {% endfor %}
-                    </div>            
+                        </div>
+                    {% endfor %}
                 {% endfor %}
             </div>
         {% else %}
