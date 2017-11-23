@@ -13,10 +13,9 @@
                         <div class="{{ (loop.index0==0) ? 'separator-medium':'separator-small' }}"></div>                
                         {%for item in subitems %}
                             <div class="col-6 mb24">                        
-                                <div class="col-group" style="{{ item.user.hasRoles('member') ? '' : 'color:#2196f3' }}">
+                                <div class="col-group {{ item.user.hasRoles('member') ? 'member' : 'admin' }}" >
                                     <div class="col-24">
                                         <div class="avatar">
-
                                             <img style="min-width:auto;" width="60" height="60"  class="gravatar" src="{{ gravatar(item.user.email) }}" alt="{{ item.user.fullname }}" /> 
                                         </div>
                                     </div>
