@@ -20,6 +20,7 @@
 
 namespace Antares\Logger\Http\Datatables;
 
+use Antares\Events\Datatables\Order;
 use Antares\Logger\Http\Filter\ActivityTypeFilter;
 use Antares\Datatables\Services\DataTable;
 use Illuminate\Contracts\View\Factory;
@@ -101,18 +102,31 @@ class ActivityLogs extends DataTable
         if (!is_null($this->typeId)) {
             $query->where('tbl_log_types.id', $this->typeId);
         }
-        listen('datatables.order.priority', function($query, $direction) {
-            $query->orderBy('tbl_logs.priority_id', $direction);
+
+        listen(Order::class, function(Order $event) {
+            switch ($event->column) {
+                case 'priority':
+                    return $event->queryBuilder->orderBy('tbl_logs.priority_id', $event->direction);
+
+                case 'operation':
+                    return $event->queryBuilder
+                        ->orderBy('tbl_logs.name', $event->direction)
+                        ->orderBy('tbl_logs.type_id', $event->direction);
+
+                case 'created_at':
+                    return $event->queryBuilder->orderBy('tbl_logs.created_at', $event->direction);
+            }
         });
 
-        listen('datatables.order.operation', function($query, $direction) {
-            $query->orderBy('tbl_logs.name', $direction)->orderBy('tbl_logs.type_id', $direction);
-        });
-        listen('datatables.order.created_at', function($query, $direction) {
-            $query->orderBy('tbl_logs.created_at', $direction);
-        });
-
-
+//        listen('datatables.order.priority', function($query, $direction) {
+//            $query->orderBy('tbl_logs.priority_id', $direction);
+//        });
+//        listen('datatables.order.operation', function($query, $direction) {
+//            $query->orderBy('tbl_logs.name', $direction)->orderBy('tbl_logs.type_id', $direction);
+//        });
+//        listen('datatables.order.created_at', function($query, $direction) {
+//            $query->orderBy('tbl_logs.created_at', $direction);
+//        });
 
         return $query;
     }

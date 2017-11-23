@@ -22,6 +22,8 @@
 
 namespace Antares\Logger\Http\Handlers;
 
+use Antares\Events\SystemReady\AfterMenu;
+use Antares\Events\SystemReady\BeforeMenu;
 use Antares\Foundation\Support\MenuHandler;
 use Antares\Contracts\Authorization\Authorization;
 use Illuminate\Support\Facades\Event;
@@ -59,6 +61,8 @@ class System extends MenuHandler
     {
         $id = $this->getAttribute('id');
         Event::fire('antares.ready: menu.before.' . $id);
+        Event::fire(new BeforeMenu($id, $this));
+
         if (!$this->passesAuthorization()) {
             return;
         }
@@ -72,7 +76,9 @@ class System extends MenuHandler
                     ->link(handles('antares::logger/information/index'))
                     ->title(trans('antares/logger::global.system_information'));
         }
+
         Event::fire('antares.ready: menu.after.' . $id);
+        Event::fire(new AfterMenu($id, $this));
     }
 
 }
