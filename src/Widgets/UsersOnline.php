@@ -20,8 +20,9 @@
 
 namespace Antares\Logger\Widgets;
 
+use Antares\Logger\Model\Logs;
 use Antares\UI\UIComponents\Adapter\AbstractTemplate;
-use Antares\Logger\Model\LogsLoginDevices;
+use DB;
 
 class UsersOnline extends AbstractTemplate
 {
@@ -53,12 +54,12 @@ class UsersOnline extends AbstractTemplate
      * @var array
      */
     protected $attributes = [
-        'min_width'      => 3,
-        'min_height'     => 11,
+        'min_width'      => 6,
+        'min_height'     => 14,
         'max_width'      => 12,
         'max_height'     => 52,
-        'default_width'  => 3,
-        'default_height' => 11
+        'default_width'  => 6,
+        'default_height' => 14
     ];
 
     /**
@@ -68,14 +69,18 @@ class UsersOnline extends AbstractTemplate
      */
     public function render()
     {
-        $items = \Antares\Logger\Model\Logs::select(['user_id', 'created_at'])
-                ->orderBy('created_at', 'desc')
-                ->groupBy('user_id')
-                ->whereNotNull('user_id')
-                ->with('user')
-                ->get();
+        $query = Logs::query()->select(DB::raw('user_id, MAX(created_at) as created_at'))
+                        ->groupBy('user_id')
+                        ->whereNotNull('user_id')
+                        ->whereHas('user', function($query) {
+                            $query->whereNotNull('id');
+                        })->with('user');
+        if (auth()->check()) {
+            $query->where('user_id', '<>', auth()->user()->id);
+        }
 
 
+        $items = $query->get();
 
         return view('antares/logger::admin.widgets.users_online', compact('items'))->render();
     }

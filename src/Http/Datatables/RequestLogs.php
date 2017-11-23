@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Http\Datatables;
 
 use Antares\Logger\Entities\RequestLogCollection;
@@ -113,7 +111,15 @@ class RequestLogs extends DataTable
                         ->addColumn(['data' => 'created_at', 'name' => 'created_at', 'title' => trans('Created at')])
                         ->addColumn(['data' => 'updated_at', 'name' => 'updated_at', 'title' => trans('Updated at')])
                         ->addAction(['name' => 'edit', 'title' => '', 'class' => 'mass-actions dt-actions', 'orderable' => false, 'searchable' => false])
-                        ->setDeferedData();
+                        ->setDeferedData()
+                        ->parameters([
+                            'order'        => [[0, 'desc']],
+                            'aoColumnDefs' => [
+                                ['width' => '3%', 'targets' => 0],
+                                ['width' => '10%', 'targets' => 1],
+                                ['width' => '10%', 'targets' => 2],
+                            ]
+        ]);
     }
 
     /**

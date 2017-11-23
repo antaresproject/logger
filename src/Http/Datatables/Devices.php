@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Http\Datatables;
 
 use Antares\Logger\Model\LogsLoginDevices;
@@ -136,13 +134,20 @@ class Devices extends DataTable
     {
         return $this->setName('Devices List')
                         ->addColumn(['data' => 'id', 'name' => 'id', 'title' => trans('antares/logger::datagrid.devices.header.id')])
-                        ->addColumn(['data' => 'name', 'name' => 'name', 'title' => trans('antares/logger::datagrid.devices.header.name')])
+                        ->addColumn(['data' => 'name', 'name' => 'name', 'title' => trans('antares/logger::datagrid.devices.header.name'), 'className' => 'tabletV laptop desktop',])
                         ->addColumn(['data' => 'browser', 'name' => 'browser', 'title' => trans('antares/logger::datagrid.devices.header.browser')])
-                        ->addColumn(['data' => 'location', 'name' => 'location', 'title' => trans('antares/logger::datagrid.devices.header.location')])
-                        ->addColumn(['data' => 'updated_at', 'name' => 'updated_at', 'title' => trans('antares/logger::datagrid.devices.header.last_activity')])
-                        ->addColumn(['data' => 'ip_address', 'name' => 'ip_address', 'title' => trans('antares/logger::datagrid.devices.header.last_ip')])
+                        ->addColumn(['data' => 'location', 'name' => 'location', 'title' => trans('antares/logger::datagrid.devices.header.location'), 'className' => 'tabletV laptop desktop',])
+                        ->addColumn(['data' => 'updated_at', 'name' => 'updated_at', 'title' => trans('antares/logger::datagrid.devices.header.last_activity'), 'className' => 'tabletV laptop desktop',])
+                        ->addColumn(['data' => 'ip_address', 'name' => 'ip_address', 'title' => trans('antares/logger::datagrid.devices.header.last_ip'), 'className' => 'tabletV laptop desktop',])
                         ->addAction(['name' => 'edit', 'title' => '', 'class' => 'mass-actions dt-actions'])
-                        ->setDeferedData();
+                        ->setDeferedData()->parameters([
+                    'aoColumnDefs' => [
+                        ['width' => '5%', 'targets' => 0],
+                        ['width' => '10%', 'targets' => 4],
+                        ['width' => '10%', 'targets' => 5],
+                        ['width' => '2%', 'targets' => 6],
+                    ]
+        ]);
     }
 
     /**

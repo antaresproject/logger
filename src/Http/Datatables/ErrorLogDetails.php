@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Http\Datatables;
 
 use Arcanedev\LogViewer\Exceptions\LogNotFound;
@@ -100,45 +98,9 @@ class ErrorLogDetails extends DataTable
                             return '<div style="width:150px;">' . format_x_days($row['time']) . '</div>';
                         })->editColumn('header', function ($row) {
                             $header = $row['header'];
-                            return $this->smart_wordwrap(str_replace(['\\', '/', ":"], [' \\ ', ' / ', " "], $header), 150, '<br />');
+                            return '<span data-tooltip-inline="' . $header . '" >' . str_limit($header, 100) . '</span>';
                         })->addColumn('action', $this->getDetailsActionsColumn())
                         ->make(true);
-    }
-
-    /**
-     * Smarter wordwrap
-     * 
-     * @param String $string
-     * @param mixed $width
-     * @param String $break
-     * @return String
-     */
-    function smart_wordwrap($string, $width = 75, $break = "\n")
-    {
-        // split on problem words over the line length
-        $pattern = sprintf('/([^ ]{%d,})/', $width);
-        $output  = '';
-        $words   = preg_split($pattern, $string, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
-
-        foreach ($words as $word) {
-            if (false !== strpos($word, ' ')) {
-                // normal behaviour, rebuild the string
-                $output .= $word;
-            } else {
-                // work out how many characters would be on the current line
-                $wrapped = explode($break, wordwrap($output, $width, $break));
-                $count   = $width - (strlen(end($wrapped)) % $width);
-
-                // fill the current line and add a break
-                $output .= substr($word, 0, $count) . $break;
-
-                // wrap any remaining characters from the problem word
-                $output .= wordwrap(substr($word, $count), $width, $break, true);
-            }
-        }
-
-        // wrap the final output
-        return wordwrap($output, $width, $break);
     }
 
     /**
@@ -152,7 +114,16 @@ class ErrorLogDetails extends DataTable
                 ->addColumn(['data' => 'level', 'name' => 'level', 'title' => trans('Level'), 'class' => 'desktop'])
                 ->addColumn(['data' => 'time', 'name' => 'time', 'title' => trans('Time'), 'class' => 'desktop'])
                 ->addColumn(['data' => 'header', 'name' => 'header', 'title' => trans('Header'), 'class' => 'desktop'])
-                ->setDeferedData();
+                ->setDeferedData()
+                ->parameters([
+            'order'        => [[0, 'desc']],
+            'aoColumnDefs' => [
+                ['width' => '5%', 'targets' => 0],
+                ['width' => '10%', 'targets' => 1],
+                ['width' => '10%', 'targets' => 2],
+                ['width' => '10%', 'targets' => 3],
+            ]
+        ]);
         if (!is_null($url)) {
             $return->ajax($url);
         }

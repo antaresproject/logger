@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Http\Controllers\Admin;
 
 use Antares\Logger\Processor\RequestProcessor as Processor;
@@ -38,6 +36,7 @@ class RequestController extends AdminController implements RequestListener
     {
         parent::__construct();
         $this->processor = $processor;
+        active_menu_route('logger/request/index');
     }
 
     /**

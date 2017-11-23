@@ -11,14 +11,12 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Logger
- * @version    0.9.0
+ * @version    0.9.2
  * @author     Antares Team
  * @license    BSD License (3-clause)
  * @copyright  (c) 2017, Antares
  * @link       http://antaresproject.io
  */
-
-
 
 namespace Antares\Logger\Http\Controllers\Admin;
 
@@ -40,6 +38,7 @@ class ActivityController extends AdminController implements ActivityListener
     {
         parent::__construct();
         $this->processor = $processor;
+        active_menu_route('logger/activity/index');
     }
 
     /**
@@ -95,7 +94,7 @@ class ActivityController extends AdminController implements ActivityListener
     {
         $message = trans('Log has been deleted.');
         app('antares.messages')->add('success', $message);
-        return redirect()->back();
+        return redirect(url()->previous());
     }
 
     /**

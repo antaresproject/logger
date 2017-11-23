@@ -53,8 +53,6 @@ class ActivityTypeFilter extends SelectFilter implements DataTableScopeContract
      */
     public function apply($builder)
     {
-        vdump(11);
-        exit;
         $values = $this->getValues();
         if (empty($values)) {
             return $builder;
@@ -70,7 +68,8 @@ class ActivityTypeFilter extends SelectFilter implements DataTableScopeContract
      */
     public function render()
     {
-        publish('automation', ['js/automation_status_filter.js']);
+        app('antares.asset')->container('antares/foundation::application')->add('status_filter', '/packages/core/js/status_filter.js', ['webpack_gridstack', 'app_cache']);
+
         $selected = $this->getValues();
         return view('datatables-helpers::partials._filter_select_multiple', [
                     'options'  => $this->options(),

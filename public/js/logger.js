@@ -152,6 +152,7 @@ $(function () {
                 }).html('<i class="alert__icon zmdi zmdi-alert-circle"></i> Error appears while running system analyzer. Please try again.').appendTo(container);
                 ajax.onFinish();
                 $('.form-report').addClass('hidden');
+                $('body').LoadingOverlay('hide');
             }
         });
 

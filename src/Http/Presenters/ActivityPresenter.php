@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Http\Presenters;
 
 use Antares\Logger\Contracts\ActivityPresenter as PresenterContract;
@@ -77,7 +75,7 @@ class ActivityPresenter extends Presenter implements PresenterContract
      */
     public function show($model)
     {
-        $this->breadcrumb->onActivityDetails($model);
+        $this->breadcrumb->onActivity(null, ['force_link' => true]);
         $data = $model->toArray();
         return view('antares/logger::admin.activity.show', compact('data'));
     }

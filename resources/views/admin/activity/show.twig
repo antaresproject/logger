@@ -1,243 +1,282 @@
-{% extends "antares/foundation::layouts.antares.index" %}
-{% block content %}  
-    <div class="card card--padding24">
-        <div class="card__header">
-            <div class="card__header-left">
-                <span>Activity Log Details</span>
-            </div>
-            <div class="card__header-right">
-            </div>
-        </div>
-        <div class="card__content">
-            <div class="col-group">
-                <div class="col-8">
-                    <div class="card card--chart-small card--primary-light">
-                        <div class="card__header">
-                            <div class="card__header--top">
-                                <span>{{ trans('Action Properties') }}</span>
-                            </div>                               
-                        </div>
-                        <div class="card__content">                                
-                            <ul class="datarow">
-                                <li class="datarow__sgl">
-                                    <div class="datarow__left">
-                                        <span class="datarow__status">{{ trans('Id') }}</span>
+{% extends 'antares/foundation::layouts.antares.main' %}
+{% block app_content %}
+    <div class="app-content page-dashboard page-dashboard-html widgets-html-page page-clients-details app-content--gridstack widgets-html-page">
+    {% endblock %} 
+    {% block sidebar_top_widgets %}
+    {% endblock %}    
+    {% block main_content %}
+        <section class="main-content">
+            {% include 'antares/foundation::components.messages'  %}                                    
+            {% block content %}
+                <div class="grid-stack clients-details-gridstack clients-details--vue" >                
+                    <div class="grid-stack-item"          
+                         id="253" 
+                         data-gs-x="0" 
+                         data-gs-y="0" 
+                         data-gs-auto-position=false
+                         data-gs-width="5" 
+                         data-gs-height="15"
+                         data-gs-max-width="52"
+                         data-gs-max-height="52"
+                         data-gs-min-width="5"
+                         data-gs-min-height="5" 
+                         data-gs-no-resize=""
+                         data-gs-no-move=""
+                         ajaxable="1"
+                         data-desktop="[0,0,5,20]"
+                         data-tablet="[0,0,8,20]"
+                         data-mobile="[0,0,9,20]"
+                         >     
+                        <div class="grid-stack-item-content" >                                                    
+                            <div class="card card--detail-info card--dark" data-preload>
+                                <div class="card__header">
+                                    <div class="card__header--top">
+                                        <div class="client-name">
+                                            <span>{{ trans('Action Properties') }}</span>
+                                        </div>
                                     </div>
-                                    <div class="datarow__right">
-                                        <span class="datarow__data"><strong>{{ data.owner_id }}</strong></span>
-                                    </div>
-                                </li>
-                                <li class="datarow__sgl">
-                                    <div class="datarow__left">
-                                        <span class="datarow__status">{{ trans('Operation') }}</span>
-                                    </div>
-                                    <div class="datarow__right">
-                                        <span class="datarow__data"><strong>{{ data.name }}</strong></span>
-                                    </div>
-                                </li>
-                                <li class="datarow__sgl">
-                                    <div class="datarow__left">
-                                        <span class="datarow__status">{{ trans('Type') }}</span>
-                                    </div>
-                                    <div class="datarow__right">
-                                        <span class="datarow__data"><strong>{{ data.type }}</strong></span>
-                                    </div>
-                                </li>
-                                <li class="datarow__sgl">
-                                    <div class="datarow__left">
-                                        <span class="datarow__status">{{ trans('Url') }}</span>
-                                    </div>
-                                    <div class="datarow__right">
-                                        <span class="datarow__data">
-                                            {{ data.route }}
-                                        </span>
-                                    </div>
-                                </li>
-                                <li class="datarow__sgl">
-                                    <div class="datarow__left">
-                                        <span class="datarow__status">{{ trans('Ip Address') }}</span>
-                                    </div>
-                                    <div class="datarow__right">
-                                        <span class="datarow__data"><strong>{{ data.address }}</strong></span>
-                                    </div>
-                                </li>
-                                <li class="datarow__sgl">
-                                    <div class="datarow__left">
-                                        <span class="datarow__status">{{ trans('User agent') }}</span>
-                                    </div>
-                                    <div class="datarow__right">
-                                        <span class="datarow__data"><strong>{{ data.user_agent }}</strong></span>
-                                    </div>
-                                </li>
-                                <li class="datarow__sgl">
-                                    <div class="datarow__left">
-                                        <span class="datarow__status">{{ trans('Created At') }}</span>
-                                    </div>
-                                    <div class="datarow__right">
-                                        <span class="datarow__data"><strong>{{ data.created_at }}</strong></span>
-                                    </div>
-                                </li>
-                                <li class="datarow__sgl">
-                                    <div class="datarow__left">
-                                        <span class="datarow__status">{{ trans('Updated At') }}</span>
-                                    </div>
-                                    <div class="datarow__right">
-                                        <span class="datarow__data"><strong>{{ data.updated_at }}</strong></span>
-                                    </div>
-                                </li>
-                                <li class="datarow__sgl">
-                                    <div class="datarow__left">
-                                        <span class="datarow__status">{{ trans('Elapsed time') }}</span>
-                                    </div>
-                                    <div class="datarow__right">
-                                        <span class="datarow__data"><strong>{{ data.elapsed_time }}</strong></span>
-                                    </div>
-                                </li>
-                                <li class="datarow__sgl">
-                                    <div class="datarow__left">
-                                        <span class="datarow__status">{{ trans('Priority') }}</span>
-                                    </div>
-                                    <div class="datarow__right">
-                                        <span class="datarow__data"><strong>{{ data.priority.name }}</strong></span>
-                                    </div>
-                                </li>
-                                <li class="datarow__sgl">
-                                    <div class="datarow__left">
-                                        <span class="datarow__status">{{ trans('User Id') }}</span>
-                                    </div>
-                                    <div class="datarow__right">
-                                        <span class="datarow__data"><strong>{{ data.user.id }}</strong></span>
-                                    </div>
-                                </li>
-                                <li class="datarow__sgl">
-                                    <div class="datarow__left">
-                                        <span class="datarow__status">{{ trans('Email') }}</span>
-                                    </div>
-                                    <div class="datarow__right">
-                                        <span class="datarow__data"><strong>{{ data.user.email }}</strong></span>
-                                    </div>
-                                </li>
-                                <li class="datarow__sgl">
-                                    <div class="datarow__left">
-                                        <span class="datarow__status">{{ trans('Fullname') }}</span>
-                                    </div>
-                                    <div class="datarow__right">
-                                        <span class="datarow__data"><strong>{{ data.user.fullname }}</strong></span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>    
-                <div class="col-8">
-                    <div class="card card--chart-small card--primary-light">
-                        <div class="card__header">
-                            <div class="card__header--top">
-                                <span>{{ trans('Custom Fields And Messages') }}</span>
-                            </div>                               
-                        </div>
-                        <div class="card__content">                                
-                            <ul class="datarow">
-                                <li class="datarow__sgl">
-                                    <div class="datarow__left">
-                                        <span class="datarow__status">{{ trans('Custom Message') }}</span>
-                                    </div>
-                                    <div class="datarow__right">
-                                        <span class="datarow__data"><strong>{{ data.custom_message }}</strong></span>
-                                    </div>
-                                </li>
-                                <li class="datarow__sgl">
-                                    <div class="datarow__left">
-                                        <span class="datarow__status">{{ trans('Custom Fields') }}</span>
-                                    </div>
-                                    <div class="datarow__right">
-                                        <span class="datarow__data">
-                                            {% if data.custom_fields|length>0 %}
-
-                                            {% else %}
-                                                <div class="alert alert--xs alert--glow alert--info alert--lg alert--border">                            
-                                                    <i class="zmdi zmdi-info-outline"></i>
+                                    <div class="card__header--bottom">
+                                        <section class="list list--md list--icons">
+                                            <ul>
+                                                <li>
+                                                    <i class="zmdi zmdi-case-check"></i> 
                                                     <span>
+                                                        {{ trans('Operation') }}: <strong>{{ data.name|default('---') }}</strong>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <i class="zmdi zmdi-calendar"></i> 
+                                                    <span>
+                                                        {{ trans('Created At') }}: <strong>{{ data.created_at|default('---') }}</strong>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <i class="zmdi zmdi-eye"></i> 
+                                                    <span>
+                                                        {{ trans('Identifier') }}: <strong>{{ data.owner_id|default('---') }}</strong>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <i class="zmdi zmdi-collection-item-1"></i> 
+                                                    <span>
+                                                        {{ trans('Type') }}: <strong>{{ data.type|default('---') }}</strong>
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                        </section>
+                                    </div>
+                                </div>
+                                <div class="card__content">
+                                    <section class="list list--md ">
+                                        <div class="list__title">Details</div>
+                                        <ul class="datarow">
+                                            <li class="datarow__sgl">
+                                                <div class="datarow__left">
+                                                    <span class="datarow__status">{{ trans('Url') }}</span>
+                                                </div>
+                                                <div class="datarow__right">
+                                                    <span class="datarow__data">
+                                                        <strong>{{ data.route|default('---') }}</strong>
+                                                    </span>
+                                                </div>
+                                            </li>                                            
+                                            <li class="datarow__sgl">
+                                                <div class="datarow__left">
+                                                    <span class="datarow__status">{{ trans('Ip Address') }}</span>
+                                                </div>
+                                                <div class="datarow__right">
+                                                    <span class="datarow__data">
+                                                        <strong>{{ data.address|default('---') }}</strong>
+                                                    </span>
+                                                </div>
+                                            </li> 
+                                            <li class="datarow__sgl">
+                                                <div class="col-group">
+                                                    <span class="datarow__status col-24">{{ trans('User agent') }}</span>
+                                                    <span class="datarow__data col-24">
+                                                        <strong>{{ data.user_agent|default('---') }}</strong>
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            <li class="datarow__sgl">
+                                                <div class="datarow__left">
+                                                    <span class="datarow__status">{{ trans('Updated At') }}</span>
+                                                </div>
+                                                <div class="datarow__right">
+                                                    <span class="datarow__data">
+                                                        <strong>{{ data.updated_at|default('---') }}</strong>
+                                                    </span>
+                                                </div>
+                                            </li> 
+                                            <li class="datarow__sgl">
+                                                <div class="datarow__left">
+                                                    <span class="datarow__status">{{ trans('Elapsed time') }}</span>
+                                                </div>
+                                                <div class="datarow__right">
+                                                    <span class="datarow__data">
+                                                        <strong>{{ data.elapsed_time|default('---') }}</strong>
+                                                    </span>
+                                                </div>
+                                            </li> 
+                                            <li class="datarow__sgl">
+                                                <div class="datarow__left">
+                                                    <span class="datarow__status">{{ trans('Priority') }}</span>
+                                                </div>
+                                                <div class="datarow__right">
+                                                    <span class="datarow__data">
+                                                        <strong>{{ data.priority.name|default('---') }}</strong>
+                                                    </span>
+                                                </div>
+                                            </li> 
+                                            <li class="datarow__sgl">
+                                                <div class="datarow__left">
+                                                    <span class="datarow__status">{{ trans('User Id') }}</span>
+                                                </div>
+                                                <div class="datarow__right">
+                                                    <span class="datarow__data">
+                                                        <strong>{{ data.user.id|default('---') }}</strong>
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            <li class="datarow__sgl">
+                                                <div class="datarow__left">
+                                                    <span class="datarow__status">{{ trans('Email') }}</span>
+                                                </div>
+                                                <div class="datarow__right">
+                                                    <span class="datarow__data">
+                                                        <strong>{{ data.user.email|default('---') }}</strong>
+                                                    </span>
+                                                </div>
+                                            </li>
+                                            <li class="datarow__sgl">
+                                                <div class="datarow__left">
+                                                    <span class="datarow__status">{{ trans('Fullname') }}</span>
+                                                </div>
+                                                <div class="datarow__right">
+                                                    <span class="datarow__data">
+                                                        <strong>{{ data.user.fullname|default('---') }}</strong>
+                                                    </span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </section>
+                                </div>
+                            </div>    
+                        </div>   
+                    </div>
+                    <div class="grid-stack-item" 
+                         data-gs-no-move="1" 
+                         data-gs-no-resize="1" 
+                         data-gs-x="5" 
+                         data-gs-y="18" 
+                         data-gs-width="19" 
+                         data-gs-height="14" 
+                         data-gs-min-width="13" 
+                         data-gs-min-height="6">
+                        <div class="grid-stack-item-content">
+                            <div class="card" data-preload>
+                                <div class="card__header">
+                                    <div class="card__header-left">
+                                        <span>{{ trans('Custom fields') }}</span>
+                                    </div>
+                                </div>
+                                <div class="card__content">
+                                    {% if data.custom_fields|length>0 %}
+
+                                    {% else %}
+                                        <div class="zd-container">
+                                            <div class="zd zd--lg">
+                                                <div class="zd__header">
+                                                    <i class="zmdi zmdi-block"></i>
+                                                </div>
+                                                <div class="zd__content">
+                                                    <div class="zd__title">                                                                        
+                                                        {{ trans('antares/logger::messages.no_data_available')|raw }}
+                                                    </div>
+                                                    <div class="zd__description">
                                                         {{ trans('No custom fields found...') }}
-                                                    </span>
-                                                </div>  
-                                            {% endif %}
-                                        </span>
-                                    </div>
-                                </li>
-                            </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>    
-                <div class="col-8">
-                    <div class="card card--chart-small card--primary-light">
-                        <div class="card__header">
-                            <div class="card__header--top">
-                                <span>{{ trans('Change History') }}</span>
-                            </div>                               
-                        </div>
-                        <div class="card__content">                                
-                            <ul class="datarow">
-                                <li class="datarow__sgl ff-cw">
-                                    <div class="datarow__left col-2">
-                                        <span class="datarow__status"><strong>{{ trans('Old Value')|upper|raw }}</strong></span>
+                    <div class="grid-stack-item" 
+                         data-gs-no-move="1" 
+                         data-gs-no-resize="1" 
+                         data-gs-x="5" 
+                         data-gs-y="32" 
+                         data-gs-width="19" 
+                         data-gs-height="14" 
+                         data-gs-min-width="13" 
+                         data-gs-min-height="6">
+                        <div class="grid-stack-item-content">
+                            <div class="card" data-preload>
+                                <div class="card__header">
+                                    <div class="card__header-left">
+                                        <span>{{ trans('Change History') }}</span>
                                     </div>
-                                    <div class="datarow__right col-14">
-                                        <span class="datarow__data">
-                                            {% if data.old_value is null %}
-                                                <div class="alert alert--xs alert--glow alert--info alert--lg alert--border">                            
-                                                    <i class="zmdi zmdi-info-outline"></i>
-                                                    <span>
-                                                        {{ trans('no changes...') }}
-                                                    </span>
-                                                </div>  
-                                            {% else %}
-                                                <ul class="datarow">                                                                 
-                                                    {% for name,value in data.old_value %}
-                                                        <li class="datarow__sgl">                                                            
-                                                            {{ name|str_humanize }}: {{ value|serializable|jsonable }}
-                                                        </li>
-                                                    {% endfor %}
-                                                </ul>
+                                </div>
+                                <div class="card__content pt20" data-scrollable>
+                                    <ul class="datarow">
+                                        <li class="datarow__sgl ff-cw">
+                                            <div class="datarow__left col-3">
+                                                <span class="datarow__status"><strong>{{ trans('Old Value')|upper|raw }}</strong></span>
+                                            </div>
+                                            <div class="datarow__right col-14">
+                                                <span class="datarow__data">
+                                                    {% if data.old_value is null %}
+                                                        <div class="alert alert--xs alert--glow alert--info alert--lg alert--border">                            
+                                                            <i class="zmdi zmdi-info-outline"></i>
+                                                            <span>
+                                                                {{ trans('no changes...') }}
+                                                            </span>
+                                                        </div>  
+                                                    {% else %}
+                                                        <ul class="datarow">                                                                 
+                                                            {% for name,value in data.old_value %}
+                                                                <li class="datarow__sgl">                                                            
+                                                                    {{ name|str_humanize }}: {{ value|serializable|jsonable }}
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
 
-                                            {% endif %}
-                                        </span>
-                                    </div>
-                                </li>                                    
-                                <li class="datarow__sgl ff-cw mt32">
-                                    <div class="datarow__left col-2">
-                                        <span class="datarow__status"><strong>{{ trans('New Value')|upper|raw }}</strong></span>
-                                    </div>
-                                    <div class="datarow__right col-14">
-                                        <span class="datarow__data">
-                                            {% if data.new_value is null %}
-                                                <div class="alert alert--xs alert--glow alert--info alert--lg alert--border">                            
-                                                    <i class="zmdi zmdi-info-outline"></i>
-                                                    <span>
-                                                        {{ trans('no changes...') }}
-                                                    </span>
-                                                </div>  
-                                            {% else %}
-                                                <ul class="datarow">                                                        
-                                                    {% for name,value in data.new_value %}
-                                                        <li class="datarow__sgl">
-                                                            {{ name|str_humanize }}: {{ value|serializable|jsonable }}
-                                                        </li>
-                                                    {% endfor %}
-                                                </ul>                                                    
-                                            {% endif %}    
-                                        </span>
-                                    </div>
-                                </li>   
-                            </ul>
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+                                        </li>                                    
+                                        <li class="datarow__sgl ff-cw mt32">
+                                            <div class="datarow__left col-3">
+                                                <span class="datarow__status"><strong>{{ trans('New Value')|upper|raw }}</strong></span>
+                                            </div>
+                                            <div class="datarow__right col-14">
+                                                <span class="datarow__data">
+                                                    {% if data.new_value is null %}
+                                                        <span>
+                                                            {{ trans('no changes...') }}
+                                                        </span>
+                                                    {% else %}
+                                                        <ul class="datarow">                                                        
+                                                            {% for name,value in data.new_value %}
+                                                                <li class="datarow__sgl">
+                                                                    {{ name|str_humanize }}: {{ value|serializable|jsonable }}
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>                                                    
+                                                    {% endif %}    
+                                                </span>
+                                            </div>
+                                        </li>   
+                                    </ul>                                    
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>    
-            </div>
-        </div>
-    </div>
-
-
-{% endblock %}
-
-
+                </div>
+        </div>        
+    {% endblock %}                
+</section>
+{% endblock %} 

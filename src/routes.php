@@ -32,7 +32,6 @@ $router->group(['prefix' => 'logger'], function (Router $router) {
     $router->get('delete/{date}', 'IndexController@delete');
     $router->get('download/{date}', 'IndexController@download');
     $router->match(['GET', 'POST'], 'details/{date}/{type?}', 'IndexController@details');
-    $router->get('modules', 'ModulesController@index');
     $router->get('information/index', 'SystemController@index');
     $router->get('error', 'SystemController@error');
 

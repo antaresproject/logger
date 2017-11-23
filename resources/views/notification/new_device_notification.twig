@@ -8,15 +8,15 @@
                         <tr>
                             <td style="font-size:12px;font-family:Arial;font-style:normal;font-variant:normal;padding:8px;text-align:left">
 
-                                <p>Welcome, [[ user.fullname ]]!</p>
+                                <p>Welcome, [[ foundation::user.fullname ]]!</p>
 
                                 <p>
-                                    Apparently to log in to your account [[ site.name ]] [[ date ]] about [[ time ]] has been used a new device:
+                                    Apparently to log in to your account [[ foundation::site.name ]] [[ foundation::date ]] about [[ foundation::time ]] has been used a new device:
                                 </p>
 
                                 <ul>
-                                    <li>Localization: [[ params.location.city ]], [[ params.location.country ]]</li>
-                                    <li>IP Address: [[ params.ip_address ]]</li>
+                                    <li>Localization: [[ logger::location.city ]], [[ logger::location.country ]]</li>
+                                    <li>IP Address: [[ logger::location.ipAddress ]]</li>
                                 </ul>
 
                                 <p>This device has been added to your list of known devices, which you can view here:</p>

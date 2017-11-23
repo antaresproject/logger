@@ -48,12 +48,21 @@ class UserDetailsWidget extends AbstractTemplate
     protected $attributes = [
         'x'              => 0,
         'y'              => 0,
-        'min_width'      => 2,
-        'min_height'     => 15,
-        'max_width'      => 12,
-        'max_height'     => 15,
-        'default_width'  => 15,
-        'default_height' => 2,
+        'min_width'      => 5,
+        'min_height'     => 5,
+        'max_width'      => 52,
+        'max_height'     => 52,
+        'default_width'  => 5,
+        'default_height' => 20,
+        'desktop'        => [
+            0, 0, 5, 20
+        ],
+        'tablet'         => [
+            0, 0, 8, 20
+        ],
+        'mobile'         => [
+            0, 0, 9, 20
+        ]
     ];
 
     /**
