@@ -1,6 +1,13 @@
 {% extends  "antares/foundation::layouts.antares.main"   %}   
-{% block app_content %}    
+{% block app_content %}        
     <div class="app-content page-settings">    
+        {% block sidebar_top_widgets %}    
+            <div class="item-grp-single is-hidden"  data-tooltip-inline="{{ trans('Widgets Edit Toggle') }}">
+                <div class="mdl-js-button mdl-js-ripple-effect widget-edit" id="widgets-edit">
+                    <i class="icon--widgets-edit"></i>
+                </div>
+            </div>
+        {% endblock %} 
     {% endblock %}     
     {% block main_content %}
         {% set panes=app('antares.widget').make('pane.left') %}    
@@ -10,6 +17,9 @@
                 <div class="grid-container grid-container--2col grid-container--no-padd">
                     {% include 'antares/foundation::layouts.antares.partials._left_panel' with {panes: panes} %}
                     <div class="grid-col grid-col--container nopadding">               
+                        <div class="menu-mobile-settings--box">
+                            <select class="menu-mobile-settings" data-select2--class="menu-aside-settings--blue" data-selectAR--search="true" name="select"></select>
+                        </div> 
                     {% endif %}
                     {% block content %}
                         {{ dataTable.scripts()|raw }}   
