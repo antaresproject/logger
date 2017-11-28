@@ -143,6 +143,8 @@ class LoggerServiceProvider extends ModuleServiceProvider
         $this->attachMenu(ActivityLogsShowBreadcrumbMenu::class);
         $this->attachMenu(RequestLogBreadcrumbMenu::class);
         $this->observeLogger();
+
+        $this->importNotifications('antaresproject/component-logger');
     }
 
     /**
