@@ -39,7 +39,9 @@ class ActivityLogsWidget extends AbstractTemplate
         'enlargeable'        => false,
         'titlable'           => true,
         'card_class'         => 'card--pagination card--logs',
-        'card_content_class' => 'datarow flex ff-cnw jc-flex-start'
+        'card_content_class' => 'datarow flex ff-cnw jc-flex-start',
+        'tablet'             => [0, 36, 24, 14],
+        'mobile'             => [0, 36, 24, 14]
     ];
 
     /**

@@ -54,12 +54,16 @@ class UsersOnline extends AbstractTemplate
      * @var array
      */
     protected $attributes = [
+        'x'              => 0,
+        'y'              => 12,
         'min_width'      => 6,
-        'min_height'     => 14,
-        'max_width'      => 12,
+        'min_height'     => 3,
+        'max_width'      => 52,
         'max_height'     => 52,
         'default_width'  => 6,
         'default_height' => 14,
+        'tablet'         => [0, 12, 24, 10],
+        'mobile'         => [0, 12, 24, 6]
     ];
 
     /**
