@@ -63,7 +63,8 @@ class UsersOnline extends AbstractTemplate
         'default_width'  => 6,
         'default_height' => 14,
         'tablet'         => [0, 12, 24, 10],
-        'mobile'         => [0, 12, 24, 6]
+        'mobile'         => [0, 12, 24, 6],
+        'autoresize'     => true
     ];
 
     /**

@@ -123,6 +123,7 @@ class LoggerServiceProvider extends ModuleServiceProvider
     {
         $path = __DIR__;
         $this->loadBackendRoutesFrom("{$path}/routes.php");
+        $this->loadFrontendRoutesFrom("{$path}/frontend.php");
     }
 
     /**

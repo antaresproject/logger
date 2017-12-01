@@ -39,6 +39,9 @@ $(document).ready(function () {
 
         $(element).click(function (e) {
             var handler = $(this), grid = handler.closest('.grid-stack-item-content'), content = grid.find('.card__content');
+            if (handler.attr('href') === '#') {
+                return false;
+            }
             $.ajax({
                 url: handler.attr('href'),
                 success: function (response) {

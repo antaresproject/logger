@@ -1,6 +1,6 @@
 # Antares Logger Module
 
-[![Laravel 5.4](https://img.shields.io/badge/Laravel-5.4-orange.svg)](http://laravel.com)
+[![Laravel 5.5](https://img.shields.io/badge/Laravel-5.5-orange.svg)](http://laravel.com)
 [![Coverage Status](https://coveralls.io/repos/github/antaresproject/logger/badge.svg?branch=0.9.2)](https://coveralls.io/github/antaresproject/logger?branch=0.9.2)
 [![Build Status](https://travis-ci.org/antaresproject/logger.svg?branch=0.9.2)](https://travis-ci.org/antaresproject/logger)
 [![Code Climate](https://codeclimate.com/github/antaresproject/logger/badges/gpa.svg)](https://codeclimate.com/github/antaresproject/logger)
