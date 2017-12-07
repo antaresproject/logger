@@ -105,11 +105,15 @@ class RequestLogs extends DataTable
     {
         return $this->setName('Request Log List')
                         ->addColumn(['data' => 'id', 'name' => 'id', 'title' => trans('Id'), 'orderable' => false, 'searchable' => false])
-                        ->addColumn(['data' => 'filename', 'name' => 'filename', 'title' => trans('Filename')])
+                        ->addColumn(['data'  => 'filename', 'name'  => 'filename', 'title' => trans('Filename'),
+                        ])
                         ->addColumn(['data' => 'size', 'name' => 'size', 'title' => trans('File size')])
-                        ->addColumn(['data' => 'requests_count', 'name' => 'requests_count', 'title' => trans('Requests count')])
-                        ->addColumn(['data' => 'created_at', 'name' => 'created_at', 'title' => trans('Created at')])
-                        ->addColumn(['data' => 'updated_at', 'name' => 'updated_at', 'title' => trans('Updated at')])
+                        ->addColumn(['data'      => 'requests_count', 'name'      => 'requests_count', 'title'     => trans('Requests count'),
+                            'className' => 'bolded tabletH laptop desktop',])
+                        ->addColumn(['data'      => 'created_at', 'name'      => 'created_at', 'title'     => trans('Created at'),
+                            'className' => 'bolded tabletH laptop desktop',])
+                        ->addColumn(['data'      => 'updated_at', 'name'      => 'updated_at', 'title'     => trans('Updated at'),
+                            'className' => 'bolded tabletH laptop desktop',])
                         ->addAction(['name' => 'edit', 'title' => '', 'class' => 'mass-actions dt-actions', 'orderable' => false, 'searchable' => false])
                         ->setDeferedData()
                         ->parameters([

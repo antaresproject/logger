@@ -1,6 +1,7 @@
 {% extends 'antares/ui-components::templates.layouts.template' %}
 {% block content %}  
-    <div class="card-ctrls card-ctrls--nopadding mt16 tab-search tab-search--standard" data-url="{{ url }}">
+
+    <div class="card-ctrls card-ctrls--nopadding mt16 tab-search tab-search--standard only-search" data-url="{{ url }}">
         <div id="filter-save-url" class="hidden" data-url="{{ handles('antares/foundation::datatables/filters/save') }}"></div>
         <div class="card-ctrls__left">
             <div class="search-box search-box--dark mr24">
