@@ -27,11 +27,15 @@ use Antares\Logger\Http\Handlers\ActivityLogsBreadcrumbMenu;
 use Antares\Logger\Http\Handlers\RequestLogBreadcrumbMenu;
 use Antares\Notifications\Helpers\NotificationsEventHelper;
 use Antares\Logger\Console\LogsTranslationSynchronizer;
+use Antares\Logger\Listener\ConfigurationListenerSave;
 use Illuminate\Contracts\Routing\Registrar as Router;
 use Antares\Notifications\Services\VariablesService;
 use Antares\Logger\Http\Middleware\LoggerMiddleware;
 use Antares\Logger\Http\Handlers\ErrorLogBreadcrumb;
+use Antares\Logger\Listener\ConfigurationListener;
+use Antares\Logger\Console\LoggerRemoverCommand;
 use Antares\Logger\Listeners\UserAuthListener;
+use Antares\Events\Html\Form\AfterValidation;
 use Antares\Logger\Events\NewDeviceDetected;
 use Antares\Logger\Observer\LoggerObserver;
 use Antares\Logger\Console\ReportCommand;
@@ -63,7 +67,9 @@ class LoggerServiceProvider extends ModuleServiceProvider
      * @var array
      */
     protected $listen = [
-        'logger.custom' => CustomLog::class,
+        'logger.custom'                     => CustomLog::class,
+        'antares.form: foundation.settings' => ConfigurationListener::class,
+        'memory.finish.primary'             => ConfigurationListenerSave::class
     ];
 
     /**
@@ -103,8 +109,7 @@ class LoggerServiceProvider extends ModuleServiceProvider
             return new Filesystem($files, storage_path('logs'));
         });
 
-        $this->commands(ReportCommand::class);
-        $this->commands(LogsTranslationSynchronizer::class);
+        $this->commands([ReportCommand::class, LogsTranslationSynchronizer::class, LoggerRemoverCommand::class]);
 
         $this->app['antares.logger.installed'] = true;
     }
@@ -144,7 +149,6 @@ class LoggerServiceProvider extends ModuleServiceProvider
         $this->attachMenu(ActivityLogsShowBreadcrumbMenu::class);
         $this->attachMenu(RequestLogBreadcrumbMenu::class);
         $this->observeLogger();
-
         $this->importNotifications('antaresproject/component-logger');
     }
 
