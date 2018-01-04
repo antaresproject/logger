@@ -18,8 +18,6 @@
  * @link       http://antaresproject.io
  */
 
-
-
 namespace Antares\Logger\Observer;
 
 use Illuminate\Database\Eloquent\Model;
@@ -36,7 +34,7 @@ class LoggerObserver
      */
     public function created(Model $model)
     {
-        $langs = app('languages')->langs();
+        $langs = (app()->bound('languages')) ? app('languages')->langs() : langs();
         DB::beginTransaction();
         try {
             foreach ($langs as $lang) {
