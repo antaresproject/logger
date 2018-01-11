@@ -17,9 +17,6 @@
  * @copyright  (c) 2017, Antares
  * @link       http://antaresproject.io
  */
-
-
-
 return
         array(
             'system_information'                                       => 'System Information',
@@ -158,4 +155,9 @@ return
             'Request Log'                                              => 'Request Log',
             'System Information'                                       => 'System Information',
             'Error Page'                                               => 'Error Page',
+            'form'                                                     => [
+                'activity_log_config_legend'     => 'Activity log configuration',
+                'activity_log_config_days_label' => "<div class='col-group'><div class='col-mb-8 col-6 col-dt-4 col-ld-4'><label for='mode' class='form-block__name'>Remove activity logs every</label><span id='days_error' class='error nopadding'></span></div><div class='col-mb-16 col-18 col-dt-10 col-ld-4'>:x days</div></div>",
+                'activity_log_config_days_help'  => '* Activity logs will be deleted automatically after X days from the date of creation.<br/>If you leave this field empty logs will not be deleted.'
+            ]
 );
